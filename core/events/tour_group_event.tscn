@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://core/events/tour_group_event.gd" id="1_event"]
+
+[node name="TourGroupEvent" type="Node3D"]
+script = ExtResource("1_event")
+announcement = "A tour group is blocking the street!"
+lifetime = 90.0
+distance_along_route = 40.0

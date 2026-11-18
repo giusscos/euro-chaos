@@ -30,20 +30,25 @@ res://
     vehicle/        ArcadeVehicle, VehicleWheel, VehicleStats, VehicleIntent,
                     PlayerVehicleController, greybox vehicle scenes, stats/*.tres
     camera/         ChaseCamera, ChaseCameraProfile, profiles/*.tres
+    ai/             AiVehicleController, TrafficSpawner
+    characters/     Pedestrian, PedestrianProfile (+ profiles/), PedestrianSpawner
+    events/         StreetEvent, StreetEventDirector, TourGroupEvent, InfluencerEvent
     interaction/    Interactable (stop inside / press E), HazardZone
     missions/       CargoType, MissionData, MissionLocation, MissionRunner,
-                    CargoMonitor, DeliveryResult, ObjectiveMarker
+                    CargoMonitor, CargoStack, DeliveryResult, ObjectiveMarker
     audio/          AudioBuses, ProceduralSfx (placeholder sounds in code)
     minigame/       MiniGame base script, MiniGameInfo resource
     levels/         test_level, vehicle_playground, greybox/ (grid shader,
                     GreyboxBlock: box/cylinder/sphere with collision, crate),
-                    greybox_map/ (GreyboxMapBuilder: ASCII map -> level scene)
+                    greybox_map/ (GreyboxMapBuilder: ASCII map -> level scene),
+                    LevelGrid (+ node), props/ (ChaosProp, café set, fruit stand)
     ui/             main_menu, pause_menu, debug_overlay, objective_arrow,
-                    hud/ (PromptLabel, Toast), theme/
+                    floating_text, hud/ (PromptLabel, Toast), effects/ (SpeedLines), theme/
   minigames/
     vespa_delivery/ vespa_delivery.tscn (main, VespaDeliveryGame), info.tres,
                     data/ (cargo + missions .tres), levels/ (village_map.txt,
-                    generated village_greybox.tscn, village.tscn), ui/ (HUD, results)
+                    generated village_greybox.tscn, village.tscn), ui/ (HUD, results),
+                    events/ (RivalCourier "FreedomBurger Express")
   assets/
     blender/        our .blend sources + exported .glb
     kenney/ quaternius/ kaykit/ polyhaven/   (CC0 only, mirrors source)
@@ -152,6 +157,45 @@ map, run `tools/levels/build_greybox_map.gd`, and a test fails if they're
 out of sync. Lighting and hand-placed things live in a wrapper scene
 (`village.tscn`). The Phase 6 generator will write these maps from rules.
 
+## AI, traffic and the street grid
+
+Every generated level carries a `LevelGrid`: kind and height per cell and
+three AStar2D networks. **Cars** use two-lane roads only (`=`), **scooters**
+also alleys, ramps and piazzas, **pedestrians** everything walkable. Cells
+connect only at the same height or along a ramp. The builder puts bollards
+across every alley mouth on a road (gaps fit scooters, not cars), like a
+real limited-traffic zone: AI cars physically can't wander into alleys, and
+the player's scooter gets shortcuts traffic can't take.
+
+`AiVehicleController` drives any `ArcadeVehicle` by writing its intent:
+corner-to-corner routes planned forward (round the block, not U-turns),
+keep right (centre for scooters), swing wide for right turns and turn in
+early for left ones, slow for corners, brake and honk for obstacles, follow
+moving cars, three-point turns and safe reversing when stuck. Traffic,
+rivals and (Phase 3) police all use it. A navmesh-based path provider can
+replace the grid later for the open world without touching the drivers.
+
+## Pedestrians, chaos and street life
+
+`Pedestrian` (CharacterBody3D) wanders the pedestrian network, follows a
+leader (tour groups), hops aside when anything honks nearby
+(`Events.horn_honked`), and tumbles cartoonishly when a vehicle enters its
+hit zone at speed: vehicles don't physically collide with characters (that
+would stop a scooter dead). Looks, speeds and lines come from
+`PedestrianProfile` resources (tourist, local, nonna, guide, influencer).
+
+Chaos is a score: `ChaosProp` rigid bodies (café sets, fruit crates)
+report `Events.chaos_caused` when the player hits them, the mini-game adds
+points for knocked-over pedestrians, `GameState.chaos` keeps the total. It
+will feed police heat in Phase 3. `NearMissDetector` rewards clean close
+passes. `StreetEventDirector` spawns `StreetEvent`s along the player's
+route; the delivery game adds a rival courier that can steal your tip.
+
+The cargo is physical-looking: `CargoStack` sways like a spring on the rack
+and drops its top item past the cargo's topple angle (`CargoType` holds
+stack size, sensitivity, topple angle). Real stacked rigid bodies on a
+moving raycast vehicle jitter; a spring model is stable, tunable and funny.
+
 ## Audio
 
 `AudioManager.play(id)` / `play_at(id, position)` with pooled players on
@@ -241,6 +285,11 @@ Gotchas found so far:
   loading; tests that wait on `SceneLoader` yield 1 ms per frame.
 - Headless mode doesn't compile shaders; use `tools/capture_scene.gd` (opens a
   window) to catch shader errors.
+- A teleport lands on the next physics tick: when spawning something and
+  planning for it in the same frame, also set its transform directly.
+- Contact signals arrive after the contact resolved: judge impacts by the
+  hitter's speed, not the relative speed.
+- Write non-ASCII text into `.tres` files as UTF-8, not `\u` escapes.
 
 ## macOS / Mac App Store
 

@@ -8,6 +8,8 @@ extends Node3D
 @export var controller: PlayerVehicleController
 @export var camera: ChaseCamera
 @export var overlay: DebugOverlay
+## Optional screen effect that follows the current vehicle.
+@export var speed_lines: SpeedLines
 ## Height added when swapping, so the new vehicle doesn't spawn in the ground.
 @export_range(0.0, 5.0, 0.1, "suffix:m") var swap_lift: float = 0.5
 
@@ -41,6 +43,8 @@ func _spawn(index: int, xform: Transform3D) -> void:
 	controller.respawn_point = spawn_point
 	camera.target = vehicle
 	overlay.vehicle = vehicle
+	if speed_lines != null:
+		speed_lines.target = vehicle
 
 
 func _flat_heading() -> Vector3:

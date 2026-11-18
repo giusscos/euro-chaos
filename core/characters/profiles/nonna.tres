@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="PedestrianProfile" format=3]
+
+[ext_resource type="Script" path="res://core/characters/pedestrian_profile.gd" id="1_profile"]
+
+[resource]
+script = ExtResource("1_profile")
+id = &"nonna"
+stationary = true
+min_idle_time = 999.0
+max_idle_time = 999.0
+yell_at_speed_kmh = 25.0
+yell_distance = 8.0
+shirt_colors = Array[Color]([Color(0.12, 0.12, 0.14, 1), Color(0.25, 0.18, 0.22, 1)])
+hat_colors = Array[Color]([Color(0.1, 0.1, 0.12, 1), Color(0.3, 0.28, 0.3, 1)])
+hat_chance = 0.6
+min_height_scale = 0.84
+max_height_scale = 0.9
+hit_lines = PackedStringArray("MY HIP!", "I knew your grandfather!", "I'm telling your mother!")
+yell_lines = PackedStringArray("Piano! PIANO!", "Rallenta, disgraziato!", "In my day we WALKED!", "I know your mother!")
+dodge_lines = PackedStringArray("Eh!")

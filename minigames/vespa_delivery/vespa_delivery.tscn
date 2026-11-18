@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://minigames/vespa_delivery/vespa_delivery.gd" id="1_vespa_delive"]
 [ext_resource type="Script" path="res://core/missions/mission_data.gd" id="0_mission_data"]
+[ext_resource type="Script" path="res://core/characters/pedestrian_profile.gd" id="0_pedestrian_profile"]
 [ext_resource type="Resource" path="res://minigames/vespa_delivery/info.tres" id="2_info"]
 [ext_resource type="PackedScene" path="res://minigames/vespa_delivery/levels/village.tscn" id="3_village"]
 [ext_resource type="PackedScene" path="res://core/vehicle/vehicles/scooter.tscn" id="4_scooter"]
@@ -14,6 +15,18 @@
 [ext_resource type="PackedScene" path="res://minigames/vespa_delivery/ui/results_screen.tscn" id="11_results_scre"]
 [ext_resource type="PackedScene" path="res://core/ui/pause_menu.tscn" id="12_pause_menu"]
 [ext_resource type="PackedScene" path="res://core/ui/debug_overlay.tscn" id="13_debug_overla"]
+[ext_resource type="Script" path="res://core/ai/traffic_spawner.gd" id="24_traffic"]
+[ext_resource type="PackedScene" path="res://core/vehicle/vehicles/tiny_car.tscn" id="25_tiny_car"]
+[ext_resource type="Script" path="res://core/characters/pedestrian_spawner.gd" id="26_peds"]
+[ext_resource type="Resource" path="res://core/characters/profiles/tourist.tres" id="27_tourist"]
+[ext_resource type="Resource" path="res://core/characters/profiles/local.tres" id="28_local"]
+[ext_resource type="Resource" path="res://core/characters/profiles/nonna.tres" id="29_nonna"]
+[ext_resource type="Script" path="res://core/missions/cargo_stack.gd" id="30_stack"]
+[ext_resource type="Script" path="res://core/vehicle/near_miss_detector.gd" id="31_near"]
+[ext_resource type="PackedScene" path="res://core/ui/effects/speed_lines.tscn" id="32_lines"]
+[ext_resource type="Script" path="res://core/events/street_event_director.gd" id="33_director"]
+[ext_resource type="PackedScene" path="res://core/events/tour_group_event.tscn" id="34_tour"]
+[ext_resource type="PackedScene" path="res://core/events/influencer_event.tscn" id="35_influencer"]
 [ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/critic_kevin.tres" id="14_critic_kevin"]
 [ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/cruise_couple.tres" id="15_cruise_coupl"]
 [ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/hat_tour_gelato.tres" id="16_hat_tour_gel"]
@@ -25,15 +38,18 @@
 [ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/signora_bianchi.tres" id="22_signora_bian"]
 [ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/startup_retreat.tres" id="23_startup_retr"]
 
-[node name="VespaDelivery" type="Node" node_paths=PackedStringArray("vehicle", "controller", "runner", "cargo_monitor", "hud", "arrow", "results_screen", "pause_menu")]
+[node name="VespaDelivery" type="Node" node_paths=PackedStringArray("vehicle", "controller", "runner", "cargo_monitor", "cargo_stack", "hud", "arrow", "camera", "event_director", "results_screen", "pause_menu")]
 script = ExtResource("1_vespa_delive")
 mission_pool = Array[ExtResource("0_mission_data")]([ExtResource("14_critic_kevin"), ExtResource("15_cruise_coupl"), ExtResource("16_hat_tour_gel"), ExtResource("17_hawaiian_for"), ExtResource("18_influencer_g"), ExtResource("19_mayor_espres"), ExtResource("20_nonna_rosa_s"), ExtResource("21_padre_cannol"), ExtResource("22_signora_bian"), ExtResource("23_startup_retr")])
 vehicle = NodePath("Scooter")
 controller = NodePath("PlayerVehicleController")
 runner = NodePath("MissionRunner")
 cargo_monitor = NodePath("CargoMonitor")
+cargo_stack = NodePath("Scooter/Visual/CargoMount/CargoStack")
 hud = NodePath("Hud")
 arrow = NodePath("ObjectiveArrow")
+camera = NodePath("ChaseCamera")
+event_director = NodePath("StreetEvents")
 results_screen = NodePath("ResultsScreen")
 pause_menu = NodePath("PauseMenu")
 info = ExtResource("2_info")
@@ -42,6 +58,20 @@ info = ExtResource("2_info")
 
 [node name="Scooter" parent="." instance=ExtResource("4_scooter")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 10, 0.3, -2)
+
+[node name="Traffic" type="Node3D" parent="."]
+script = ExtResource("24_traffic")
+car_scenes = Array[PackedScene]([ExtResource("25_tiny_car")])
+
+[node name="Pedestrians" type="Node3D" parent="."]
+script = ExtResource("26_peds")
+profiles = Array[ExtResource("0_pedestrian_profile")]([ExtResource("27_tourist"), ExtResource("28_local"), ExtResource("29_nonna")])
+counts = PackedInt32Array(10, 8, 3)
+
+[node name="CargoStack" type="Node3D" parent="Scooter/Visual/CargoMount" node_paths=PackedStringArray("vehicle", "cargo_monitor")]
+script = ExtResource("30_stack")
+vehicle = NodePath("../../..")
+cargo_monitor = NodePath("../../../../CargoMonitor")
 
 [node name="PlayerVehicleController" type="Node" parent="." node_paths=PackedStringArray("vehicle")]
 script = ExtResource("5_player_vehic")
@@ -65,6 +95,17 @@ follow = NodePath("../Scooter")
 runner = NodePath("../MissionRunner")
 cargo_monitor = NodePath("../CargoMonitor")
 player = NodePath("../Scooter")
+
+[node name="NearMissDetector" type="Node" parent="." node_paths=PackedStringArray("vehicle")]
+script = ExtResource("31_near")
+vehicle = NodePath("../Scooter")
+
+[node name="SpeedLines" parent="." node_paths=PackedStringArray("target") instance=ExtResource("32_lines")]
+target = NodePath("../Scooter")
+
+[node name="StreetEvents" type="Node" parent="."]
+script = ExtResource("33_director")
+event_scenes = Array[PackedScene]([ExtResource("34_tour"), ExtResource("35_influencer")])
 
 [node name="ResultsScreen" parent="." instance=ExtResource("11_results_scre")]
 

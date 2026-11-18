@@ -10,6 +10,7 @@ signal menu_pressed
 @onready var _lines: VBoxContainer = %Lines
 @onready var _total: Label = %TotalLabel
 @onready var _best: Label = %BestLabel
+@onready var _chaos: Label = %ChaosLabel
 @onready var _again: Button = %AgainButton
 @onready var _menu: Button = %MenuButton
 
@@ -21,7 +22,8 @@ func _ready() -> void:
 	_menu.pressed.connect(func() -> void: menu_pressed.emit())
 
 
-func show_results(results: Array[DeliveryResult], earned: int, best: int, is_new_best: bool) -> void:
+func show_results(results: Array[DeliveryResult], earned: int, best: int, is_new_best: bool,
+		chaos: int = 0) -> void:
 	for child: Node in _lines.get_children():
 		child.queue_free()
 	var star_total: int = 0
@@ -35,9 +37,20 @@ func show_results(results: Array[DeliveryResult], earned: int, best: int, is_new
 	_rating.text = DeliveryHud.stars_text(average)
 	_total.text = "Earned this shift: €%d" % earned
 	_best.text = "New best shift!" if is_new_best else "Best shift: €%d" % best
+	_chaos.text = "Chaos caused: %d%s" % [chaos, _chaos_verdict(chaos)]
 	_root.visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	_again.grab_focus()
+
+
+func _chaos_verdict(chaos: int) -> String:
+	if chaos == 0:
+		return "  (a model citizen)"
+	if chaos < 40:
+		return "  (the nonnas noticed)"
+	if chaos < 120:
+		return "  (the whole village is talking)"
+	return "  (they're writing songs about you)"
 
 
 func _place_name(result: DeliveryResult) -> String:

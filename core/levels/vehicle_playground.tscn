@@ -4,18 +4,21 @@
 [ext_resource type="PackedScene" path="res://core/levels/test_level.tscn" id="2_level"]
 [ext_resource type="PackedScene" path="res://core/vehicle/vehicles/scooter.tscn" id="3_scooter"]
 [ext_resource type="PackedScene" path="res://core/vehicle/vehicles/test_van.tscn" id="4_van"]
+[ext_resource type="PackedScene" path="res://core/vehicle/vehicles/tiny_car.tscn" id="9_car"]
 [ext_resource type="Script" path="res://core/vehicle/player_vehicle_controller.gd" id="5_controller"]
 [ext_resource type="PackedScene" path="res://core/camera/chase_camera.tscn" id="6_camera"]
 [ext_resource type="PackedScene" path="res://core/ui/debug_overlay.tscn" id="7_overlay"]
 [ext_resource type="PackedScene" path="res://core/ui/pause_menu.tscn" id="8_pause"]
+[ext_resource type="PackedScene" path="res://core/ui/effects/speed_lines.tscn" id="10_lines"]
 
-[node name="VehiclePlayground" type="Node3D" node_paths=PackedStringArray("spawn_point", "controller", "camera", "overlay")]
+[node name="VehiclePlayground" type="Node3D" node_paths=PackedStringArray("spawn_point", "controller", "camera", "overlay", "speed_lines")]
 script = ExtResource("1_playground")
-vehicle_scenes = Array[PackedScene]([ExtResource("3_scooter"), ExtResource("4_van")])
+vehicle_scenes = Array[PackedScene]([ExtResource("3_scooter"), ExtResource("9_car"), ExtResource("4_van")])
 spawn_point = NodePath("SpawnPoint")
 controller = NodePath("PlayerVehicleController")
 camera = NodePath("ChaseCamera")
 overlay = NodePath("DebugOverlay")
+speed_lines = NodePath("SpeedLines")
 
 [node name="TestLevel" parent="." instance=ExtResource("2_level")]
 
@@ -30,3 +33,5 @@ script = ExtResource("5_controller")
 [node name="DebugOverlay" parent="." instance=ExtResource("7_overlay")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("8_pause")]
+
+[node name="SpeedLines" parent="." instance=ExtResource("10_lines")]

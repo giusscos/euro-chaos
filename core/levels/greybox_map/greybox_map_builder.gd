@@ -13,6 +13,11 @@ extends RefCounted
 const BLOCK_SCRIPT: GDScript = preload("res://core/levels/greybox/greybox_block.gd")
 const LOCATION_SCRIPT: GDScript = preload("res://core/missions/mission_location.gd")
 const HAZARD_SCRIPT: GDScript = preload("res://core/interaction/hazard_zone.gd")
+## Prop scenes placed by map characters.
+const PROP_SCENES: Dictionary = {
+	"k": preload("res://core/levels/props/cafe_set.tscn"),
+	"f": preload("res://core/levels/props/fruit_stand.tscn"),
+}
 
 const DEFAULTS: Dictionary = {
 	"cell_size": 4.0,
@@ -37,9 +42,14 @@ const DEFAULTS: Dictionary = {
 	"sea_floor": -25.0,
 	"sea_margin": 300.0,
 	"spawn_lift": 0.3,
+	"bollard_height": 0.9,
+	"bollard_diameter": 0.25,
+	## Bollards sit this far either side of the alley centre: the gaps let
+	## scooters and pedestrians through, not cars.
+	"bollard_offset": 0.65,
 }
 
-const DRIVABLE: String = ".=PSbghwt"
+const DRIVABLE: String = ".=PSbghwtkf"
 const RAMPS: String = "^v<>"
 const DIGITS: String = "123456789"
 ## Doors face the most open street within this many cells.
@@ -65,6 +75,7 @@ const COLORS: Dictionary = {
 	"water": Color(0.18, 0.45, 0.62),
 	"roof": Color(0.66, 0.32, 0.22),
 	"roof_dark": Color(0.52, 0.26, 0.2),
+	"bollard": Color(0.25, 0.25, 0.27),
 }
 const HOUSE_PALETTE: Array[Color] = [
 	Color(0.86, 0.66, 0.38), Color(0.82, 0.48, 0.34), Color(0.93, 0.72, 0.68),
@@ -89,6 +100,8 @@ var _plateau: float = 6.0
 var _rng := RandomNumberGenerator.new()
 var _root: Node3D
 var _groups: Dictionary = {}
+## Ramp cell -> [centre height, uphill direction (1..4, see LevelGrid)].
+var _ramp_cells: Dictionary = {}
 
 
 func build(map_text: String, source_name: String = "map") -> Node3D:
@@ -104,7 +117,7 @@ func build(map_text: String, source_name: String = "map") -> Node3D:
 	_root = Node3D.new()
 	_root.name = source_name.get_file().get_basename().to_pascal_case()
 	_root.editor_description = "Generated from %s by tools/levels/build_greybox_map.gd.\nDon't edit by hand: change the map and rebuild." % source_name
-	for group_name: String in ["Ground", "Plateau", "Ramps", "Buildings", "Details", "Bounds", "Sea", "Locations"]:
+	for group_name: String in ["Ground", "Plateau", "Ramps", "Buildings", "Details", "Props", "Bounds", "Sea", "Locations"]:
 		var group := Node3D.new()
 		group.name = group_name
 		_root.add_child(group)
@@ -114,8 +127,10 @@ func build(map_text: String, source_name: String = "map") -> Node3D:
 	_build_ground()
 	_build_plateau(doors)
 	_build_ramps()
+	_build_grid()
 	_build_buildings(doors)
 	_build_details()
+	_build_bollards()
 	_build_bounds()
 	_build_sea()
 	_build_spawn()
@@ -270,7 +285,7 @@ func _build_ground() -> void:
 			var key: String = ""
 			if "=".contains(c):
 				key = "road"
-			elif "PSFC".contains(c):
+			elif "PSFCk".contains(c):
 				key = "piazza"
 			elif "bG".contains(c):
 				key = "sand"
@@ -328,6 +343,53 @@ func _build_ramps() -> void:
 		var basis := Basis(side, normal, side.cross(normal))
 		_block("Ramps", "Ramp", Vector3(across, thickness, sqrt(run * run + _plateau * _plateau)),
 			top_center - normal * thickness * 0.5, COLORS["street"], basis)
+		_record_ramp_cells(c, rect)
+
+
+## Remembers each ramp cell's centre height and uphill direction for the grid.
+func _record_ramp_cells(c: String, rect: Rect2i) -> void:
+	var dir: int = "^>v<".find(c) + 1
+	for y: int in range(rect.position.y, rect.end.y):
+		for x: int in range(rect.position.x, rect.end.x):
+			var fraction: float = 0.0
+			match c:
+				"^":
+					fraction = (rect.end.y - (y + 0.5)) / rect.size.y
+				"v":
+					fraction = (y + 0.5 - rect.position.y) / rect.size.y
+				"<":
+					fraction = (rect.end.x - (x + 0.5)) / rect.size.x
+				">":
+					fraction = (x + 0.5 - rect.position.x) / rect.size.x
+			_ramp_cells[Vector2i(x, y)] = [_plateau * fraction, dir]
+
+
+## Writes the walkable/drivable layout (LevelGrid) into the scene.
+func _build_grid() -> void:
+	var grid := LevelGrid.new()
+	grid.setup(Vector2i(_width, _height), _cell, Vector3(-_width * _cell * 0.5, 0.0, -_height * _cell * 0.5))
+	var kinds: Dictionary = {
+		".": LevelGrid.Kind.STREET, "=": LevelGrid.Kind.ROAD, "P": LevelGrid.Kind.PIAZZA,
+		"S": LevelGrid.Kind.PIAZZA, "h": LevelGrid.Kind.PLATEAU, "b": LevelGrid.Kind.BEACH,
+		"g": LevelGrid.Kind.GRASS, "w": LevelGrid.Kind.PIER, "~": LevelGrid.Kind.WATER,
+		"k": LevelGrid.Kind.PIAZZA, "f": LevelGrid.Kind.STREET,
+	}
+	for y: int in _height:
+		for x: int in _width:
+			var cell := Vector2i(x, y)
+			var c: String = _at(x, y)
+			if _ramp_cells.has(cell):
+				var ramp: Array = _ramp_cells[cell]
+				grid.set_cell(cell, LevelGrid.Kind.RAMP, ramp[0], ramp[1])
+			else:
+				grid.set_cell(cell, kinds.get(c, LevelGrid.Kind.BLOCKED), _level(x, y))
+	var holder := LevelGridNode.new()
+	holder.name = "LevelGrid"
+	holder.grid = grid
+	_root.add_child(holder)
+	stats["CarCells"] = grid.usable_cell_count(LevelGrid.Network.CARS)
+	stats["ScooterCells"] = grid.usable_cell_count(LevelGrid.Network.SCOOTERS)
+	stats["WalkCells"] = grid.usable_cell_count(LevelGrid.Network.PEDESTRIANS)
 
 
 ## For every shop/customer building: the best street cell in front of it.
@@ -542,6 +604,12 @@ func _build_details() -> void:
 				fountain_keys[Vector2i(x, y)] = "fountain"
 			elif c == "w":
 				pier_keys[Vector2i(x, y)] = "pier"
+			elif PROP_SCENES.has(c):
+				var prop := (PROP_SCENES[c] as PackedScene).instantiate() as Node3D
+				prop.name = "Prop"
+				prop.transform = Transform3D(Basis(Vector3.UP, _rng.randf() * TAU), _cell_center(x, y) + Vector3.UP * _level(x, y))
+				(_groups["Props"] as Node3D).add_child(prop, true)
+				stats["Props"] = int(stats.get("Props", 0)) + 1
 	for entry: Array in _merge(fountain_keys):
 		var rect: Rect2i = entry[1]
 		var center: Vector3 = _rect_center(rect)
@@ -564,6 +632,29 @@ func _build_details() -> void:
 				var post: Vector3 = _cell_center(x, rect.position.y + row) + Vector3(0.3 if side == 0 else -0.3, 0, 0)
 				_block("Details", "PierPost", Vector3(0.35, 6.0, 0.35), post + Vector3.DOWN * 3.0,
 					COLORS["wood"], Basis.IDENTITY, 1, 0.0)
+
+
+## Posts across every alley mouth that opens onto a road ("=" cells), like
+## the entrance of an Italian limited-traffic zone.
+func _build_bollards() -> void:
+	var height: float = _cfg_float("bollard_height")
+	var diameter: float = _cfg_float("bollard_diameter")
+	var offset: float = _cfg_float("bollard_offset")
+	for y: int in _height:
+		for x: int in _width:
+			if _at(x, y) != "=":
+				continue
+			for dir: Vector2i in DIRECTIONS:
+				var next: Vector2i = Vector2i(x, y) + dir
+				var c: String = _at(next.x, next.y)
+				if c == "" or c == "=" or not _is_drivable(c) or "bgw".contains(c):
+					continue
+				var boundary: Vector3 = _cell_center(x, y) + Vector3(dir.x, 0, dir.y) * _cell * 0.5
+				var across := Vector3(absf(dir.y), 0, absf(dir.x))
+				for side: float in [-1.0, 1.0]:
+					_block("Details", "Bollard", Vector3(diameter, height, diameter),
+						boundary + across * offset * side + Vector3.UP * (_level(next.x, next.y) + height * 0.5),
+						COLORS["bollard"], Basis.IDENTITY, 1, 0.0)
 
 
 func _build_bounds() -> void:
@@ -664,4 +755,6 @@ func _build_spawn() -> void:
 func _set_owner_recursive(node: Node, owner: Node) -> void:
 	for child: Node in node.get_children():
 		child.owner = owner
-		_set_owner_recursive(child, owner)
+		# Instanced scenes (props) keep their own children.
+		if child.scene_file_path == "":
+			_set_owner_recursive(child, owner)

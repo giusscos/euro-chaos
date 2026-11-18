@@ -9,4 +9,4 @@ built in code) are not listed here.
 
 | Asset | Path in project | Source URL | Author | License | Date added |
 |---|---|---|---|---|---|
-| _none yet_ | | | | | |
+| Godot logo (default project icon, **placeholder: replace before shipping**) | `icon.svg` | https://godotengine.org/press/ | Andrea Calabró | CC BY 4.0 (not CC0: needs attribution; replace in Phase 5) | 2026-11-18 |

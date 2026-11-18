@@ -51,7 +51,22 @@ const MIN_LOOK_DISTANCE: float = 0.01
 ## How fast the camera moves back out after an obstruction is gone (1/s).
 @export_range(0.1, 50.0, 0.1) var collision_recover_sharpness: float = 4.0
 
+@export_group("Shake")
+## Hard velocity changes of the target (landings, crashes) above this shake
+## the camera automatically...
+@export_range(0.0, 500.0, 1.0, "suffix:m/s²") var impact_shake_threshold: float = 60.0
+## ...adding this much trauma per m/s² above it (trauma is 0..1).
+@export_range(0.0, 0.05, 0.0005) var impact_shake_gain: float = 0.003
+@export_range(0.0, 2.0, 0.01, "suffix:m") var max_shake_offset: float = 0.3
+@export_range(0.0, 20.0, 0.1, "suffix:°") var max_shake_roll: float = 3.5
+## Trauma lost per second.
+@export_range(0.1, 10.0, 0.1) var trauma_decay: float = 1.6
+@export_range(1.0, 60.0, 0.5, "suffix:Hz") var shake_frequency: float = 18.0
+
 @onready var camera: Camera3D = $Camera3D
+
+## 0..1; shake strength is trauma².
+var trauma: float = 0.0
 
 ## The profile in use (target's own, else default_profile).
 var profile: ChaseCameraProfile
@@ -65,6 +80,10 @@ var _orbit_idle_time: float = 0.0
 var _current_distance: float = 0.0
 var _query := PhysicsShapeQueryParameters3D.new()
 var _sphere := SphereShape3D.new()
+var _noise := FastNoiseLite.new()
+var _shake_time: float = 0.0
+var _last_target_velocity := Vector3.ZERO
+var _last_teleport_serial: int = -1
 
 
 func _ready() -> void:
@@ -75,6 +94,8 @@ func _ready() -> void:
 	_query.shape = _sphere
 	_query.collision_mask = collision_mask
 	_resolve_profile()
+	_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
+	_noise.frequency = 1.0
 	camera.make_current()
 	if capture_mouse:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -92,8 +113,31 @@ func snap() -> void:
 	_orbit_pitch = 0.0
 	_current_distance = profile.distance
 	_speed = 0.0
+	trauma = 0.0
+	var body := target as RigidBody3D
+	_last_target_velocity = body.linear_velocity if body != null else Vector3.ZERO
 	if camera != null:
 		_update_camera(0.0, true)
+
+
+## Adds camera shake (0..1), e.g. for explosions of chaos.
+func add_trauma(amount: float) -> void:
+	trauma = clampf(trauma + amount, 0.0, 1.0)
+
+
+func _physics_process(delta: float) -> void:
+	var body := target as RigidBody3D
+	if body == null or delta <= 0.0:
+		return
+	var serial: Variant = body.get(&"teleport_serial")
+	if serial != null and int(serial) != _last_teleport_serial:
+		_last_teleport_serial = int(serial)
+		_last_target_velocity = body.linear_velocity
+		return
+	var impact: float = (body.linear_velocity - _last_target_velocity).length() / delta
+	_last_target_velocity = body.linear_velocity
+	if impact > impact_shake_threshold:
+		add_trauma((impact - impact_shake_threshold) * impact_shake_gain)
 
 
 func _process(delta: float) -> void:
@@ -101,6 +145,16 @@ func _process(delta: float) -> void:
 		return
 	_update_orbit_from_stick(delta)
 	_update_camera(delta, false)
+	_update_shake(delta)
+
+
+func _update_shake(delta: float) -> void:
+	trauma = maxf(trauma - trauma_decay * delta, 0.0)
+	_shake_time += delta * shake_frequency
+	var strength: float = trauma * trauma
+	camera.position = Vector3(_noise.get_noise_2d(_shake_time, 0.0), _noise.get_noise_2d(0.0, _shake_time), 0.0) \
+		* max_shake_offset * strength
+	camera.rotation.z = deg_to_rad(max_shake_roll) * strength * _noise.get_noise_2d(_shake_time, 100.0)
 
 
 func _unhandled_input(event: InputEvent) -> void:
