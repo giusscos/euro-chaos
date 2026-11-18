@@ -30,14 +30,20 @@ res://
     vehicle/        ArcadeVehicle, VehicleWheel, VehicleStats, VehicleIntent,
                     PlayerVehicleController, greybox vehicle scenes, stats/*.tres
     camera/         ChaseCamera, ChaseCameraProfile, profiles/*.tres
-    interaction/    Interactable, Interactor            (Phase 1)
-    missions/       MissionData, MissionRunner          (Phase 1)
+    interaction/    Interactable (stop inside / press E), HazardZone
+    missions/       CargoType, MissionData, MissionLocation, MissionRunner,
+                    CargoMonitor, DeliveryResult, ObjectiveMarker
+    audio/          AudioBuses, ProceduralSfx (placeholder sounds in code)
     minigame/       MiniGame base script, MiniGameInfo resource
     levels/         test_level, vehicle_playground, greybox/ (grid shader,
-                    GreyboxBlock: sized box/cylinder with collision, crate)
-    ui/             main_menu, pause_menu, debug_overlay, HUD widgets, theme/
+                    GreyboxBlock: box/cylinder/sphere with collision, crate),
+                    greybox_map/ (GreyboxMapBuilder: ASCII map -> level scene)
+    ui/             main_menu, pause_menu, debug_overlay, objective_arrow,
+                    hud/ (PromptLabel, Toast), theme/
   minigames/
-    vespa_delivery/ vespa_delivery.tscn (main), info.tres, levels/, missions/
+    vespa_delivery/ vespa_delivery.tscn (main, VespaDeliveryGame), info.tres,
+                    data/ (cargo + missions .tres), levels/ (village_map.txt,
+                    generated village_greybox.tscn, village.tscn), ui/ (HUD, results)
   assets/
     blender/        our .blend sources + exported .glb
     kenney/ quaternius/ kaykit/ polyhaven/   (CC0 only, mirrors source)
@@ -48,6 +54,7 @@ res://
     run_tests.gd          headless test runner; tests/test_*.gd hold the tests
     capture_scene.gd      opens a scene in a real window and saves a screenshot
     setup_input_map.gd    writes the input map into project.godot (headless)
+    levels/build_greybox_map.gd   rebuilds a level scene from its ASCII map
     blender/export_gltf.py   (Phase 4)
   docs/             ARCHITECTURE.md, ROADMAP.md, ASSETS.md
 ```
@@ -120,6 +127,38 @@ and right-stick/mouse orbit with auto-recenter. Framing lives in a
 a scooter and a van each get the right view.
 Physics interpolation is on (smooth on 120 Hz ProMotion screens), so the camera
 reads `get_global_transform_interpolated()` in `_process`.
+
+## Missions and interaction
+
+A mission is pure data (`MissionData`: pickup and dropoff location ids,
+`CargoType`, pay). Levels provide `MissionLocation` markers with matching
+ids. `MissionRunner` spawns an `ObjectiveMarker` (ring, beam, label,
+`Interactable`) at the pickup; stopping inside starts the timer and
+`CargoMonitor`, which damages the cargo on hard velocity changes; stopping
+at the dropoff produces a `DeliveryResult`. Time limits come from distance
+unless set; pay rules are exports on the runner. The mini-game
+(`VespaDeliveryGame`) only chains missions into a shift, keeps money, saves,
+and handles hazards. Police chases (Phase 3) will reuse the same pieces:
+zones, Events, AI controllers driving `ArcadeVehicle`.
+
+## Greybox maps
+
+Levels are described as ASCII maps, one character per cell (legend at the
+top of `village_map.txt`). `GreyboxMapBuilder` turns a map into a scene:
+ground, plateau, ramps, houses split into individual buildings, shops,
+doors, signs, props, sea, bounds, locations, spawn. Same map and seed give
+the same scene. The generated `.tscn` is never edited by hand: change the
+map, run `tools/levels/build_greybox_map.gd`, and a test fails if they're
+out of sync. Lighting and hand-placed things live in a wrapper scene
+(`village.tscn`). The Phase 6 generator will write these maps from rules.
+
+## Audio
+
+`AudioManager.play(id)` / `play_at(id, position)` with pooled players on
+the SFX bus. Any id without a registered stream falls back to a
+`ProceduralSfx` placeholder, so sounds can be swapped for real CC0 files
+later without touching gameplay code. `VehicleAudio` pitches an engine loop
+by speed and throttle.
 
 ## Input
 
