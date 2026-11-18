@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://core/vehicle/arcade_vehicle.gd" id="1_vehicle"]
 [ext_resource type="Resource" path="res://core/vehicle/stats/scooter_stats.tres" id="2_stats"]
 [ext_resource type="Script" path="res://core/vehicle/vehicle_wheel.gd" id="3_wheel"]
+[ext_resource type="Resource" path="res://core/camera/profiles/scooter_camera.tres" id="4_camera"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_body"]
 friction = 0.4
@@ -94,13 +95,14 @@ height = 0.12
 material = SubResource("Mat_spoke")
 size = Vector3(0.13, 0.4, 0.06)
 
-[node name="Scooter" type="RigidBody3D"]
+[node name="Scooter" type="RigidBody3D" node_paths=PackedStringArray("visual")]
 collision_layer = 2
 collision_mask = 15
 physics_material_override = SubResource("PhysicsMaterial_body")
 script = ExtResource("1_vehicle")
 stats = ExtResource("2_stats")
 visual = NodePath("Visual")
+camera_profile = ExtResource("4_camera")
 
 [node name="ChassisShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, 0)
@@ -110,13 +112,13 @@ shape = SubResource("BoxShape3D_chassis")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0.15)
 shape = SubResource("CapsuleShape3D_rider")
 
-[node name="WheelFront" type="Node3D" parent="."]
+[node name="WheelFront" type="Node3D" parent="." node_paths=PackedStringArray("wheel_mesh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -0.62)
 script = ExtResource("3_wheel")
 steers = true
 wheel_mesh = NodePath("../Visual/WheelFrontPivot")
 
-[node name="WheelRear" type="Node3D" parent="."]
+[node name="WheelRear" type="Node3D" parent="." node_paths=PackedStringArray("wheel_mesh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0.6)
 script = ExtResource("3_wheel")
 axle = 1

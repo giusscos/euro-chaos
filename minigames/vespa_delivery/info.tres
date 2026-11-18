@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MiniGameInfo" format=3]
+
+[ext_resource type="Script" path="res://core/minigame/minigame_info.gd" id="1_info"]
+
+[resource]
+script = ExtResource("1_info")
+id = &"vespa_delivery"
+title = "Scooter Delivery"
+description = "Deliver pizza across an Italian village on a scooter. (Phase 0 placeholder: test level only.)"
+main_scene = "res://minigames/vespa_delivery/vespa_delivery.tscn"

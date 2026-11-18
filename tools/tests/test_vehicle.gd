@@ -11,6 +11,18 @@ const UPRIGHT_AT_REST: float = 0.98
 const UPRIGHT_WHILE_DRIVING: float = 0.9
 
 
+func test_scene_wiring() -> void:
+	for path: String in VEHICLE_SCENES:
+		var vehicle: ArcadeVehicle = await _spawn(path)
+		var label: String = path.get_file()
+		expect(vehicle.stats != null, "%s: no stats" % label)
+		expect(vehicle.visual != null, "%s: visual not assigned" % label)
+		expect(not vehicle.wheels.is_empty(), "%s: no wheels" % label)
+		for wheel: VehicleWheel in vehicle.wheels:
+			expect(wheel.wheel_mesh != null, "%s/%s: wheel_mesh not assigned" % [label, wheel.name])
+		await cleanup()
+
+
 func test_rests_upright_on_all_wheels() -> void:
 	for path: String in VEHICLE_SCENES:
 		var vehicle: ArcadeVehicle = await _spawn(path)

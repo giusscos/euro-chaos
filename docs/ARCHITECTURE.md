@@ -29,12 +29,13 @@ res://
     input/          InputActions (StringName constants for every action)
     vehicle/        ArcadeVehicle, VehicleWheel, VehicleStats, VehicleIntent,
                     PlayerVehicleController, greybox vehicle scenes, stats/*.tres
-    camera/         ChaseCamera
+    camera/         ChaseCamera, ChaseCameraProfile, profiles/*.tres
     interaction/    Interactable, Interactor            (Phase 1)
     missions/       MissionData, MissionRunner          (Phase 1)
     minigame/       MiniGame base script, MiniGameInfo resource
-    levels/         test_level.tscn (shared bare test level)
-    ui/             main_menu, pause menu, HUD widgets, theme/
+    levels/         test_level, vehicle_playground, greybox/ (grid shader,
+                    GreyboxBlock: sized box/cylinder with collision, crate)
+    ui/             main_menu, pause_menu, debug_overlay, HUD widgets, theme/
   minigames/
     vespa_delivery/ vespa_delivery.tscn (main), info.tres, levels/, missions/
   assets/
@@ -42,9 +43,12 @@ res://
     kenney/ quaternius/ kaykit/ polyhaven/   (CC0 only, mirrors source)
     audio/
   tools/
+    check.sh              import + compile all scripts + boot + tests (one command)
+    check_scripts.gd      compiles every script with autoloads loaded
+    run_tests.gd          headless test runner; tests/test_*.gd hold the tests
+    capture_scene.gd      opens a scene in a real window and saves a screenshot
     setup_input_map.gd    writes the input map into project.godot (headless)
-    run_tests.gd          headless test runner; tests/ holds test scripts
-    blender/export_gltf.py
+    blender/export_gltf.py   (Phase 4)
   docs/             ARCHITECTURE.md, ROADMAP.md, ASSETS.md
 ```
 
@@ -69,7 +73,10 @@ spring + damper force (suspension), lateral grip force (cancels sideways slip,
 shaped by a grip curve), drive/brake force along the wheel's forward. The body
 adds: upright-assist torque (keeps two-wheelers from falling), speed-sensitive
 steering, air control, top-speed limiting. Lean/pitch are applied to the
-**visual mesh only**, so physics stays stable.
+**visual mesh only**, so physics stays stable. Stability tweaks are applied as
+angular acceleration, so tuning doesn't depend on mass or shape. The body's
+own damping is replaced by the stats (Godot's project default would cap top
+speed).
 
 Why not `VehicleBody3D`: two-wheelers tip over, grip/drift tuning is opaque and
 there is no lean. A custom raycast vehicle is a few hundred lines, fully
@@ -102,9 +109,11 @@ same physics. All police branding is fictional.
 ## Camera
 
 `ChaseCamera` is a top-level Node3D (not parented to the vehicle, to avoid
-jitter) that follows a target with damped position and yaw lag, speed-based
-distance and FOV, look-ahead, a `SpringArm3D` so it doesn't clip into walls,
-and optional right-stick/mouse orbit with auto-recenter.
+jitter) that follows a target with yaw lag, smoothed height, speed-based
+distance and FOV, look-ahead, a sphere cast so it never ends up inside a wall,
+and right-stick/mouse orbit with auto-recenter. Framing lives in a
+`ChaseCameraProfile` resource that each target carries (`camera_profile`), so
+a scooter and a van each get the right view.
 Physics interpolation is on (smooth on 120 Hz ProMotion screens), so the camera
 reads `get_global_transform_interpolated()` in `_process`.
 
@@ -123,7 +132,10 @@ Actions live in Godot's Input Map (`project.godot`), written by
 | `interact` | E | X / Square |
 | `camera_look` (4 actions) | mouse | Right stick |
 | `reset_vehicle` | R | Back / Select |
-| `pause` | Esc | Start |
+| `pause` | Esc, P | Start |
+| `debug_swap_vehicle` | Tab | RB |
+| `debug_respawn` | Backspace | LB |
+| `debug_toggle_overlay` | O | L3 |
 
 ## Mini-game contract
 
@@ -164,14 +176,28 @@ only, every external asset listed in `docs/ASSETS.md`.
 - Static typing enforced: the `untyped_declaration` GDScript warning is set to **Error**.
 - Tests: `tools/run_tests.gd` (headless) plus a smoke test that loads every scene.
 
-Dev commands (Godot is not on `PATH`; scripts use this variable):
+Dev commands (Godot is not on `PATH`; scripts default to the app bundle,
+override with `GODOT=...`):
 
 ```bash
+tools/check.sh                                   # everything below, in order
 GODOT=/Applications/Godot.app/Contents/MacOS/Godot
-$GODOT --headless --path . --import             # import assets, rebuild class cache
-$GODOT --headless --path . --quit-after 60      # boot main scene for 60 frames
-$GODOT --headless --path . --script res://tools/run_tests.gd
+$GODOT --headless --path . --import              # import assets, rebuild class cache
+$GODOT --headless --path . --script res://tools/check_scripts.gd
+$GODOT --headless --path . --quit-after 120      # boot the main scene
+$GODOT --headless --path . --fixed-fps 60 --script res://tools/run_tests.gd [-- vehicle]
 ```
+
+Gotchas found so far:
+- `--check-only` doesn't know autoloads, so it rejects valid scripts that use
+  `Events`/`GameState`; use `tools/check_scripts.gd` instead.
+- A `--script` entry script is compiled before autoloads exist: it must not
+  reference classes that use autoloads by type. Load them at runtime (as
+  `run_tests.gd` does).
+- Under `--fixed-fps` the main loop never pauses, which starves background
+  loading; tests that wait on `SceneLoader` yield 1 ms per frame.
+- Headless mode doesn't compile shaders; use `tools/capture_scene.gd` (opens a
+  window) to catch shader errors.
 
 ## macOS / Mac App Store
 

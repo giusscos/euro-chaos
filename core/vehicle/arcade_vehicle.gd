@@ -15,6 +15,8 @@ const GRAVITY_FALLBACK: float = 9.8
 @export var stats: VehicleStats
 ## Parent of all meshes. Must sit at the vehicle origin with no rotation.
 @export var visual: Node3D
+## How a ChaseCamera frames this vehicle (bigger vehicles need more distance).
+@export var camera_profile: ChaseCameraProfile
 @export_flags_3d_physics var wheel_collision_mask: int = 0b111
 
 var intent := VehicleIntent.new()
