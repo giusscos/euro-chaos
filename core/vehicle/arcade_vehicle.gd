@@ -26,6 +26,9 @@ var grounded_wheel_count: int = 0
 var steer_angle: float = 0.0
 ## Forward speed in m/s (negative when reversing).
 var forward_speed: float = 0.0
+## Increments on every teleport, in the same physics tick. Lets observers
+## (e.g. CargoMonitor) ignore the instant velocity reset.
+var teleport_serial: int = 0
 
 var _driven_count: int = 0
 var _rear_count: int = 0
@@ -194,6 +197,7 @@ func _apply_level_assist(state: PhysicsDirectBodyState3D, axis: Vector3, target_
 
 func _apply_teleport(state: PhysicsDirectBodyState3D) -> void:
 	_pending_teleport = false
+	teleport_serial += 1
 	state.transform = _teleport_target
 	state.linear_velocity = Vector3.ZERO
 	state.angular_velocity = Vector3.ZERO
