@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MissionData" format=3]
+
+[ext_resource type="Script" path="res://core/missions/mission_data.gd" id="1_mission"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/cargo/espresso.tres" id="2_cargo"]
+
+[resource]
+script = ExtResource("1_mission")
+id = &"mayor_espresso"
+title = "Council Coffee"
+customer_name = "Don Peppino, the mayor"
+request_text = "Six espressos for the town council. Spill one drop and there's a fine. I am the fine."
+pickup_location_id = &"pizzeria"
+dropoff_location_id = &"address_6"
+cargo = ExtResource("2_cargo")
+base_payout = 12
+max_tip = 10
+success_line = "Not a drop spilled. You may park anywhere for a week. Except there."
+late_line = "The council fell asleep. This is now a scandal."
+ruined_line = "That is a puddle with ambition. Fined."

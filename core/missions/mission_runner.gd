@@ -111,7 +111,8 @@ func compute_time_limit(mission: MissionData, from: Vector3, to: Vector3) -> flo
 	if mission.time_limit > 0.0:
 		return mission.time_limit
 	var travel: float = from.distance_to(to) / (reference_speed_kmh / KMH_PER_MS)
-	return maxf(travel + time_bonus, min_time_limit)
+	var multiplier: float = mission.cargo.time_multiplier if mission.cargo != null else 1.0
+	return maxf((travel + time_bonus) * multiplier, min_time_limit)
 
 
 ## Pure scoring rules, used at the end of every delivery (and by tests).

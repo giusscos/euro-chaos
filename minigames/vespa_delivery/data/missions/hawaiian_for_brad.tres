@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MissionData" format=3]
+
+[ext_resource type="Script" path="res://core/missions/mission_data.gd" id="1_mission"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/cargo/pizza.tres" id="2_cargo"]
+
+[resource]
+script = ExtResource("1_mission")
+id = &"hawaiian_for_brad"
+title = "Pineapple Emergency"
+customer_name = "Brad, from Ohio"
+request_text = "Hey buddy! One large with pineapple. EXTRA pineapple. Nonna looked at me weird, is that a thing?"
+pickup_location_id = &"pizzeria"
+dropoff_location_id = &"address_9"
+cargo = ExtResource("2_cargo")
+base_payout = 10
+max_tip = 6
+success_line = "Awesome! Is the tip in euros or in freedom?"
+late_line = "Dude, I'm on vacation, not on a schedule. Except I am. Half."
+ruined_line = "Is this... pizza soup? I'm leaving one star. Nicely."

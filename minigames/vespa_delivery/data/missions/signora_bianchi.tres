@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MissionData" format=3]
+
+[ext_resource type="Script" path="res://core/missions/mission_data.gd" id="1_mission"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/cargo/pizza.tres" id="2_cargo"]
+
+[resource]
+script = ExtResource("1_mission")
+id = &"signora_bianchi"
+title = "The Usual"
+customer_name = "Signora Bianchi"
+request_text = "The usual. Margherita. If it arrives cold I am calling your mother."
+pickup_location_id = &"pizzeria"
+dropoff_location_id = &"address_8"
+cargo = ExtResource("2_cargo")
+base_payout = 8
+max_tip = 5
+success_line = "Hm. Acceptable. Your mother raised you well."
+late_line = "Cold. I've already called your mother. She agrees with me."
+ruined_line = "In 1974 we delivered pizza by donkey. The donkey was better."

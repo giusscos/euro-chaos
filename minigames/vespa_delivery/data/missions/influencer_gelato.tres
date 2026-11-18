@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MissionData" format=3]
+
+[ext_resource type="Script" path="res://core/missions/mission_data.gd" id="1_mission"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/cargo/gelato.tres" id="2_cargo"]
+
+[resource]
+script = ExtResource("1_mission")
+id = &"influencer_gelato"
+title = "Content Gelato"
+customer_name = "@Giulia.Vibes (2.3M followers)"
+request_text = "I need a gelato for a shoot at the Belvedere. It has to look melty. But not TOO melty. For the brand."
+pickup_location_id = &"gelateria"
+dropoff_location_id = &"address_5"
+cargo = ExtResource("2_cargo")
+base_payout = 9
+max_tip = 12
+success_line = "OMG the drip is PERFECT. Tagging you. Not paying for exposure though. Kidding! Mostly."
+late_line = "It melted before golden hour. My followers will feel this."
+ruined_line = "This is giving... crime scene. Unfollow."

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CargoType" format=3]
+
+[ext_resource type="Script" path="res://core/missions/cargo_type.gd" id="1_cargo"]
+
+[resource]
+script = ExtResource("1_cargo")
+id = &"espresso"
+display_name = "Espresso tray"
+fragility = 1.8
+time_multiplier = 0.9
+color = Color(0.45, 0.3, 0.2, 1)
+flavor_text = "Six tiny cups, filled to the brim. Good luck."

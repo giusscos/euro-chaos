@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MissionData" format=3]
+
+[ext_resource type="Script" path="res://core/missions/mission_data.gd" id="1_mission"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/cargo/pizza_tower.tres" id="2_cargo"]
+
+[resource]
+script = ExtResource("1_mission")
+id = &"startup_retreat"
+title = "Digital Detox Catering"
+customer_name = "Two founders from Berlin"
+request_text = "Twelve pizzas for our digital detox retreat. Can you deliver them to the Wi-Fi password? Joking. Unless?"
+pickup_location_id = &"pizzeria"
+dropoff_location_id = &"address_7"
+cargo = ExtResource("2_cargo")
+base_payout = 15
+max_tip = 10
+success_line = "Disruptive delivery, bro. We'll pivot to pizza."
+late_line = "The retreat ended. Everyone's back on their phones."
+ruined_line = "We'll call it a deconstructed pizza and raise a seed round."

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MissionData" format=3]
+
+[ext_resource type="Script" path="res://core/missions/mission_data.gd" id="1_mission"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/cargo/pizza.tres" id="2_cargo"]
+
+[resource]
+script = ExtResource("1_mission")
+id = &"nonna_rosa_spy"
+title = "Industrial Espionage"
+customer_name = "Nonna Rosa (Nonna Pina's rival)"
+request_text = "Bring me HER pizza. I need to know her secret. Tell no one, especially not her."
+pickup_location_id = &"pizzeria"
+dropoff_location_id = &"address_3"
+cargo = ExtResource("2_cargo")
+base_payout = 9
+max_tip = 9
+success_line = "Hmm. Oregano. I KNEW it. You were never here."
+late_line = "Cold pizza tells no secrets. Useless."
+ruined_line = "What did she put in this? Gravel? Revenge?"
