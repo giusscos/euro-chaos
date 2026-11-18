@@ -21,6 +21,12 @@ const SAVE_SECTION: StringName = &"vespa_delivery"
 @export var chaos_color: Color = Color(1.0, 0.45, 0.3)
 ## Floating chaos text appears this high above the spot.
 @export_range(0.0, 5.0, 0.1, "suffix:m") var chaos_text_height: float = 1.5
+## Camera shake (trauma 0..1) for knocking things over.
+@export_range(0.0, 1.0, 0.05) var chaos_shake: float = 0.35
+
+@export_group("Near Misses")
+@export_range(0, 100, 1) var near_miss_bonus: int = 1
+@export var near_miss_color: Color = Color(0.5, 1.0, 0.6)
 
 @export_group("Hazards")
 ## Cargo condition lost when the scooter ends up in the sea.
@@ -41,6 +47,7 @@ const SAVE_SECTION: StringName = &"vespa_delivery"
 @export var cargo_stack: CargoStack
 @export var hud: DeliveryHud
 @export var arrow: ObjectiveArrow
+@export var camera: ChaseCamera
 @export var results_screen: ResultsScreen
 @export var pause_menu: PauseMenu
 
@@ -69,6 +76,7 @@ func _on_start() -> void:
 	Events.hazard_entered.connect(_on_hazard_entered)
 	Events.chaos_caused.connect(_on_chaos_caused)
 	Events.pedestrian_hit.connect(_on_pedestrian_hit)
+	Events.near_miss.connect(_on_near_miss)
 	results_screen.again_pressed.connect(func() -> void: SceneLoader.change_scene(scene_file_path))
 	results_screen.menu_pressed.connect(_go_to_menu)
 
@@ -162,6 +170,16 @@ func _on_chaos_caused(amount: int, at: Vector3, label: String) -> void:
 		return
 	GameState.add_chaos(amount)
 	FloatingText.spawn(self, "+%d  %s" % [amount, label], at + Vector3.UP * chaos_text_height, chaos_color)
+	if camera != null:
+		camera.add_trauma(chaos_shake)
+
+
+func _on_near_miss(thing: Node3D, _distance: float) -> void:
+	if not is_running or near_miss_bonus <= 0:
+		return
+	GameState.add_money(near_miss_bonus)
+	FloatingText.spawn(self, "+€%d  Near miss!" % near_miss_bonus,
+		thing.global_position + Vector3.UP * chaos_text_height, near_miss_color)
 
 
 func _on_pedestrian_hit(_pedestrian: Node3D, by: Node3D, _speed: float) -> void:

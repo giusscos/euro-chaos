@@ -24,6 +24,10 @@ signal pedestrian_hit(pedestrian: Node3D, by: Node3D, speed: float)
 @warning_ignore("unused_signal")
 signal chaos_caused(amount: int, position: Vector3, label: String)
 
+## The player whizzed past something without hitting it.
+@warning_ignore("unused_signal")
+signal near_miss(thing: Node3D, distance: float)
+
 ## The player entered a HazardZone (e.g. &"water").
 @warning_ignore("unused_signal")
 signal hazard_entered(hazard_id: StringName, body: Node3D)
