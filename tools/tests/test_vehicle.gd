@@ -16,6 +16,8 @@ const SUNK_HEIGHT: float = -0.4
 const MAX_LANDING_DIP: float = 0.25
 ## Sudden yaw rate (rad/s) given to a vehicle at full speed.
 const YAW_KICK: float = 0.5
+## m/s below which a handbraked vehicle counts as stopped.
+const HANDBRAKE_STOPPED_SPEED: float = 0.15
 const RAMP_SIZE := Vector3(8.0, 1.0, 10.0)
 const RAMP_ANGLE: float = 20.0
 const RAMP_RUN_UP: float = 60.0
@@ -143,6 +145,40 @@ func test_reset_upright_recovers_from_side() -> void:
 		var label: String = path.get_file()
 		note("%s: upright after reset %.3f" % [label, _upright(vehicle)])
 		expect(_upright(vehicle) > UPRIGHT_AT_REST, "%s still tipped after reset" % label)
+		await cleanup()
+
+
+func test_handbrake_overrides_throttle() -> void:
+	for path: String in VEHICLE_SCENES:
+		var label: String = path.get_file()
+		# From standstill: gas + handbrake must not creep forward.
+		var vehicle: ArcadeVehicle = await _spawn(path)
+		await wait_physics_frames(SETTLE_FRAMES)
+		var start: Vector3 = vehicle.global_position
+		vehicle.intent.throttle = 1.0
+		vehicle.intent.handbrake = true
+		await wait_physics_frames(120)
+		var crept: float = vehicle.global_position.distance_to(start)
+		note("%s: gas + handbrake from rest for 2 s -> moved %.2f m, %.1f km/h" % [
+			label, crept, vehicle.get_speed_kmh()])
+		expect(crept < 0.1, "%s: creeps %.2f m with gas + handbrake" % [label, crept])
+		expect(absf(vehicle.get_speed_kmh()) < 0.5, "%s: still moving with gas + handbrake" % label)
+		await cleanup()
+
+		# From speed: gas + handbrake must bring it to a stop.
+		vehicle = await _spawn(path)
+		await wait_physics_frames(SETTLE_FRAMES)
+		vehicle.intent.throttle = 1.0
+		await wait_physics_frames(120)
+		var speed_before: float = vehicle.get_speed_kmh()
+		vehicle.intent.handbrake = true
+		var frames: int = 0
+		while vehicle.forward_speed > HANDBRAKE_STOPPED_SPEED and frames < 60 * 6:
+			await tree.physics_frame
+			frames += 1
+		note("%s: gas + handbrake from %.0f km/h -> stopped in %.2f s" % [label, speed_before, frames / 60.0])
+		expect(frames < 60 * 6, "%s: gas + handbrake never stops it" % label)
+		expect(_upright(vehicle) > UPRIGHT_WHILE_DRIVING, "%s: tipped under handbrake" % label)
 		await cleanup()
 
 

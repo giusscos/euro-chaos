@@ -131,6 +131,9 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		var brake: float = brake_per_wheel
 		var grip: float = stats.rear_grip if is_rear else stats.front_grip
 		if intent.handbrake and is_rear:
+			# The handbrake locks the rear wheels, and a locked wheel can't be
+			# driven: no engine force reaches it, whatever the throttle says.
+			drive = 0.0
 			brake = maxf(brake, handbrake_per_wheel)
 			grip *= stats.handbrake_rear_grip
 		wheel.simulate(state, stats, drive, brake, grip)
