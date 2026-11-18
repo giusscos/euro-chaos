@@ -3,33 +3,36 @@
 Each phase ends with a playable build and a playtest stop. Each mini-game adds
 **one** new core system that the final island game reuses.
 
-## Phase 0 — Foundations  ← current
+## Phase 0 — Foundations  ✓ done (merged 2026-11-18)
 
 Goal: drive a greybox Vespa around a bare test level and have it feel good.
 
-- [ ] Repo: rename `master` → `main`, initial commit, work on `phase-0` branch,
+- [x] Repo: `master` → `main`, initial commit, work on `phase-0` branch,
       `.gitignore` additions (`.DS_Store`, `/build/`)
-- [ ] Project settings: typed-GDScript warnings as errors, physics interpolation,
-      custom user dir, Jolt (already set)
-- [ ] Folder structure (`core/`, `minigames/vespa_delivery/`, `assets/`, `tools/`, `docs/`)
-      and `docs/ASSETS.md` (empty table)
-- [ ] Input map via `tools/setup_input_map.gd` + `InputActions` constants
-- [ ] Autoloads: `Events`, `GameState`, `SceneLoader`
-- [ ] Main menu (`core/ui/main_menu.tscn`) listing mini-games from `MiniGameInfo`
-      resources, plus "Test Level" and "Quit"
-- [ ] Vespa Delivery placeholder main scene (runs, loads the test level)
-- [ ] Bare test level: ground plane, sun, sky, plus ramps, bumps, a slope, a curb,
-      walls (for testing suspension and camera collision)
-- [ ] Vehicle: `ArcadeVehicle`, `VehicleWheel`, `VehicleStats`, `VehicleIntent`,
-      `PlayerVehicleController`, greybox scooter + `scooter_stats.tres`
-- [ ] Greybox 4-wheel test van with its own stats (proves the controller is shared)
-- [ ] `ChaseCamera` with tunable exports
-- [ ] Debug overlay: speed, wheels grounded, FPS; R resets the vehicle; key to swap vehicle
-- [ ] Headless tests: smoke test (load every scene); vehicle test (throttle moves
-      it forward, it stays upright at rest and after a turn)
-- [ ] **Stop: report + playtest instructions**
+- [x] Project settings: typed-GDScript warnings as errors, physics interpolation,
+      custom user dir, Jolt, physics layer names
+- [x] Folder structure and `docs/ASSETS.md`
+- [x] Input map via `tools/setup_input_map.gd` + `InputActions` constants
+- [x] Autoloads: `Events`, `GameState`, `SceneLoader`
+- [x] Main menu listing mini-games from `MiniGameInfo` resources, plus
+      "Vehicle Test Level" and "Quit"; minimal pause menu (pulled from Phase 1)
+- [x] Vespa Delivery placeholder main scene (a `MiniGame`, runs on its own)
+- [x] Bare test level: ground, sun, sky, ramps, jump, speed bumps, curb, hill,
+      steep slope, street canyon, pillars, crate stack
+- [x] Vehicle: `ArcadeVehicle`, `VehicleWheel`, `VehicleStats`, `VehicleIntent`,
+      `PlayerVehicleController`, greybox scooter
+- [x] Greybox 4-wheel test van with its own stats (same code)
+- [x] `ChaseCamera` + per-vehicle `ChaseCameraProfile`
+- [x] Debug overlay; R resets upright; Backspace respawns; Tab swaps vehicle
+- [x] Headless tests: script compile check, smoke test (every scene), mini-game
+      contract, scene loader, vehicle physics (rest, accelerate, turn, brake,
+      reverse, top speed, reset)
+- [x] Playtest + feedback. Fixed from it: wheels sinking into the ground
+      after jumps (ray start + bump stop), scooter weaving at speed
+      (effective-mass tire forces), throttle + handbrake creeping (locked
+      wheels get no drive)
 
-## Phase 1 — Vespa Delivery: core loop (greybox)
+## Phase 1 — Vespa Delivery: core loop (greybox)  ← next
 
 Goal: a complete, fun 5-minute loop with no art.
 
@@ -42,7 +45,7 @@ Goal: a complete, fun 5-minute loop with no art.
 - [ ] HUD: timer, money, objective arrow
 - [ ] `SaveManager` (money, best times), `Settings` (volumes), `AudioManager` +
       bus layout, CC0 placeholder SFX
-- [ ] Pause menu, results screen
+- [ ] Results screen (pause menu already done in Phase 0)
 - [ ] Tests: mission flow (accept → pickup → deliver → payout)
 
 ## Phase 2 — Comic chaos and feel
@@ -87,6 +90,9 @@ Goal: breaking the law is fun and has consequences; delivery money buys vehicles
 
 ## Phase 5 — Ship "Vespa Delivery" on the Mac App Store
 
+- [ ] Final game name and scooter brand: fictional. "Vespa" and "Ape" are
+      Piaggio trademarks and can't appear in the game, icon or store listing
+      (internal folder names are fine)
 - [ ] Settings menu (graphics, audio, input remap), EN + IT localization scaffold
 - [ ] Export preset with feature tag, bundle ID, icon, sandbox entitlements
 - [ ] Verify gamepads work inside the sandbox

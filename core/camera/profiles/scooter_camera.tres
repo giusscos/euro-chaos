@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ChaseCameraProfile" format=3]
+
+[ext_resource type="Script" path="res://core/camera/chase_camera_profile.gd" id="1_profile"]
+
+[resource]
+script = ExtResource("1_profile")
+distance = 4.2
+distance_at_speed = 5.8
+height = 1.9
+height_at_speed = 2.2
+look_height = 1.1
+look_ahead_at_speed = 3.0
+reference_speed_kmh = 75.0
+fov = 70.0
+fov_at_speed = 80.0

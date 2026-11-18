@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://core/levels/greybox/greybox_grid.gdshader" id="1_shader"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_shader")
+shader_parameter/cell_size = 1.0
+shader_parameter/major_every = 10.0
+shader_parameter/minor_line_strength = 0.18
+shader_parameter/major_line_strength = 0.4
+shader_parameter/roughness_value = 0.9

@@ -1,0 +1,35 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://core/minigame/minigame.gd" id="1_minigame"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/info.tres" id="2_info"]
+[ext_resource type="PackedScene" path="res://core/levels/test_level.tscn" id="3_level"]
+[ext_resource type="PackedScene" path="res://core/vehicle/vehicles/scooter.tscn" id="4_scooter"]
+[ext_resource type="Script" path="res://core/vehicle/player_vehicle_controller.gd" id="5_controller"]
+[ext_resource type="PackedScene" path="res://core/camera/chase_camera.tscn" id="6_camera"]
+[ext_resource type="PackedScene" path="res://core/ui/debug_overlay.tscn" id="7_overlay"]
+[ext_resource type="PackedScene" path="res://core/ui/pause_menu.tscn" id="8_pause"]
+
+[node name="VespaDelivery" type="Node"]
+script = ExtResource("1_minigame")
+info = ExtResource("2_info")
+
+[node name="Level" parent="." instance=ExtResource("3_level")]
+
+[node name="SpawnPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="Scooter" parent="." instance=ExtResource("4_scooter")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="PlayerVehicleController" type="Node" parent="." node_paths=PackedStringArray("vehicle", "respawn_point")]
+script = ExtResource("5_controller")
+vehicle = NodePath("../Scooter")
+respawn_point = NodePath("../SpawnPoint")
+
+[node name="ChaseCamera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_camera")]
+target = NodePath("../Scooter")
+
+[node name="DebugOverlay" parent="." node_paths=PackedStringArray("vehicle") instance=ExtResource("7_overlay")]
+vehicle = NodePath("../Scooter")
+
+[node name="PauseMenu" parent="." instance=ExtResource("8_pause")]
