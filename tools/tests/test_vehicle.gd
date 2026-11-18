@@ -9,6 +9,16 @@ const SPAWN_HEIGHT: float = 0.3
 const SETTLE_FRAMES: int = 90
 const UPRIGHT_AT_REST: float = 0.98
 const UPRIGHT_WHILE_DRIVING: float = 0.9
+const HARD_LANDING_HEIGHT: float = 10.0
+const SUNK_HEIGHT: float = -0.4
+## Deepest the body origin may dip below the ground on a landing (about full
+## suspension compression). Deeper means wheels went into the ground.
+const MAX_LANDING_DIP: float = 0.25
+## Sudden yaw rate (rad/s) given to a vehicle at full speed.
+const YAW_KICK: float = 0.5
+const RAMP_SIZE := Vector3(8.0, 1.0, 10.0)
+const RAMP_ANGLE: float = 20.0
+const RAMP_RUN_UP: float = 60.0
 
 
 func test_scene_wiring() -> void:
@@ -136,6 +146,107 @@ func test_reset_upright_recovers_from_side() -> void:
 		await cleanup()
 
 
+func test_stays_straight_at_speed_after_a_kick() -> void:
+	for path: String in VEHICLE_SCENES:
+		var vehicle: ArcadeVehicle = await _spawn(path)
+		await wait_physics_frames(SETTLE_FRAMES)
+		vehicle.intent.throttle = 1.0
+		await wait_physics_frames(60 * 12)
+		var label: String = path.get_file()
+		var heading_before: float = _heading_degrees(vehicle)
+		var drift_before: float = vehicle.global_position.x
+		# Disturb it (like a bump or a clipped crate), then let go.
+		vehicle.angular_velocity += Vector3.UP * YAW_KICK
+		await wait_physics_frames(60)
+		var yaw_rate_after: float = absf(vehicle.angular_velocity.y)
+		var heading_change: float = absf(_heading_degrees(vehicle) - heading_before)
+		note("%s at %.0f km/h: drift before kick %.2f m, yaw rate 1 s after kick %.3f rad/s, heading moved %.1f°" % [
+			label, vehicle.get_speed_kmh(), drift_before, yaw_rate_after, heading_change])
+		expect(absf(drift_before) < 0.5, "%s: drifts sideways at speed (%.1f m)" % [label, drift_before])
+		expect(yaw_rate_after < 0.05, "%s: kick did not die out (yaw rate %.2f)" % [label, yaw_rate_after])
+		expect(heading_change < 20.0, "%s: kick turned it %.0f°" % [label, heading_change])
+		expect(_upright(vehicle) > UPRIGHT_WHILE_DRIVING, "%s: tipped after kick" % label)
+		await cleanup()
+
+
+func test_survives_hard_landing() -> void:
+	for path: String in VEHICLE_SCENES:
+		var vehicle: ArcadeVehicle = await _spawn(path)
+		vehicle.teleport(Transform3D(Basis.IDENTITY, Vector3(0.0, HARD_LANDING_HEIGHT, 0.0)))
+		var lowest: float = await _track_lowest(vehicle, 240)
+		_expect_on_wheels(vehicle, path.get_file() + " after %.0f m drop" % HARD_LANDING_HEIGHT, lowest)
+		await cleanup()
+
+
+func test_recovers_when_pushed_into_ground() -> void:
+	for path: String in VEHICLE_SCENES:
+		var vehicle: ArcadeVehicle = await _spawn(path)
+		# Wheel mounts below the surface: the state seen after bad landings.
+		vehicle.teleport(Transform3D(Basis.IDENTITY, Vector3(0.0, SUNK_HEIGHT, 0.0)))
+		await wait_physics_frames(120)
+		_expect_on_wheels(vehicle, path.get_file() + " started sunk", vehicle.global_position.y)
+		await cleanup()
+
+
+func test_jumps_ramp_at_speed() -> void:
+	for path: String in VEHICLE_SCENES:
+		add_node(_make_ramp())
+		var vehicle: ArcadeVehicle = await _spawn(path)
+		vehicle.teleport(Transform3D(Basis.IDENTITY, Vector3(0.0, SPAWN_HEIGHT, RAMP_RUN_UP)))
+		await wait_physics_frames(SETTLE_FRAMES)
+		vehicle.intent.throttle = 1.0
+		var airborne_frames: int = 0
+		var max_height: float = 0.0
+		for i: int in 60 * 8:
+			await tree.physics_frame
+			max_height = maxf(max_height, vehicle.global_position.y)
+			if not vehicle.is_grounded():
+				airborne_frames += 1
+		vehicle.intent.throttle = 0.0
+		var lowest: float = await _track_lowest(vehicle, 120)
+		var label: String = path.get_file() + " ramp jump"
+		note("%s: airborne %.2f s, peak %.1f m, lowest after %.2f m" % [
+			label, airborne_frames / 60.0, max_height, lowest])
+		expect(airborne_frames > 20, "%s: never left the ground" % label)
+		_expect_on_wheels(vehicle, label, lowest)
+		await cleanup()
+
+
+## Watches the vehicle for `frames` ticks and returns the lowest origin height
+## seen once it has come back down near the ground.
+func _track_lowest(vehicle: ArcadeVehicle, frames: int) -> float:
+	var lowest: float = INF
+	for i: int in frames:
+		await tree.physics_frame
+		lowest = minf(lowest, vehicle.global_position.y)
+	return lowest
+
+
+func _expect_on_wheels(vehicle: ArcadeVehicle, label: String, lowest: float) -> void:
+	note("%s: wheels %d/%d, height %.3f (lowest %.3f), upright %.3f" % [label,
+		vehicle.grounded_wheel_count, vehicle.wheels.size(), vehicle.global_position.y,
+		lowest, _upright(vehicle)])
+	expect(vehicle.grounded_wheel_count == vehicle.wheels.size(), "%s: wheels not on the ground" % label)
+	expect(vehicle.global_position.y > -0.05, "%s: body sunk into the ground (y %.2f)" % [
+		label, vehicle.global_position.y])
+	expect(_upright(vehicle) > UPRIGHT_WHILE_DRIVING, "%s: not upright" % label)
+	expect(lowest > -MAX_LANDING_DIP, "%s: dipped %.2f m into the ground on landing" % [label, -lowest])
+
+
+## A 20° ramp rising toward -Z, its low edge on the ground at z = 0.
+func _make_ramp() -> StaticBody3D:
+	var ramp := StaticBody3D.new()
+	var shape := CollisionShape3D.new()
+	var box := BoxShape3D.new()
+	box.size = RAMP_SIZE
+	shape.shape = box
+	ramp.add_child(shape)
+	var tilt := Basis(Vector3.RIGHT, deg_to_rad(RAMP_ANGLE))
+	var low_top_edge := Vector3(0.0, RAMP_SIZE.y * 0.5, RAMP_SIZE.z * 0.5)
+	ramp.transform = Transform3D(tilt, -(tilt * low_top_edge))
+	return ramp
+
+
 func _spawn(path: String) -> ArcadeVehicle:
 	add_node(_make_ground())
 	var vehicle := (load(path) as PackedScene).instantiate() as ArcadeVehicle
@@ -154,6 +265,11 @@ func _make_ground() -> StaticBody3D:
 	ground.add_child(shape)
 	ground.position = Vector3(0.0, -0.5, 0.0)
 	return ground
+
+
+func _heading_degrees(vehicle: ArcadeVehicle) -> float:
+	var forward: Vector3 = -vehicle.global_basis.z
+	return rad_to_deg(atan2(-forward.x, -forward.z))
 
 
 func _upright(vehicle: ArcadeVehicle) -> float:

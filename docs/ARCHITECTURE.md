@@ -76,7 +76,11 @@ steering, air control, top-speed limiting. Lean/pitch are applied to the
 **visual mesh only**, so physics stays stable. Stability tweaks are applied as
 angular acceleration, so tuning doesn't depend on mass or shape. The body's
 own damping is replaced by the stats (Godot's project default would cap top
-speed).
+speed). Wheel rays start inside the chassis (`ray_start_height`) and a
+predictive bump stop turns a bottomed-out wheel into a solid contact, so hard
+landings never push the wheels into the ground. Tire grip and the bump stop use the
+*effective mass* at the contact point (mass plus rotational inertia), not a
+share of total mass; that keeps light, narrow vehicles stable at speed.
 
 Why not `VehicleBody3D`: two-wheelers tip over, grip/drift tuning is opaque and
 there is no lean. A custom raycast vehicle is a few hundred lines, fully

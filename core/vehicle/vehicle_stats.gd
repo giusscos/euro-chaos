@@ -68,6 +68,14 @@ const KMH_PER_MS: float = 3.6
 @export_range(0.01, 2.0, 0.01, "suffix:m") var suspension_rest_length: float = 0.25
 @export_range(0.0, 500000.0, 10.0, "suffix:N/m") var spring_stiffness: float = 9800.0
 @export_range(0.0, 50000.0, 10.0, "suffix:N·s/m") var spring_damping: float = 1100.0
+## Wheel rays start this far above the mount, so a wheel still finds the
+## ground when a hard landing pushes the mount below the surface. Keep the
+## start point inside the chassis.
+@export_range(0.0, 2.0, 0.01, "suffix:m") var ray_start_height: float = 0.4
+## When the suspension runs out of travel the wheel acts as a solid contact:
+## downward motion stops and the body is pushed back out at
+## (overtravel × this) m/s. Higher = snappier recovery, lower = softer.
+@export_range(0.0, 100.0, 0.5, "suffix:1/s") var bump_stop_recovery: float = 10.0
 
 @export_group("Stability")
 ## Keeps the body's roll aligned with the ground. Essential for two-wheelers

@@ -119,9 +119,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if throttle == 0.0 and brake_input == 0.0:
 		brake_total += stats.coast_brake_force
 
-	var wheel_count: int = wheels.size()
-	var mass_share: float = stats.mass / maxf(wheel_count, 1)
-	var brake_per_wheel: float = brake_total / maxf(wheel_count, 1)
+	var brake_per_wheel: float = brake_total / maxf(wheels.size(), 1)
 	var handbrake_per_wheel: float = stats.handbrake_force / maxf(_rear_count, 1)
 
 	grounded_wheel_count = 0
@@ -135,7 +133,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		if intent.handbrake and is_rear:
 			brake = maxf(brake, handbrake_per_wheel)
 			grip *= stats.handbrake_rear_grip
-		wheel.simulate(state, stats, mass_share, drive, brake, grip)
+		wheel.simulate(state, stats, drive, brake, grip)
 		if wheel.is_grounded:
 			grounded_wheel_count += 1
 			ground_normal += wheel.contact_normal
