@@ -59,18 +59,25 @@ Goal: a complete, fun 5-minute loop with no art.
       audio, map builder, village locations, a full shift end to end, sea respawn
 - [x] Playtest + feedback: approved
 
-## Phase 2 — Comic chaos and feel  ← next
+## Phase 2 — Comic chaos and feel  ← done, waiting for playtest
 
-- [ ] Cargo physics: stacked pizza boxes / gelato that wobble and can fall
-- [ ] Pedestrians on a navmesh, comedic knockback (cartoon, no gore: keeps the
-      App Store age rating low)
-- [ ] Physics props: fruit crates, café chairs, laundry lines, an angry nonna
-- [ ] Satire events (all fictional): tour group following an umbrella blocks the
-      street, influencer filming in the road, rival app "FreedomBurger Express"
-- [ ] Traffic: AI drivers reuse `ArcadeVehicle` through an AI controller on paths
-- [ ] Juice: camera shake, speed lines, horn gags, near-miss bonus
+- [x] Cargo you can see: pizza boxes / tower / gelato / espresso tray on the
+      rack, swaying with the ride, toppling past each cargo's limit
+- [x] Pedestrians on the level's street grid (navmesh postponed: the grid is
+      simpler and every map gets it free), cartoon knockback, horn dodges
+- [x] Physics props: café tables and chairs, fruit stands; angry nonnas on
+      their doorsteps (laundry lines: Phase 4 art pass)
+- [x] Satire events (all fictional): tour group following an umbrella,
+      influencer filming in the road, rival app "FreedomBurger Express"
+      racing you for the tip
+- [x] Traffic: AI drivers reuse `ArcadeVehicle` via `AiVehicleController`;
+      village gets a two-lane ring road, alleys become a scooter-only zone
+      with bollards
+- [x] Juice: camera shake, speed lines, horn gags, near-miss bonus, chaos
+      score with floating text
+- [ ] **Your playtest + feedback**
 
-## Phase 3 — Road rules, police, garage
+## Phase 3 — Road rules, police, garage  ← next
 
 Goal: breaking the law is fun and has consequences; delivery money buys vehicles.
 

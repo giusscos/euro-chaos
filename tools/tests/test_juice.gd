@@ -71,6 +71,21 @@ func test_near_miss_rewards_close_passes_only() -> void:
 		await cleanup()
 
 
+func test_toast_newest_message_wins() -> void:
+	var toast := Toast.new()
+	add_node(toast)
+	toast.show_message("first")
+	toast.show_message("stale")
+	toast.show_message("latest")
+	for i: int in 30:
+		await tree.process_frame
+	expect(toast.text == "first", "the first message should show for its minimum time")
+	for i: int in 45:
+		await tree.process_frame
+	note("after ~1.25 s the toast says '%s'" % toast.text)
+	expect(toast.text == "latest", "the newest message should replace it quickly (the stale one is dropped)")
+
+
 func _setup_scooter() -> ArcadeVehicle:
 	var ground := StaticBody3D.new()
 	var shape := CollisionShape3D.new()
