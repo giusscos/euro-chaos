@@ -59,7 +59,7 @@ Goal: a complete, fun 5-minute loop with no art.
       audio, map builder, village locations, a full shift end to end, sea respawn
 - [x] Playtest + feedback: approved
 
-## Phase 2 — Comic chaos and feel  ← done, waiting for playtest
+## Phase 2 — Comic chaos and feel  ✓ done (merged 2026-11-18)
 
 - [x] Cargo you can see: pizza boxes / tower / gelato / espresso tray on the
       rack, swaying with the ride, toppling past each cargo's limit
@@ -75,7 +75,7 @@ Goal: a complete, fun 5-minute loop with no art.
       with bollards
 - [x] Juice: camera shake, speed lines, horn gags, near-miss bonus, chaos
       score with floating text
-- [ ] **Your playtest + feedback**
+- [x] Playtest + feedback: approved
 
 ## Phase 3 — Road rules, police, garage  ← next
 
