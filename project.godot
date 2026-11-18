@@ -22,6 +22,9 @@ config/icon="res://icon.svg"
 Events="*res://core/autoload/events.gd"
 GameState="*res://core/autoload/game_state.gd"
 SceneLoader="*res://core/autoload/scene_loader.gd"
+Settings="*res://core/autoload/settings.gd"
+SaveManager="*res://core/autoload/save_manager.gd"
+AudioManager="*res://core/autoload/audio_manager.gd"
 
 [debug]
 
