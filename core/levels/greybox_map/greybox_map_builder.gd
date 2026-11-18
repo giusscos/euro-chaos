@@ -89,6 +89,8 @@ var _plateau: float = 6.0
 var _rng := RandomNumberGenerator.new()
 var _root: Node3D
 var _groups: Dictionary = {}
+## Ramp cell -> [centre height, uphill direction (1..4, see LevelGrid)].
+var _ramp_cells: Dictionary = {}
 
 
 func build(map_text: String, source_name: String = "map") -> Node3D:
@@ -114,6 +116,7 @@ func build(map_text: String, source_name: String = "map") -> Node3D:
 	_build_ground()
 	_build_plateau(doors)
 	_build_ramps()
+	_build_grid()
 	_build_buildings(doors)
 	_build_details()
 	_build_bounds()
@@ -328,6 +331,51 @@ func _build_ramps() -> void:
 		var basis := Basis(side, normal, side.cross(normal))
 		_block("Ramps", "Ramp", Vector3(across, thickness, sqrt(run * run + _plateau * _plateau)),
 			top_center - normal * thickness * 0.5, COLORS["street"], basis)
+		_record_ramp_cells(c, rect)
+
+
+## Remembers each ramp cell's centre height and uphill direction for the grid.
+func _record_ramp_cells(c: String, rect: Rect2i) -> void:
+	var dir: int = "^>v<".find(c) + 1
+	for y: int in range(rect.position.y, rect.end.y):
+		for x: int in range(rect.position.x, rect.end.x):
+			var fraction: float = 0.0
+			match c:
+				"^":
+					fraction = (rect.end.y - (y + 0.5)) / rect.size.y
+				"v":
+					fraction = (y + 0.5 - rect.position.y) / rect.size.y
+				"<":
+					fraction = (rect.end.x - (x + 0.5)) / rect.size.x
+				">":
+					fraction = (x + 0.5 - rect.position.x) / rect.size.x
+			_ramp_cells[Vector2i(x, y)] = [_plateau * fraction, dir]
+
+
+## Writes the walkable/drivable layout (LevelGrid) into the scene.
+func _build_grid() -> void:
+	var grid := LevelGrid.new()
+	grid.setup(Vector2i(_width, _height), _cell, Vector3(-_width * _cell * 0.5, 0.0, -_height * _cell * 0.5))
+	var kinds: Dictionary = {
+		".": LevelGrid.Kind.STREET, "=": LevelGrid.Kind.ROAD, "P": LevelGrid.Kind.PIAZZA,
+		"S": LevelGrid.Kind.PIAZZA, "h": LevelGrid.Kind.PLATEAU, "b": LevelGrid.Kind.BEACH,
+		"g": LevelGrid.Kind.GRASS, "w": LevelGrid.Kind.PIER, "~": LevelGrid.Kind.WATER,
+	}
+	for y: int in _height:
+		for x: int in _width:
+			var cell := Vector2i(x, y)
+			var c: String = _at(x, y)
+			if _ramp_cells.has(cell):
+				var ramp: Array = _ramp_cells[cell]
+				grid.set_cell(cell, LevelGrid.Kind.RAMP, ramp[0], ramp[1])
+			else:
+				grid.set_cell(cell, kinds.get(c, LevelGrid.Kind.BLOCKED), _level(x, y))
+	var holder := LevelGridNode.new()
+	holder.name = "LevelGrid"
+	holder.grid = grid
+	_root.add_child(holder)
+	stats["DriveCells"] = grid.usable_cell_count(true)
+	stats["WalkCells"] = grid.usable_cell_count(false)
 
 
 ## For every shop/customer building: the best street cell in front of it.
