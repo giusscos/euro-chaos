@@ -32,7 +32,7 @@ Goal: drive a greybox Vespa around a bare test level and have it feel good.
       (effective-mass tire forces), throttle + handbrake creeping (locked
       wheels get no drive)
 
-## Phase 1 — Vespa Delivery: core loop (greybox)  ← done, waiting for playtest
+## Phase 1 — Vespa Delivery: core loop (greybox)  ✓ done (merged 2026-11-18)
 
 Goal: a complete, fun 5-minute loop with no art.
 
@@ -57,10 +57,9 @@ Goal: a complete, fun 5-minute loop with no art.
 - [x] Results screen (pause menu already done in Phase 0)
 - [x] Tests: interaction, mission flow and scoring, cargo damage, saving,
       audio, map builder, village locations, a full shift end to end, sea respawn
-- [ ] **Your playtest + feedback** (is the loop fun? timers too tight/loose?
-      cargo too fragile? village layout?)
+- [x] Playtest + feedback: approved
 
-## Phase 2 — Comic chaos and feel
+## Phase 2 — Comic chaos and feel  ← next
 
 - [ ] Cargo physics: stacked pizza boxes / gelato that wobble and can fall
 - [ ] Pedestrians on a navmesh, comedic knockback (cartoon, no gore: keeps the
