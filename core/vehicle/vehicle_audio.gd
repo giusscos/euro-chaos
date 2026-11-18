@@ -56,4 +56,5 @@ func _process(delta: float) -> void:
 	var honking: bool = vehicle.intent.horn
 	if honking and not _was_honking:
 		_horn.play()
+		Events.horn_honked.emit(vehicle)
 	_was_honking = honking

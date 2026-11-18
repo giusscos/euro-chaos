@@ -98,7 +98,7 @@ size = Vector3(0.13, 0.4, 0.06)
 
 [node name="Scooter" type="RigidBody3D" node_paths=PackedStringArray("visual")]
 collision_layer = 2
-collision_mask = 15
+collision_mask = 7
 physics_material_override = SubResource("PhysicsMaterial_body")
 script = ExtResource("1_vehicle")
 stats = ExtResource("2_stats")
