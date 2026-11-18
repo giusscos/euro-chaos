@@ -11,3 +11,7 @@ signal minigame_finished(id: StringName, result: Dictionary)
 
 @warning_ignore("unused_signal")
 signal vehicle_teleported(vehicle: Node3D)
+
+## An Interactable wants its prompt shown (text) or hidden (empty text).
+@warning_ignore("unused_signal")
+signal interaction_prompt_changed(source: Node, text: String)
