@@ -3,7 +3,7 @@
 Each phase ends with a playable build and a playtest stop. Each mini-game adds
 **one** new core system that the final island game reuses.
 
-## Phase 0 — Foundations  ← done, waiting for playtest
+## Phase 0 — Foundations  ✓ done (merged 2026-11-18)
 
 Goal: drive a greybox Vespa around a bare test level and have it feel good.
 
@@ -27,9 +27,12 @@ Goal: drive a greybox Vespa around a bare test level and have it feel good.
 - [x] Headless tests: script compile check, smoke test (every scene), mini-game
       contract, scene loader, vehicle physics (rest, accelerate, turn, brake,
       reverse, top speed, reset)
-- [ ] **Your playtest + feedback** (feel of scooter, camera, controls)
+- [x] Playtest + feedback. Fixed from it: wheels sinking into the ground
+      after jumps (ray start + bump stop), scooter weaving at speed
+      (effective-mass tire forces), throttle + handbrake creeping (locked
+      wheels get no drive)
 
-## Phase 1 — Vespa Delivery: core loop (greybox)
+## Phase 1 — Vespa Delivery: core loop (greybox)  ← next
 
 Goal: a complete, fun 5-minute loop with no art.
 
