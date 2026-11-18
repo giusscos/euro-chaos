@@ -15,8 +15,9 @@ sky_material = SubResource("ProceduralSkyMaterial_sky")
 [sub_resource type="Environment" id="Environment_main"]
 background_mode = 2
 sky = SubResource("Sky_main")
-ambient_light_source = 3
-ambient_light_sky_contribution = 0.6
+ambient_light_source = 2
+ambient_light_color = Color(0.68, 0.68, 0.72, 1)
+ambient_light_energy = 0.9
 tonemap_mode = 2
 fog_enabled = true
 fog_light_color = Color(0.78, 0.84, 0.9, 1)
@@ -30,7 +31,7 @@ editor_description = "Scooter Delivery village. Geometry is generated from villa
 environment = SubResource("Environment_main")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.5736, 0.5481, -0.6087, 0, 0.7431, 0.6691, 0.8192, -0.3838, 0.4263, 0, 30, 0)
+transform = Transform3D(0.8192, 0.5064, -0.2693, 0, 0.4695, 0.8829, 0.5736, -0.7233, 0.3846, 0, 30, 0)
 light_color = Color(1, 0.95, 0.86, 1)
 light_energy = 1.15
 shadow_enabled = true

@@ -5,7 +5,7 @@ extends Node3D
 ## Set `target_position` and `has_target`; it follows `follow`.
 
 @export var follow: Node3D
-@export_range(0.0, 10.0, 0.05, "suffix:m") var height: float = 2.6
+@export_range(0.0, 10.0, 0.05, "suffix:m") var height: float = 2.3
 @export_range(0.0, 1.0, 0.01, "suffix:m") var bob_amount: float = 0.12
 @export_range(0.0, 5.0, 0.05, "suffix:Hz") var bob_speed: float = 1.3
 ## How fast it turns toward the target (1/s).

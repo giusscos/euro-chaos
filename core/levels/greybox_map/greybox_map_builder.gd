@@ -42,6 +42,8 @@ const DEFAULTS: Dictionary = {
 const DRIVABLE: String = ".=PSbghwt"
 const RAMPS: String = "^v<>"
 const DIGITS: String = "123456789"
+## Doors face the most open street within this many cells.
+const DOOR_SCAN_RADIUS: int = 2
 
 const COLORS: Dictionary = {
 	"street": Color(0.62, 0.58, 0.52),
@@ -350,10 +352,13 @@ func _find_doors() -> Dictionary:
 				var street_char: String = _at(street.x, street.y)
 				if not _is_drivable(street_char) or RAMPS.contains(street_char) or cells.has(street):
 					continue
+				# Prefer doors on open spaces: count drivable (non-ramp) cells nearby.
 				var score: int = 0
-				for around: Vector2i in DIRECTIONS:
-					if _is_drivable(_at(street.x + around.x, street.y + around.y)):
-						score += 1
+				for dy: int in range(-DOOR_SCAN_RADIUS, DOOR_SCAN_RADIUS + 1):
+					for dx: int in range(-DOOR_SCAN_RADIUS, DOOR_SCAN_RADIUS + 1):
+						var around: String = _at(street.x + dx, street.y + dy)
+						if _is_drivable(around) and not RAMPS.contains(around):
+							score += 1
 				if score > best_score:
 					best_score = score
 					best = {"door_cell": cell, "street_cell": street, "direction": dir}
@@ -495,7 +500,7 @@ func _build_door(door: Dictionary, c: String) -> void:
 	var label := Label3D.new()
 	label.name = "Sign"
 	label.text = display_name
-	label.font_size = 48
+	label.font_size = 36
 	label.pixel_size = 0.01
 	label.outline_size = 10
 	label.double_sided = false

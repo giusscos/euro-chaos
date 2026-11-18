@@ -61,7 +61,8 @@ func _on_start() -> void:
 	results_screen.menu_pressed.connect(_go_to_menu)
 
 	hud.set_shift_progress(0, shift.size())
-	hud.show_toast("Shift starts!  %d deliveries" % shift.size(), Color.WHITE, 1.6)
+	hud.show_toast("Shift starts!  %d %s" % [shift.size(), "delivery" if shift.size() == 1 else "deliveries"],
+		Color.WHITE, 1.6)
 	_after(intro_delay, _start_next_mission)
 
 
