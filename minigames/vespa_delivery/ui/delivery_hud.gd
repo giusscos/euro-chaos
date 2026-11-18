@@ -26,6 +26,7 @@ extends CanvasLayer
 @onready var _cargo_bar: ProgressBar = %CargoBar
 @onready var _money: Label = %MoneyLabel
 @onready var _shift: Label = %ShiftLabel
+@onready var _chaos: Label = %ChaosLabel
 @onready var _toast: Toast = %Toast
 
 var _flash_left: float = 0.0
@@ -39,6 +40,8 @@ func _ready() -> void:
 	_speech.text = ""
 	_set_money(GameState.money)
 	GameState.money_changed.connect(_set_money)
+	_set_chaos(GameState.chaos)
+	GameState.chaos_changed.connect(_set_chaos)
 	if runner != null:
 		runner.mission_started.connect(_on_mission_started)
 		runner.cargo_picked_up.connect(_on_cargo_picked_up)
@@ -123,3 +126,8 @@ func _on_cargo_damaged(_amount: float, _condition: float) -> void:
 
 func _set_money(amount: int) -> void:
 	_money.text = "€ %d" % amount
+
+
+func _set_chaos(amount: int) -> void:
+	_chaos.text = "Chaos %d" % amount
+	_chaos.visible = amount > 0

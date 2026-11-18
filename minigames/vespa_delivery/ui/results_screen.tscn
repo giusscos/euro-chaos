@@ -85,6 +85,13 @@ layout_mode = 2
 text = "Best shift: €0"
 horizontal_alignment = 1
 
+[node name="ChaosLabel" type="Label" parent="Root/Center/Panel/Column"]
+unique_name_in_owner = true
+modulate = Color(1, 0.6, 0.45, 1)
+layout_mode = 2
+text = "Chaos caused: 0"
+horizontal_alignment = 1
+
 [node name="Buttons" type="HBoxContainer" parent="Root/Center/Panel/Column"]
 layout_mode = 2
 theme_override_constants/separation = 20

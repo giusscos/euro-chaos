@@ -1,0 +1,126 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://core/levels/props/chaos_prop.gd" id="1_prop"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_white"]
+albedo_color = Color(0.96, 0.96, 0.94, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_metal"]
+albedo_color = Color(0.2, 0.2, 0.22, 1)
+metallic = 0.4
+
+[sub_resource type="StandardMaterial3D" id="Mat_chair"]
+albedo_color = Color(0.75, 0.2, 0.18, 1)
+
+[sub_resource type="CylinderShape3D" id="Shape_table"]
+height = 0.78
+radius = 0.4
+
+[sub_resource type="CylinderMesh" id="Mesh_top"]
+material = SubResource("Mat_white")
+top_radius = 0.4
+bottom_radius = 0.4
+height = 0.05
+
+[sub_resource type="CylinderMesh" id="Mesh_leg"]
+material = SubResource("Mat_metal")
+top_radius = 0.04
+bottom_radius = 0.04
+height = 0.72
+
+[sub_resource type="CylinderMesh" id="Mesh_base"]
+material = SubResource("Mat_metal")
+top_radius = 0.22
+bottom_radius = 0.22
+height = 0.04
+
+[sub_resource type="BoxShape3D" id="Shape_chair"]
+size = Vector3(0.42, 0.9, 0.42)
+
+[sub_resource type="BoxMesh" id="Mesh_seat"]
+material = SubResource("Mat_chair")
+size = Vector3(0.42, 0.06, 0.42)
+
+[sub_resource type="BoxMesh" id="Mesh_back"]
+material = SubResource("Mat_chair")
+size = Vector3(0.42, 0.42, 0.05)
+
+[sub_resource type="BoxMesh" id="Mesh_legs"]
+material = SubResource("Mat_metal")
+size = Vector3(0.36, 0.42, 0.36)
+
+[node name="CafeSet" type="Node3D"]
+
+[node name="Table" type="RigidBody3D" parent="."]
+collision_layer = 4
+collision_mask = 7
+mass = 10.0
+script = ExtResource("1_prop")
+chaos_points = 5
+chaos_label = "Café table!"
+
+[node name="Shape" type="CollisionShape3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39, 0)
+shape = SubResource("Shape_table")
+
+[node name="Top" type="MeshInstance3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.755, 0)
+mesh = SubResource("Mesh_top")
+
+[node name="Leg" type="MeshInstance3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38, 0)
+mesh = SubResource("Mesh_leg")
+
+[node name="Base" type="MeshInstance3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("Mesh_base")
+
+[node name="Chair1" type="RigidBody3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -0.8, 0, 0)
+collision_layer = 4
+collision_mask = 7
+mass = 4.0
+script = ExtResource("1_prop")
+chaos_points = 3
+chaos_label = "Chair!"
+
+[node name="Shape" type="CollisionShape3D" parent="Chair1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+shape = SubResource("Shape_chair")
+
+[node name="Seat" type="MeshInstance3D" parent="Chair1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+mesh = SubResource("Mesh_seat")
+
+[node name="Back" type="MeshInstance3D" parent="Chair1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69, 0.19)
+mesh = SubResource("Mesh_back")
+
+[node name="Legs" type="MeshInstance3D" parent="Chair1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21, 0)
+mesh = SubResource("Mesh_legs")
+
+[node name="Chair2" type="RigidBody3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.8, 0, 0)
+collision_layer = 4
+collision_mask = 7
+mass = 4.0
+script = ExtResource("1_prop")
+chaos_points = 3
+chaos_label = "Chair!"
+
+[node name="Shape" type="CollisionShape3D" parent="Chair2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+shape = SubResource("Shape_chair")
+
+[node name="Seat" type="MeshInstance3D" parent="Chair2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+mesh = SubResource("Mesh_seat")
+
+[node name="Back" type="MeshInstance3D" parent="Chair2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69, 0.19)
+mesh = SubResource("Mesh_back")
+
+[node name="Legs" type="MeshInstance3D" parent="Chair2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21, 0)
+mesh = SubResource("Mesh_legs")

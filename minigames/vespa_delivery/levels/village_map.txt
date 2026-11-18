@@ -12,6 +12,7 @@
 ;   C  church            Z  pizzeria (pickup) G  gelateria (pickup)
 ;   1-9  customer houses (door faces the busiest neighbouring street)
 ;   F  fountain          g  grass  t  tree    b  beach  ~  sea  w  wooden pier
+;   k  café tables (piazza)   f  fruit stand (street): physics props, chaos points
 
 @cell_size = 4
 @plateau_height = 6
@@ -50,14 +51,14 @@ hhhhhhhhhhhhhhhhhhhhhhhh.#########.######.###.##
 #^^###.#####.#####^^.###.##CCCCC##.######.###.##
 #^^###.8####.#####^^.###.##CCCCC##.######.###.##
 #^^...............^^.###PPPPPPPPPPP.#####.###.##
-#^^######.########^^.###PPPPPPPPPPP.#####.###.##
+#^^######.########^^.###PPPkPPPkPPP.#####.###.##
 #^^######.########^^.ZZZPPPPPPPPPPP.#####.###.##
 #^^######.########^^.ZZZPPPPPFFPPPP.#####.###.##
 #^^######.########^^.###PPSPPFFPPPP.#####.###.##
-#.......................PPPPPPPPPPP.#####.###.##
+#...........f...........PPPPPPPPPPP.#####.###.##
+#..######.########..####PPkPPkPPkPP.#####.###.##
 #..######.########..####PPPPPPPPPPP.#####.###.##
-#..######.########..####PPPPPPPPPPP.#####.###.##
-#.............................................##
+#....f..........f.....................f.......##
 #.#######.########.#####.##########.#####.###.##
 #.#######.########.#####.##########.#####.###.##
 #.#######.########.#####.##########.#####.###.##

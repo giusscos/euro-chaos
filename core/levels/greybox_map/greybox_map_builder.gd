@@ -13,6 +13,11 @@ extends RefCounted
 const BLOCK_SCRIPT: GDScript = preload("res://core/levels/greybox/greybox_block.gd")
 const LOCATION_SCRIPT: GDScript = preload("res://core/missions/mission_location.gd")
 const HAZARD_SCRIPT: GDScript = preload("res://core/interaction/hazard_zone.gd")
+## Prop scenes placed by map characters.
+const PROP_SCENES: Dictionary = {
+	"k": preload("res://core/levels/props/cafe_set.tscn"),
+	"f": preload("res://core/levels/props/fruit_stand.tscn"),
+}
 
 const DEFAULTS: Dictionary = {
 	"cell_size": 4.0,
@@ -44,7 +49,7 @@ const DEFAULTS: Dictionary = {
 	"bollard_offset": 0.65,
 }
 
-const DRIVABLE: String = ".=PSbghwt"
+const DRIVABLE: String = ".=PSbghwtkf"
 const RAMPS: String = "^v<>"
 const DIGITS: String = "123456789"
 ## Doors face the most open street within this many cells.
@@ -112,7 +117,7 @@ func build(map_text: String, source_name: String = "map") -> Node3D:
 	_root = Node3D.new()
 	_root.name = source_name.get_file().get_basename().to_pascal_case()
 	_root.editor_description = "Generated from %s by tools/levels/build_greybox_map.gd.\nDon't edit by hand: change the map and rebuild." % source_name
-	for group_name: String in ["Ground", "Plateau", "Ramps", "Buildings", "Details", "Bounds", "Sea", "Locations"]:
+	for group_name: String in ["Ground", "Plateau", "Ramps", "Buildings", "Details", "Props", "Bounds", "Sea", "Locations"]:
 		var group := Node3D.new()
 		group.name = group_name
 		_root.add_child(group)
@@ -280,7 +285,7 @@ func _build_ground() -> void:
 			var key: String = ""
 			if "=".contains(c):
 				key = "road"
-			elif "PSFC".contains(c):
+			elif "PSFCk".contains(c):
 				key = "piazza"
 			elif "bG".contains(c):
 				key = "sand"
@@ -367,6 +372,7 @@ func _build_grid() -> void:
 		".": LevelGrid.Kind.STREET, "=": LevelGrid.Kind.ROAD, "P": LevelGrid.Kind.PIAZZA,
 		"S": LevelGrid.Kind.PIAZZA, "h": LevelGrid.Kind.PLATEAU, "b": LevelGrid.Kind.BEACH,
 		"g": LevelGrid.Kind.GRASS, "w": LevelGrid.Kind.PIER, "~": LevelGrid.Kind.WATER,
+		"k": LevelGrid.Kind.PIAZZA, "f": LevelGrid.Kind.STREET,
 	}
 	for y: int in _height:
 		for x: int in _width:
@@ -598,6 +604,12 @@ func _build_details() -> void:
 				fountain_keys[Vector2i(x, y)] = "fountain"
 			elif c == "w":
 				pier_keys[Vector2i(x, y)] = "pier"
+			elif PROP_SCENES.has(c):
+				var prop := (PROP_SCENES[c] as PackedScene).instantiate() as Node3D
+				prop.name = "Prop"
+				prop.transform = Transform3D(Basis(Vector3.UP, _rng.randf() * TAU), _cell_center(x, y) + Vector3.UP * _level(x, y))
+				(_groups["Props"] as Node3D).add_child(prop, true)
+				stats["Props"] = int(stats.get("Props", 0)) + 1
 	for entry: Array in _merge(fountain_keys):
 		var rect: Rect2i = entry[1]
 		var center: Vector3 = _rect_center(rect)
@@ -743,4 +755,6 @@ func _build_spawn() -> void:
 func _set_owner_recursive(node: Node, owner: Node) -> void:
 	for child: Node in node.get_children():
 		child.owner = owner
-		_set_owner_recursive(child, owner)
+		# Instanced scenes (props) keep their own children.
+		if child.scene_file_path == "":
+			_set_owner_recursive(child, owner)

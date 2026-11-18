@@ -20,6 +20,10 @@ signal horn_honked(source: Node3D)
 @warning_ignore("unused_signal")
 signal pedestrian_hit(pedestrian: Node3D, by: Node3D, speed: float)
 
+## The player caused chaos worth `amount` points at `position`.
+@warning_ignore("unused_signal")
+signal chaos_caused(amount: int, position: Vector3, label: String)
+
 ## The player entered a HazardZone (e.g. &"water").
 @warning_ignore("unused_signal")
 signal hazard_entered(hazard_id: StringName, body: Node3D)

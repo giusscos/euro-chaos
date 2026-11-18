@@ -15,6 +15,13 @@ const SAVE_SECTION: StringName = &"vespa_delivery"
 @export_range(0.0, 10.0, 0.1, "suffix:s") var intro_delay: float = 1.2
 @export_range(0.0, 10.0, 0.1, "suffix:s") var next_mission_delay: float = 2.5
 
+@export_group("Chaos")
+## Chaos points for knocking over a pedestrian.
+@export_range(0, 100, 1) var pedestrian_chaos: int = 15
+@export var chaos_color: Color = Color(1.0, 0.45, 0.3)
+## Floating chaos text appears this high above the spot.
+@export_range(0.0, 5.0, 0.1, "suffix:m") var chaos_text_height: float = 1.5
+
 @export_group("Hazards")
 ## Cargo condition lost when the scooter ends up in the sea.
 @export_range(0.0, 1.0, 0.05) var water_cargo_damage: float = 0.35
@@ -48,6 +55,7 @@ var _shift_over: bool = false
 
 func _on_start() -> void:
 	GameState.money = SaveManager.get_int(SAVE_SECTION, &"money")
+	GameState.chaos = 0
 	_place_at_spawn()
 	_build_shift()
 
@@ -57,6 +65,8 @@ func _on_start() -> void:
 	runner.mission_finished.connect(_on_mission_finished)
 	cargo_monitor.damaged.connect(_on_cargo_damaged)
 	Events.hazard_entered.connect(_on_hazard_entered)
+	Events.chaos_caused.connect(_on_chaos_caused)
+	Events.pedestrian_hit.connect(_on_pedestrian_hit)
 	results_screen.again_pressed.connect(func() -> void: SceneLoader.change_scene(scene_file_path))
 	results_screen.menu_pressed.connect(_go_to_menu)
 
@@ -132,6 +142,18 @@ func _on_cargo_damaged(amount: float, _condition: float) -> void:
 		AudioManager.play_at(&"impact", vehicle.global_position, linear_to_db(clampf(amount * 6.0, 0.2, 1.0)))
 
 
+func _on_chaos_caused(amount: int, at: Vector3, label: String) -> void:
+	if not is_running:
+		return
+	GameState.add_chaos(amount)
+	FloatingText.spawn(self, "+%d  %s" % [amount, label], at + Vector3.UP * chaos_text_height, chaos_color)
+
+
+func _on_pedestrian_hit(_pedestrian: Node3D, by: Node3D, _speed: float) -> void:
+	if by == vehicle:
+		Events.chaos_caused.emit(pedestrian_chaos, vehicle.global_position, "Pedestrian bowled!")
+
+
 func _on_hazard_entered(hazard_id: StringName, body: Node3D) -> void:
 	if body != vehicle or _grace_left > 0.0 or not is_running:
 		return
@@ -161,6 +183,7 @@ func _end_shift() -> void:
 			delivered += 1
 	var best: int = SaveManager.get_int(SAVE_SECTION, &"best_shift")
 	var is_new_best: bool = earned > best
+	SaveManager.set_value(SAVE_SECTION, &"best_chaos", maxi(SaveManager.get_int(SAVE_SECTION, &"best_chaos"), GameState.chaos))
 	SaveManager.set_value(SAVE_SECTION, &"money", GameState.money)
 	SaveManager.set_value(SAVE_SECTION, &"best_shift", maxi(best, earned))
 	SaveManager.set_value(SAVE_SECTION, &"deliveries", SaveManager.get_int(SAVE_SECTION, &"deliveries") + delivered)
@@ -169,8 +192,8 @@ func _end_shift() -> void:
 	controller.input_enabled = false
 	vehicle.intent.brake = 1.0
 	pause_menu.enabled = false
-	results_screen.show_results(results, earned, maxi(best, earned), is_new_best)
-	finish({"earned": earned, "delivered": delivered})
+	results_screen.show_results(results, earned, maxi(best, earned), is_new_best, GameState.chaos)
+	finish({"earned": earned, "delivered": delivered, "chaos": GameState.chaos})
 
 
 func _place_at_spawn() -> void:
