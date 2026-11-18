@@ -6,5 +6,5 @@
 script = ExtResource("1_info")
 id = &"vespa_delivery"
 title = "Scooter Delivery"
-description = "Deliver pizza across an Italian village on a scooter. (Phase 0 placeholder: test level only.)"
+description = "Deliver pizza, gelato and espresso across an Italian village before it goes cold. A shift is 5 deliveries."
 main_scene = "res://minigames/vespa_delivery/vespa_delivery.tscn"

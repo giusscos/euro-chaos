@@ -1,0 +1,197 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://minigames/vespa_delivery/ui/delivery_hud.gd" id="1_hud"]
+[ext_resource type="Script" path="res://core/ui/hud/prompt_label.gd" id="2_prompt"]
+[ext_resource type="Script" path="res://core/ui/hud/toast.gd" id="3_toast"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.05, 0.05, 0.08, 0.55)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 18.0
+content_margin_top = 12.0
+content_margin_right = 18.0
+content_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_bg"]
+bg_color = Color(0, 0, 0, 0.5)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_fill"]
+bg_color = Color(0.45, 0.9, 0.45, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="DeliveryHud" type="CanvasLayer"]
+layer = 5
+script = ExtResource("1_hud")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="JobPanel" type="PanelContainer" parent="Root"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 28.0
+offset_right = 640.0
+offset_bottom = 120.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Column" type="VBoxContainer" parent="Root/JobPanel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="TitleLabel" type="Label" parent="Root/JobPanel/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+text = "Title"
+
+[node name="CustomerLabel" type="Label" parent="Root/JobPanel/Column"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Customer"
+
+[node name="ObjectiveLabel" type="Label" parent="Root/JobPanel/Column"]
+unique_name_in_owner = true
+modulate = Color(1, 0.88, 0.45, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Objective"
+
+[node name="SpeechLabel" type="Label" parent="Root/JobPanel/Column"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(560, 0)
+modulate = Color(1, 1, 1, 0.85)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "Speech"
+autowrap_mode = 3
+
+[node name="TimerBox" type="VBoxContainer" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 24.0
+offset_right = 200.0
+offset_bottom = 160.0
+grow_horizontal = 2
+mouse_filter = 2
+alignment = 0
+
+[node name="TimerLabel" type="Label" parent="Root/TimerBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 68
+text = "0:30.0"
+horizontal_alignment = 1
+
+[node name="CargoLabel" type="Label" parent="Root/TimerBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 22
+text = "Cargo"
+horizontal_alignment = 1
+
+[node name="CargoBar" type="ProgressBar" parent="Root/TimerBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 18)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bar_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bar_fill")
+value = 100.0
+show_percentage = false
+
+[node name="MoneyPanel" type="PanelContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_top = 28.0
+offset_right = -28.0
+offset_bottom = 120.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Column" type="VBoxContainer" parent="Root/MoneyPanel"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MoneyLabel" type="Label" parent="Root/MoneyPanel/Column"]
+unique_name_in_owner = true
+modulate = Color(0.6, 1, 0.6, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 44
+text = "€ 0"
+horizontal_alignment = 2
+
+[node name="ShiftLabel" type="Label" parent="Root/MoneyPanel/Column"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.75)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Delivery 1 / 5"
+horizontal_alignment = 2
+
+[node name="Toast" type="Label" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.24
+anchor_right = 1.0
+anchor_bottom = 0.24
+offset_bottom = 140.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.85)
+theme_override_constants/outline_size = 14
+theme_override_font_sizes/font_size = 54
+horizontal_alignment = 1
+script = ExtResource("3_toast")
+
+[node name="PromptPanel" type="CenterContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -150.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="PromptLabel" type="Label" parent="Root/PromptPanel"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.85)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 34
+text = "Stop here"
+script = ExtResource("2_prompt")

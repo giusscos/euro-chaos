@@ -32,23 +32,34 @@ Goal: drive a greybox Vespa around a bare test level and have it feel good.
       (effective-mass tire forces), throttle + handbrake creeping (locked
       wheels get no drive)
 
-## Phase 1 — Vespa Delivery: core loop (greybox)  ← next
+## Phase 1 — Vespa Delivery: core loop (greybox)  ✓ done (merged 2026-11-18)
 
 Goal: a complete, fun 5-minute loop with no art.
 
-- [ ] Greybox village: piazza, narrow streets, stairs-free hill route, coast road,
-      ~8 delivery addresses. Built from primitive "kit" scenes, hand-laid
-- [ ] `core/interaction`: Area3D interactables + prompt UI
-- [ ] `core/missions`: `MissionData` (pickup, dropoff, time limit, payout, cargo
-      type), `MissionRunner`, mission list for the village
-- [ ] Delivery loop: pick up at pizzeria → deliver → tip from time + cargo condition
-- [ ] HUD: timer, money, objective arrow
-- [ ] `SaveManager` (money, best times), `Settings` (volumes), `AudioManager` +
-      bus layout, CC0 placeholder SFX
-- [ ] Results screen (pause menu already done in Phase 0)
-- [ ] Tests: mission flow (accept → pickup → deliver → payout)
+- [x] Greybox village (192 × 176 m): piazza with fountain and church, narrow
+      streets, upper town on a 6 m plateau with two ramps, coast road, beach,
+      pier, sea; 9 customer houses + pizzeria + gelateria. Described as an ASCII
+      map (`minigames/vespa_delivery/levels/village_map.txt`) and built by
+      `GreyboxMapBuilder` (first step toward the Phase 6 generator)
+- [x] `core/interaction`: `Interactable` (stop inside / press E) + prompt UI;
+      `HazardZone` (the sea)
+- [x] `core/missions`: `CargoType`, `MissionData`, `MissionLocation`,
+      `MissionRunner`, `CargoMonitor`, `DeliveryResult`, `ObjectiveMarker`;
+      10 satirical missions and 5 cargo types for the village
+- [x] Delivery loop: shift of 5 jobs → pick up → timed delivery → pay + tip
+      from time left and cargo condition; late = half pay; ruined = nothing;
+      fall in the sea = respawn + wet cargo
+- [x] HUD: job + customer quote, objective + distance, timer, cargo bar,
+      money, shift progress, prompt, pop-ups; 3D objective arrow
+- [x] `SaveManager` (money, best shift, deliveries), `Settings` (volumes),
+      `AudioManager` + bus layout; placeholder SFX synthesized in code
+      (`ProceduralSfx`), engine sound pitched by speed, horn
+- [x] Results screen (pause menu already done in Phase 0)
+- [x] Tests: interaction, mission flow and scoring, cargo damage, saving,
+      audio, map builder, village locations, a full shift end to end, sea respawn
+- [x] Playtest + feedback: approved
 
-## Phase 2 — Comic chaos and feel
+## Phase 2 — Comic chaos and feel  ← next
 
 - [ ] Cargo physics: stacked pizza boxes / gelato that wobble and can fall
 - [ ] Pedestrians on a navmesh, comedic knockback (cartoon, no gore: keeps the

@@ -4,6 +4,8 @@ shader_type spatial;
 // The tint is a per-instance uniform: every block shares one material.
 
 instance uniform vec4 base_color : source_color = vec4(0.6, 0.6, 0.6, 1.0);
+// 1 = full grid, 0 = plain colour (e.g. building walls).
+instance uniform float grid_strength = 1.0;
 uniform float cell_size = 1.0;
 uniform float major_every = 10.0;
 uniform float minor_line_strength : hint_range(0.0, 1.0) = 0.18;
@@ -34,8 +36,8 @@ void fragment() {
 	float minor = grid_lines(uv / cell_size);
 	float major = grid_lines(uv / (cell_size * major_every));
 	vec3 color = base_color.rgb;
-	color *= 1.0 - minor * minor_line_strength;
-	color *= 1.0 - major * major_line_strength;
+	color *= 1.0 - minor * minor_line_strength * grid_strength;
+	color *= 1.0 - major * major_line_strength * grid_strength;
 	ALBEDO = color;
 	ROUGHNESS = roughness_value;
 }

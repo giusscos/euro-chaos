@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MissionData" format=3]
+
+[ext_resource type="Script" path="res://core/missions/mission_data.gd" id="1_mission"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/cargo/pizza.tres" id="2_cargo"]
+
+[resource]
+script = ExtResource("1_mission")
+id = &"critic_kevin"
+title = "The Review"
+customer_name = "Kevin (food critic, 3 followers)"
+request_text = "I'll be rating the pizza, the delivery, and your posture. Mostly your posture."
+pickup_location_id = &"pizzeria"
+dropoff_location_id = &"address_4"
+cargo = ExtResource("2_cargo")
+base_payout = 10
+max_tip = 14
+success_line = "Five stars. Posture: three. Overall, a journey."
+late_line = "One star. The pizza was cold, the delivery was colder, my heart was coldest."
+ruined_line = "I'm writing a thread about this. It will have 3 likes."

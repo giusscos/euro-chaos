@@ -1,35 +1,75 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://core/minigame/minigame.gd" id="1_minigame"]
+[ext_resource type="Script" path="res://minigames/vespa_delivery/vespa_delivery.gd" id="1_vespa_delive"]
+[ext_resource type="Script" path="res://core/missions/mission_data.gd" id="0_mission_data"]
 [ext_resource type="Resource" path="res://minigames/vespa_delivery/info.tres" id="2_info"]
-[ext_resource type="PackedScene" path="res://core/levels/test_level.tscn" id="3_level"]
+[ext_resource type="PackedScene" path="res://minigames/vespa_delivery/levels/village.tscn" id="3_village"]
 [ext_resource type="PackedScene" path="res://core/vehicle/vehicles/scooter.tscn" id="4_scooter"]
-[ext_resource type="Script" path="res://core/vehicle/player_vehicle_controller.gd" id="5_controller"]
-[ext_resource type="PackedScene" path="res://core/camera/chase_camera.tscn" id="6_camera"]
-[ext_resource type="PackedScene" path="res://core/ui/debug_overlay.tscn" id="7_overlay"]
-[ext_resource type="PackedScene" path="res://core/ui/pause_menu.tscn" id="8_pause"]
+[ext_resource type="Script" path="res://core/vehicle/player_vehicle_controller.gd" id="5_player_vehic"]
+[ext_resource type="Script" path="res://core/missions/cargo_monitor.gd" id="6_cargo_monito"]
+[ext_resource type="Script" path="res://core/missions/mission_runner.gd" id="7_mission_runn"]
+[ext_resource type="PackedScene" path="res://core/camera/chase_camera.tscn" id="8_chase_camera"]
+[ext_resource type="PackedScene" path="res://core/ui/objective_arrow.tscn" id="9_objective_ar"]
+[ext_resource type="PackedScene" path="res://minigames/vespa_delivery/ui/delivery_hud.tscn" id="10_delivery_hud"]
+[ext_resource type="PackedScene" path="res://minigames/vespa_delivery/ui/results_screen.tscn" id="11_results_scre"]
+[ext_resource type="PackedScene" path="res://core/ui/pause_menu.tscn" id="12_pause_menu"]
+[ext_resource type="PackedScene" path="res://core/ui/debug_overlay.tscn" id="13_debug_overla"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/critic_kevin.tres" id="14_critic_kevin"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/cruise_couple.tres" id="15_cruise_coupl"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/hat_tour_gelato.tres" id="16_hat_tour_gel"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/hawaiian_for_brad.tres" id="17_hawaiian_for"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/influencer_gelato.tres" id="18_influencer_g"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/mayor_espresso.tres" id="19_mayor_espres"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/nonna_rosa_spy.tres" id="20_nonna_rosa_s"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/padre_cannoli.tres" id="21_padre_cannol"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/signora_bianchi.tres" id="22_signora_bian"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/startup_retreat.tres" id="23_startup_retr"]
 
-[node name="VespaDelivery" type="Node"]
-script = ExtResource("1_minigame")
+[node name="VespaDelivery" type="Node" node_paths=PackedStringArray("vehicle", "controller", "runner", "cargo_monitor", "hud", "arrow", "results_screen", "pause_menu")]
+script = ExtResource("1_vespa_delive")
+mission_pool = Array[ExtResource("0_mission_data")]([ExtResource("14_critic_kevin"), ExtResource("15_cruise_coupl"), ExtResource("16_hat_tour_gel"), ExtResource("17_hawaiian_for"), ExtResource("18_influencer_g"), ExtResource("19_mayor_espres"), ExtResource("20_nonna_rosa_s"), ExtResource("21_padre_cannol"), ExtResource("22_signora_bian"), ExtResource("23_startup_retr")])
+vehicle = NodePath("Scooter")
+controller = NodePath("PlayerVehicleController")
+runner = NodePath("MissionRunner")
+cargo_monitor = NodePath("CargoMonitor")
+hud = NodePath("Hud")
+arrow = NodePath("ObjectiveArrow")
+results_screen = NodePath("ResultsScreen")
+pause_menu = NodePath("PauseMenu")
 info = ExtResource("2_info")
 
-[node name="Level" parent="." instance=ExtResource("3_level")]
-
-[node name="SpawnPoint" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+[node name="Level" parent="." instance=ExtResource("3_village")]
 
 [node name="Scooter" parent="." instance=ExtResource("4_scooter")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 10, 0.3, -2)
 
-[node name="PlayerVehicleController" type="Node" parent="." node_paths=PackedStringArray("vehicle", "respawn_point")]
-script = ExtResource("5_controller")
+[node name="PlayerVehicleController" type="Node" parent="." node_paths=PackedStringArray("vehicle")]
+script = ExtResource("5_player_vehic")
 vehicle = NodePath("../Scooter")
-respawn_point = NodePath("../SpawnPoint")
 
-[node name="ChaseCamera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_camera")]
+[node name="CargoMonitor" type="Node" parent="." node_paths=PackedStringArray("vehicle")]
+script = ExtResource("6_cargo_monito")
+vehicle = NodePath("../Scooter")
+
+[node name="MissionRunner" type="Node" parent="." node_paths=PackedStringArray("cargo_monitor")]
+script = ExtResource("7_mission_runn")
+cargo_monitor = NodePath("../CargoMonitor")
+
+[node name="ChaseCamera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_chase_camera")]
 target = NodePath("../Scooter")
 
-[node name="DebugOverlay" parent="." node_paths=PackedStringArray("vehicle") instance=ExtResource("7_overlay")]
-vehicle = NodePath("../Scooter")
+[node name="ObjectiveArrow" parent="." node_paths=PackedStringArray("follow") instance=ExtResource("9_objective_ar")]
+follow = NodePath("../Scooter")
 
-[node name="PauseMenu" parent="." instance=ExtResource("8_pause")]
+[node name="Hud" parent="." node_paths=PackedStringArray("runner", "cargo_monitor", "player") instance=ExtResource("10_delivery_hud")]
+runner = NodePath("../MissionRunner")
+cargo_monitor = NodePath("../CargoMonitor")
+player = NodePath("../Scooter")
+
+[node name="ResultsScreen" parent="." instance=ExtResource("11_results_scre")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("12_pause_menu")]
+
+[node name="DebugOverlay" parent="." node_paths=PackedStringArray("vehicle") instance=ExtResource("13_debug_overla")]
+vehicle = NodePath("../Scooter")
+visible_on_start = false

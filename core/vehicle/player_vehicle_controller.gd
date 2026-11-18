@@ -5,11 +5,17 @@ extends Node
 
 signal horn_pressed
 
+## The controlled vehicle is put in the Groups.PLAYER group, which is how
+## zones and missions recognise the player.
 @export var vehicle: ArcadeVehicle:
 	set(value):
 		if vehicle != null and vehicle != value:
 			vehicle.intent.clear()
+			if is_instance_valid(vehicle):
+				vehicle.remove_from_group(Groups.PLAYER)
 		vehicle = value
+		if vehicle != null:
+			vehicle.add_to_group(Groups.PLAYER)
 ## Optional: where the debug respawn action puts the vehicle.
 @export var respawn_point: Node3D
 ## How high above the ground "reset upright" lifts the vehicle.

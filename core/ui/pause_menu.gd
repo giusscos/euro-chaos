@@ -6,6 +6,9 @@ extends CanvasLayer
 
 signal pause_changed(paused: bool)
 
+## Off while another full-screen menu (e.g. results) owns the screen.
+@export var enabled: bool = true
+
 @onready var _root: Control = %Root
 @onready var _resume_button: Button = %ResumeButton
 @onready var _menu_button: Button = %MenuButton
@@ -23,7 +26,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(InputActions.PAUSE):
+	if enabled and event.is_action_pressed(InputActions.PAUSE):
 		set_paused(not get_tree().paused)
 		get_viewport().set_input_as_handled()
 

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MissionData" format=3]
+
+[ext_resource type="Script" path="res://core/missions/mission_data.gd" id="1_mission"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/cargo/gelato.tres" id="2_cargo"]
+
+[resource]
+script = ExtResource("1_mission")
+id = &"hat_tour_gelato"
+title = "Group Tour"
+customer_name = "A tour group in matching hats"
+request_text = "We are twenty-four. We all want different flavours. Our guide only speaks Esperanto."
+pickup_location_id = &"gelateria"
+dropoff_location_id = &"address_1"
+cargo = ExtResource("2_cargo")
+base_payout = 14
+max_tip = 10
+success_line = "Bonege! (Our guide says great. We think.)"
+late_line = "The flavours have merged into one flavour. It is beige."
+ruined_line = "Our guide is crying in Esperanto."

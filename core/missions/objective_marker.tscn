@@ -1,0 +1,66 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://core/missions/objective_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://core/interaction/interactable.gd" id="2_interactable"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_zone"]
+height = 4.0
+radius = 3.5
+
+[sub_resource type="StandardMaterial3D" id="Mat_ring"]
+shading_mode = 0
+albedo_color = Color(0.3, 1, 0.5, 1)
+emission_enabled = true
+emission = Color(0.3, 1, 0.5, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_ring"]
+inner_radius = 3.1
+outer_radius = 3.5
+rings = 48
+ring_segments = 8
+
+[sub_resource type="StandardMaterial3D" id="Mat_beam"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.3, 1, 0.5, 0.25)
+emission_enabled = true
+emission = Color(0.3, 1, 0.5, 1)
+cull_mode = 2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_beam"]
+top_radius = 0.6
+bottom_radius = 0.6
+height = 60.0
+cap_top = false
+cap_bottom = false
+
+[node name="ObjectiveMarker" type="Node3D"]
+script = ExtResource("1_marker")
+
+[node name="Interactable" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("2_interactable")
+
+[node name="Zone" type="CollisionShape3D" parent="Interactable"]
+shape = SubResource("CylinderShape3D_zone")
+
+[node name="Ring" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+material_override = SubResource("Mat_ring")
+cast_shadow = 0
+mesh = SubResource("TorusMesh_ring")
+
+[node name="Beam" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30, 0)
+material_override = SubResource("Mat_beam")
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_beam")
+
+[node name="Label" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
+billboard = 1
+no_depth_test = true
+pixel_size = 0.01
+font_size = 96
+outline_size = 18
+text = "Objective"

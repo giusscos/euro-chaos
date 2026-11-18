@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://core/vehicle/arcade_vehicle.gd" id="1_vehicle"]
 [ext_resource type="Resource" path="res://core/vehicle/stats/test_van_stats.tres" id="2_stats"]
 [ext_resource type="Script" path="res://core/vehicle/vehicle_wheel.gd" id="3_wheel"]
+[ext_resource type="Script" path="res://core/vehicle/vehicle_audio.gd" id="5_audio"]
 [ext_resource type="Resource" path="res://core/camera/profiles/van_camera.tres" id="4_camera"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_body"]
@@ -167,3 +168,7 @@ mesh = SubResource("CylinderMesh_wheel")
 
 [node name="Spoke" type="MeshInstance3D" parent="Visual/WheelRRPivot"]
 mesh = SubResource("BoxMesh_spoke")
+
+[node name="Audio" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
+script = ExtResource("5_audio")
