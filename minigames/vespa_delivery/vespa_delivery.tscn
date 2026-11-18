@@ -21,6 +21,7 @@
 [ext_resource type="Resource" path="res://core/characters/profiles/tourist.tres" id="27_tourist"]
 [ext_resource type="Resource" path="res://core/characters/profiles/local.tres" id="28_local"]
 [ext_resource type="Resource" path="res://core/characters/profiles/nonna.tres" id="29_nonna"]
+[ext_resource type="Script" path="res://core/missions/cargo_stack.gd" id="30_stack"]
 [ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/critic_kevin.tres" id="14_critic_kevin"]
 [ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/cruise_couple.tres" id="15_cruise_coupl"]
 [ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/hat_tour_gelato.tres" id="16_hat_tour_gel"]
@@ -32,13 +33,14 @@
 [ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/signora_bianchi.tres" id="22_signora_bian"]
 [ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/startup_retreat.tres" id="23_startup_retr"]
 
-[node name="VespaDelivery" type="Node" node_paths=PackedStringArray("vehicle", "controller", "runner", "cargo_monitor", "hud", "arrow", "results_screen", "pause_menu")]
+[node name="VespaDelivery" type="Node" node_paths=PackedStringArray("vehicle", "controller", "runner", "cargo_monitor", "cargo_stack", "hud", "arrow", "results_screen", "pause_menu")]
 script = ExtResource("1_vespa_delive")
 mission_pool = Array[ExtResource("0_mission_data")]([ExtResource("14_critic_kevin"), ExtResource("15_cruise_coupl"), ExtResource("16_hat_tour_gel"), ExtResource("17_hawaiian_for"), ExtResource("18_influencer_g"), ExtResource("19_mayor_espres"), ExtResource("20_nonna_rosa_s"), ExtResource("21_padre_cannol"), ExtResource("22_signora_bian"), ExtResource("23_startup_retr")])
 vehicle = NodePath("Scooter")
 controller = NodePath("PlayerVehicleController")
 runner = NodePath("MissionRunner")
 cargo_monitor = NodePath("CargoMonitor")
+cargo_stack = NodePath("Scooter/Visual/CargoMount/CargoStack")
 hud = NodePath("Hud")
 arrow = NodePath("ObjectiveArrow")
 results_screen = NodePath("ResultsScreen")
@@ -58,6 +60,11 @@ car_scenes = Array[PackedScene]([ExtResource("25_tiny_car")])
 script = ExtResource("26_peds")
 profiles = Array[ExtResource("0_pedestrian_profile")]([ExtResource("27_tourist"), ExtResource("28_local"), ExtResource("29_nonna")])
 counts = PackedInt32Array(10, 8, 3)
+
+[node name="CargoStack" type="Node3D" parent="Scooter/Visual/CargoMount" node_paths=PackedStringArray("vehicle", "cargo_monitor")]
+script = ExtResource("30_stack")
+vehicle = NodePath("../../..")
+cargo_monitor = NodePath("../../../../CargoMonitor")
 
 [node name="PlayerVehicleController" type="Node" parent="." node_paths=PackedStringArray("vehicle")]
 script = ExtResource("5_player_vehic")

@@ -172,6 +172,9 @@ mesh = SubResource("CapsuleMesh_torso")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0.04)
 mesh = SubResource("SphereMesh_head")
 
+[node name="CargoMount" type="Marker3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.82, 0.6)
+
 [node name="WheelFrontPivot" type="Node3D" parent="Visual"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -0.62)
 

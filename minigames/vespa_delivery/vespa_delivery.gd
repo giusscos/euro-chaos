@@ -38,6 +38,7 @@ const SAVE_SECTION: StringName = &"vespa_delivery"
 @export var controller: PlayerVehicleController
 @export var runner: MissionRunner
 @export var cargo_monitor: CargoMonitor
+@export var cargo_stack: CargoStack
 @export var hud: DeliveryHud
 @export var arrow: ObjectiveArrow
 @export var results_screen: ResultsScreen
@@ -60,7 +61,8 @@ func _on_start() -> void:
 	_build_shift()
 
 	runner.objective_changed.connect(_on_objective_changed)
-	runner.cargo_picked_up.connect(func(_m: MissionData) -> void: AudioManager.play(&"pickup"))
+	runner.cargo_picked_up.connect(_on_cargo_picked_up)
+	cargo_stack.item_lost.connect(_on_cargo_item_lost)
 	runner.became_late.connect(func(_m: MissionData) -> void: AudioManager.play(&"late"))
 	runner.mission_finished.connect(_on_mission_finished)
 	cargo_monitor.damaged.connect(_on_cargo_damaged)
@@ -127,7 +129,20 @@ func _on_objective_changed(target: Vector3, _label: String) -> void:
 	arrow.has_target = true
 
 
+func _on_cargo_picked_up(mission: MissionData) -> void:
+	AudioManager.play(&"pickup")
+	if mission.cargo != null:
+		cargo_stack.load_cargo(mission.cargo)
+
+
+func _on_cargo_item_lost(remaining: int) -> void:
+	AudioManager.play_at(&"impact", vehicle.global_position)
+	if remaining > 0:
+		hud.show_toast("Overboard!  %d left" % remaining, Color(1.0, 0.75, 0.3), 1.2)
+
+
 func _on_mission_finished(result: DeliveryResult) -> void:
+	cargo_stack.clear()
 	results.append(result)
 	arrow.has_target = false
 	GameState.add_money(result.total())
