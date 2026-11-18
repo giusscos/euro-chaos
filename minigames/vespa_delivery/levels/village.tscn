@@ -1,0 +1,45 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://minigames/vespa_delivery/levels/village_greybox.tscn" id="1_greybox"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
+sky_top_color = Color(0.3, 0.55, 0.88, 1)
+sky_horizon_color = Color(0.8, 0.84, 0.88, 1)
+ground_bottom_color = Color(0.2, 0.35, 0.45, 1)
+ground_horizon_color = Color(0.8, 0.84, 0.88, 1)
+sun_angle_max = 20.0
+
+[sub_resource type="Sky" id="Sky_main"]
+sky_material = SubResource("ProceduralSkyMaterial_sky")
+
+[sub_resource type="Environment" id="Environment_main"]
+background_mode = 2
+sky = SubResource("Sky_main")
+ambient_light_source = 3
+ambient_light_sky_contribution = 0.6
+tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(0.78, 0.84, 0.9, 1)
+fog_density = 0.0004
+fog_sky_affect = 0.0
+
+[node name="Village" type="Node3D"]
+editor_description = "Scooter Delivery village. Geometry is generated from village_map.txt into village_greybox.tscn; lighting and anything hand-placed lives here."
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_main")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.5736, 0.5481, -0.6087, 0, 0.7431, 0.6691, 0.8192, -0.3838, 0.4263, 0, 30, 0)
+light_color = Color(1, 0.95, 0.86, 1)
+light_energy = 1.15
+shadow_enabled = true
+directional_shadow_max_distance = 180.0
+
+[node name="OverviewCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7526, 0.6585, 0, -0.6585, 0.7526, 0, 140, 170)
+current = true
+fov = 55.0
+far = 2000.0
+
+[node name="Greybox" parent="." instance=ExtResource("1_greybox")]

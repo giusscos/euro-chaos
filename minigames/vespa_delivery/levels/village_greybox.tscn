@@ -1,0 +1,3399 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://core/levels/greybox/greybox_block.gd" id="1_ajqtb"]
+[ext_resource type="Script" path="res://core/interaction/hazard_zone.gd" id="2_y2kqe"]
+[ext_resource type="Script" path="res://core/missions/mission_location.gd" id="3_bi3wm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8vr68"]
+albedo_color = Color(0.18, 0.45, 0.62, 1)
+roughness = 0.15
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oibmw"]
+material = SubResource("StandardMaterial3D_8vr68")
+size = Vector2(792, 776)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1yb2g"]
+size = Vector3(792, 24.1, 776)
+
+[node name="VillageGreybox" type="Node3D" unique_id=151148421]
+editor_description = "Generated from res://minigames/vespa_delivery/levels/village_map.txt by tools/levels/build_greybox_map.gd.
+Don't edit by hand: change the map and rebuild."
+
+[node name="Ground" type="Node3D" parent="." unique_id=1009014713]
+
+[node name="Ground" type="StaticBody3D" parent="Ground" unique_id=364250644]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -84)
+script = ExtResource("1_ajqtb")
+size = Vector3(192, 1, 8)
+color = Color(0.62, 0.58, 0.52, 1)
+cast_shadows = false
+
+[node name="Ground2" type="StaticBody3D" parent="Ground" unique_id=910885931]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, -0.5, -56)
+script = ExtResource("1_ajqtb")
+size = Vector3(144, 1, 48)
+color = Color(0.62, 0.58, 0.52, 1)
+cast_shadows = false
+
+[node name="Ground3" type="StaticBody3D" parent="Ground" unique_id=1234164321]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, -0.5, -74)
+script = ExtResource("1_ajqtb")
+size = Vector3(36, 1, 12)
+color = Color(0.45, 0.62, 0.35, 1)
+cast_shadows = false
+
+[node name="Ground4" type="StaticBody3D" parent="Ground" unique_id=912139647]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90, -0.5, -18)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 1, 124)
+color = Color(0.62, 0.58, 0.52, 1)
+cast_shadows = false
+
+[node name="Ground5" type="StaticBody3D" parent="Ground" unique_id=898802798]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, -0.5, -12)
+script = ExtResource("1_ajqtb")
+size = Vector3(36, 1, 112)
+color = Color(0.62, 0.58, 0.52, 1)
+cast_shadows = false
+
+[node name="Ground6" type="StaticBody3D" parent="Ground" unique_id=738712813]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, -0.5, -26)
+script = ExtResource("1_ajqtb")
+size = Vector3(108, 1, 12)
+color = Color(0.62, 0.58, 0.52, 1)
+cast_shadows = false
+
+[node name="Ground7" type="StaticBody3D" parent="Ground" unique_id=2140128965]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -0.5, -10)
+script = ExtResource("1_ajqtb")
+size = Vector3(20, 1, 44)
+color = Color(0.82, 0.78, 0.7, 1)
+cast_shadows = false
+
+[node name="Ground8" type="StaticBody3D" parent="Ground" unique_id=1689264777]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, -0.5, -26)
+script = ExtResource("1_ajqtb")
+size = Vector3(16, 1, 12)
+color = Color(0.62, 0.58, 0.52, 1)
+cast_shadows = false
+
+[node name="Ground9" type="StaticBody3D" parent="Ground" unique_id=1714007860]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, -0.5, 12)
+script = ExtResource("1_ajqtb")
+size = Vector3(96, 1, 64)
+color = Color(0.62, 0.58, 0.52, 1)
+cast_shadows = false
+
+[node name="Ground10" type="StaticBody3D" parent="Ground" unique_id=457505764]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -0.5, -4)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 1, 32)
+color = Color(0.82, 0.78, 0.7, 1)
+cast_shadows = false
+
+[node name="Ground11" type="StaticBody3D" parent="Ground" unique_id=614837600]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, -0.5, -4)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 1, 32)
+color = Color(0.82, 0.78, 0.7, 1)
+cast_shadows = false
+
+[node name="Ground12" type="StaticBody3D" parent="Ground" unique_id=1405569493]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, -0.5, 12)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 1, 64)
+color = Color(0.62, 0.58, 0.52, 1)
+cast_shadows = false
+
+[node name="Ground13" type="StaticBody3D" parent="Ground" unique_id=23814650]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -0.5, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(44, 1, 32)
+color = Color(0.62, 0.58, 0.52, 1)
+cast_shadows = false
+
+[node name="Ground14" type="StaticBody3D" parent="Ground" unique_id=1395869779]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 48)
+script = ExtResource("1_ajqtb")
+size = Vector3(192, 1, 8)
+color = Color(0.3, 0.3, 0.33, 1)
+cast_shadows = false
+
+[node name="Ground15" type="StaticBody3D" parent="Ground" unique_id=912354573]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -0.5, 56)
+script = ExtResource("1_ajqtb")
+size = Vector3(152, 1, 8)
+color = Color(0.93, 0.85, 0.62, 1)
+cast_shadows = false
+
+[node name="Ground16" type="StaticBody3D" parent="Ground" unique_id=2093199730]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, -0.5, 56)
+script = ExtResource("1_ajqtb")
+size = Vector3(32, 1, 8)
+color = Color(0.93, 0.85, 0.62, 1)
+cast_shadows = false
+
+[node name="Plateau" type="Node3D" parent="." unique_id=65142502]
+
+[node name="Plateau" type="StaticBody3D" parent="Plateau" unique_id=1996600198]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 3, -60)
+script = ExtResource("1_ajqtb")
+size = Vector3(96, 6, 56)
+color = Color(0.7, 0.64, 0.54, 1)
+
+[node name="Ramps" type="Node3D" parent="." unique_id=1324956777]
+
+[node name="Ramp" type="StaticBody3D" parent="Ramps" unique_id=2146341573]
+transform = Transform3D(-1, 0, 0, 0, 0.9828722, 0.18428853, 0, 0.18428853, -0.9828722, -88, -0.44005275, -16.64501)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 7, 32.55764)
+color = Color(0.62, 0.58, 0.52, 1)
+
+[node name="Ramp2" type="StaticBody3D" parent="Ramps" unique_id=1932507212]
+transform = Transform3D(-1, 0, 0, 0, 0.9828722, 0.18428853, 0, 0.18428853, -0.9828722, -20, -0.44005275, -16.64501)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 7, 32.55764)
+color = Color(0.62, 0.58, 0.52, 1)
+
+[node name="Buildings" type="Node3D" parent="." unique_id=234442066]
+
+[node name="House" type="StaticBody3D" parent="Buildings" unique_id=720719014]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -90, 9.302274, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.6045465, 4)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof" type="StaticBody3D" parent="Buildings" unique_id=2141759288]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -90, 12.784161, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.35922727, 4.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House2" type="StaticBody3D" parent="Buildings" unique_id=845967157]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 9.152812, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.305623, 4)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof2" type="StaticBody3D" parent="Buildings" unique_id=1176171387]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 12.4879265, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.36460552, 4.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House3" type="StaticBody3D" parent="Buildings" unique_id=2059545349]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68, 10.831684, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.663369, 4)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof3" type="StaticBody3D" parent="Buildings" unique_id=476888524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68, 15.814039, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3013419, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House4" type="StaticBody3D" parent="Buildings" unique_id=1516736155]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58, 12.583154, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 13.166308, 4)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof4" type="StaticBody3D" parent="Buildings" unique_id=165623980]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58, 19.34299, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.35336846, 4.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House5" type="StaticBody3D" parent="Buildings" unique_id=128391073]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 12.353073, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 12.706146, 4)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof5" type="StaticBody3D" parent="Buildings" unique_id=2107580227]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 18.86486, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.31742913, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House6" type="StaticBody3D" parent="Buildings" unique_id=2027472239]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 10.924915, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.849831, 4)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof6" type="StaticBody3D" parent="Buildings" unique_id=1669984074]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 16.01973, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.33980006, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House7" type="StaticBody3D" parent="Buildings" unique_id=586674012]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 10.640802, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.281604, 4)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof7" type="StaticBody3D" parent="Buildings" unique_id=1797902379]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 15.464609, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.36601022, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House8" type="StaticBody3D" parent="Buildings" unique_id=1595142862]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 10.606389, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.212778, 4)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof8" type="StaticBody3D" parent="Buildings" unique_id=1322671459]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 15.380932, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3363074, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House9" type="StaticBody3D" parent="Buildings" unique_id=41016958]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 9.017888, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.0357757, 4)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof9" type="StaticBody3D" parent="Buildings" unique_id=360520043]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 12.219886, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.36821926, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House10" type="StaticBody3D" parent="Buildings" unique_id=249952337]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.0959818, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.1919637, 4)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof10" type="StaticBody3D" parent="Buildings" unique_id=321797984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 6.355081, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.32623446, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House11" type="StaticBody3D" parent="Buildings" unique_id=633745443]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 4.654305, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.30861, 4)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof11" type="StaticBody3D" parent="Buildings" unique_id=383738585]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 9.493694, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.37016875, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House12" type="StaticBody3D" parent="Buildings" unique_id=1405760335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 3.117359, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.234718, 4)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof12" type="StaticBody3D" parent="Buildings" unique_id=308376910]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 6.4133954, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.35735533, 4.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House13" type="StaticBody3D" parent="Buildings" unique_id=1766173700]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 3.0586534, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.1173067, 4)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof13" type="StaticBody3D" parent="Buildings" unique_id=1182516217]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 6.2959433, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.35727328, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House14" type="StaticBody3D" parent="Buildings" unique_id=1205818821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 3.1722462, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.3444924, 4)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof14" type="StaticBody3D" parent="Buildings" unique_id=92329877]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 6.5261965, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.36340767, 4.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House15" type="StaticBody3D" parent="Buildings" unique_id=1818455973]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 3.2607343, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.5214686, 4)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof15" type="StaticBody3D" parent="Buildings" unique_id=943740362]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 6.691306, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3396746, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House16" type="StaticBody3D" parent="Buildings" unique_id=1221453585]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, 3.3912444, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.782489, 4)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof16" type="StaticBody3D" parent="Buildings" unique_id=273978682]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, 6.9694257, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3738736, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House17" type="StaticBody3D" parent="Buildings" unique_id=843292497]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76, 3.2363918, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.4727836, 4)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof17" type="StaticBody3D" parent="Buildings" unique_id=676131864]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76, 6.624882, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3041972, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House18" type="StaticBody3D" parent="Buildings" unique_id=343795313]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88, 6.437822, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(16, 12.875644, 4)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof18" type="StaticBody3D" parent="Buildings" unique_id=270374580]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88, 13.040384, -86)
+script = ExtResource("1_ajqtb")
+size = Vector3(16.5, 0.32948223, 4.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House19" type="StaticBody3D" parent="Buildings" unique_id=675400434]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 10.786581, -80)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 9.573162, 8)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof19" type="StaticBody3D" parent="Buildings" unique_id=2079173232]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 15.759838, -80)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.37335247, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House20" type="StaticBody3D" parent="Buildings" unique_id=747442128]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 12.244076, -72)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 12.4881525, 8)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof20" type="StaticBody3D" parent="Buildings" unique_id=582358578]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 18.668198, -72)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.3600923, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House21" type="StaticBody3D" parent="Buildings" unique_id=1389470894]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 10.986426, -62)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 9.972853, 12)
+color = Color(0.93, 0.88, 0.75, 1)
+grid_strength = 0.2
+
+[node name="Roof21" type="StaticBody3D" parent="Buildings" unique_id=1658643201]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 16.139277, -62)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.33284673, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House22" type="StaticBody3D" parent="Buildings" unique_id=939620574]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 10.653684, -50)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 9.307368, 12)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof22" type="StaticBody3D" parent="Buildings" unique_id=63119848]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 15.4864, -50)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.35806426, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House23" type="StaticBody3D" parent="Buildings" unique_id=615415144]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 12.424757, -80)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 12.849514, 8)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof23" type="StaticBody3D" parent="Buildings" unique_id=250417070]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 19.00135, -80)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.3036742, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House24" type="StaticBody3D" parent="Buildings" unique_id=675604326]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 12.298968, -70)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 12.597936, 12)
+color = Color(0.93, 0.88, 0.75, 1)
+grid_strength = 0.2
+
+[node name="Roof24" type="StaticBody3D" parent="Buildings" unique_id=1588531054]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 18.751486, -70)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.30709815, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House25" type="StaticBody3D" parent="Buildings" unique_id=1911402931]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 12.499145, -60)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 12.998288, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof25" type="StaticBody3D" parent="Buildings" unique_id=1812293655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 19.154627, -60)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.31267658, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House26" type="StaticBody3D" parent="Buildings" unique_id=1687567741]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 9.38073, -50)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 6.7614603, 12)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof26" type="StaticBody3D" parent="Buildings" unique_id=115396255]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 12.935843, -50)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.34876752, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House27" type="StaticBody3D" parent="Buildings" unique_id=527879625]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 4.9391146, -80)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.878229, 8)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof27" type="StaticBody3D" parent="Buildings" unique_id=2064424927]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 10.050628, -80)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3447977, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House28" type="StaticBody3D" parent="Buildings" unique_id=1629903757]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 4.600143, -72)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.200286, 8)
+color = Color(0.93, 0.88, 0.75, 1)
+grid_strength = 0.2
+
+[node name="Roof28" type="StaticBody3D" parent="Buildings" unique_id=1657430853]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 9.351654, -72)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.30273667, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House29" type="StaticBody3D" parent="Buildings" unique_id=1697024386]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 3.2086644, -62)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.417329, 12)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof29" type="StaticBody3D" parent="Buildings" unique_id=1361707627]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 6.606802, -62)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3789464, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House30" type="StaticBody3D" parent="Buildings" unique_id=593930164]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 6.5738783, -52)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 13.147757, 8)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof30" type="StaticBody3D" parent="Buildings" unique_id=287025647]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 13.330852, -52)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.36619058, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House31" type="StaticBody3D" parent="Buildings" unique_id=1046702641]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 3.1455772, -42)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.2911544, 12)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof31" type="StaticBody3D" parent="Buildings" unique_id=391132893]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 6.477775, -42)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.37324142, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House32" type="StaticBody3D" parent="Buildings" unique_id=1866650260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 4.675322, -30)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.350644, 12)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof32" type="StaticBody3D" parent="Buildings" unique_id=2118873446]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 9.523608, -30)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.34592828, 12.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House33" type="StaticBody3D" parent="Buildings" unique_id=1035808451]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 6.355311, -20)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 12.710622, 8)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof33" type="StaticBody3D" parent="Buildings" unique_id=1675801247]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 12.894024, -20)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.36680534, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House34" type="StaticBody3D" parent="Buildings" unique_id=826727479]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 4.8526773, -10)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.705355, 12)
+color = Color(0.93, 0.88, 0.75, 1)
+grid_strength = 0.2
+
+[node name="Roof34" type="StaticBody3D" parent="Buildings" unique_id=1885005469]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 9.859646, -10)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3085819, 12.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House35" type="StaticBody3D" parent="Buildings" unique_id=718494183]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 3.3307152, 2)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.6614304, 12)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof35" type="StaticBody3D" parent="Buildings" unique_id=1207453210]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 6.8445663, 2)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.36627197, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House36" type="StaticBody3D" parent="Buildings" unique_id=1101880395]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 4.656778, 14)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.313556, 12)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof36" type="StaticBody3D" parent="Buildings" unique_id=1842376857]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 9.492722, 14)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3583321, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House37" type="StaticBody3D" parent="Buildings" unique_id=918685495]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 4.6383214, 24)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.276643, 8)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof37" type="StaticBody3D" parent="Buildings" unique_id=631888029]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 9.456069, 24)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.35885194, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House38" type="StaticBody3D" parent="Buildings" unique_id=634461792]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 3.0582554, 36)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.116511, 16)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof38" type="StaticBody3D" parent="Buildings" unique_id=546899832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 6.275103, 36)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.31718463, 16.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House39" type="StaticBody3D" parent="Buildings" unique_id=551863347]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 10.636078, -76)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.272155, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof39" type="StaticBody3D" parent="Buildings" unique_id=1469922282]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 15.447367, -76)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.35042304, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House40" type="StaticBody3D" parent="Buildings" unique_id=1026779163]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 10.71633, -76)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 9.432659, 8)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof40" type="StaticBody3D" parent="Buildings" unique_id=2135673791]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 15.600573, -76)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.33582827, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House41" type="StaticBody3D" parent="Buildings" unique_id=2042398237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58, 10.806552, -76)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.613105, 8)
+color = Color(0.93, 0.88, 0.75, 1)
+grid_strength = 0.2
+
+[node name="Roof41" type="StaticBody3D" parent="Buildings" unique_id=1586584473]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58, 15.791553, -76)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.35689682, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House42" type="StaticBody3D" parent="Buildings" unique_id=285275499]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 9.145142, -76)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.290284, 8)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof42" type="StaticBody3D" parent="Buildings" unique_id=1871239478]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 12.471884, -76)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3632007, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House43" type="StaticBody3D" parent="Buildings" unique_id=1010166281]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 10.74318, -76)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.486361, 8)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof43" type="StaticBody3D" parent="Buildings" unique_id=2064585947]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 15.644065, -76)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.31540817, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House44" type="StaticBody3D" parent="Buildings" unique_id=850317314]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 9.026518, -76)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.053036, 8)
+color = Color(0.93, 0.88, 0.75, 1)
+grid_strength = 0.2
+
+[node name="Roof44" type="StaticBody3D" parent="Buildings" unique_id=213365567]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 12.227165, -76)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.34825903, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House45" type="StaticBody3D" parent="Buildings" unique_id=402143392]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4.6205387, -74)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.241077, 12)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof45" type="StaticBody3D" parent="Buildings" unique_id=1296071670]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 9.417007, -74)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.35185996, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House46" type="StaticBody3D" parent="Buildings" unique_id=827383044]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 4.665488, -74)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 9.330976, 12)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof46" type="StaticBody3D" parent="Buildings" unique_id=499056037]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 9.50878, -74)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.35560784, 12.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House47" type="StaticBody3D" parent="Buildings" unique_id=756670336]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 4.9461102, -76)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.8922205, 8)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof47" type="StaticBody3D" parent="Buildings" unique_id=497094682]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 10.050994, -76)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.31754652, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House48" type="StaticBody3D" parent="Buildings" unique_id=352342279]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 3.0247457, -76)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.0494914, 8)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof48" type="StaticBody3D" parent="Buildings" unique_id=2139563182]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 6.20798, -76)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3169781, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House49" type="StaticBody3D" parent="Buildings" unique_id=43771474]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74, 12.583766, -74)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 13.167531, 4)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof49" type="StaticBody3D" parent="Buildings" unique_id=800026684]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74, 19.32911, -74)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.3231547, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House50" type="StaticBody3D" parent="Buildings" unique_id=278104919]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3.3697917, -72)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 6.7395835, 8)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof50" type="StaticBody3D" parent="Buildings" unique_id=1049803300]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 6.904519, -72)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.32987085, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House51" type="StaticBody3D" parent="Buildings" unique_id=1417750102]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 12.332435, -68)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 12.66487, 8)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof51" type="StaticBody3D" parent="Buildings" unique_id=1675471041]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 18.84799, -68)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.36624137, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House52" type="StaticBody3D" parent="Buildings" unique_id=327993967]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 12.579139, -68)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 13.1582775, 8)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof52" type="StaticBody3D" parent="Buildings" unique_id=1299408407]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 19.325298, -68)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.33404192, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House53" type="StaticBody3D" parent="Buildings" unique_id=912496474]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 3.1943057, -70)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.3886113, 4)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof53" type="StaticBody3D" parent="Buildings" unique_id=94102801]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 6.5583954, -70)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.33956882, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House54" type="StaticBody3D" parent="Buildings" unique_id=2017752306]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 3.2242157, -70)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.4484315, 4)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof54" type="StaticBody3D" parent="Buildings" unique_id=1085316506]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 6.604314, -70)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3117642, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House55" type="StaticBody3D" parent="Buildings" unique_id=681280117]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 9.364551, -62)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.7291007, 12)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof55" type="StaticBody3D" parent="Buildings" unique_id=1523051430]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 12.918434, -62)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.37866688, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House56" type="StaticBody3D" parent="Buildings" unique_id=1559080107]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 12.599209, -62)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 13.198419, 12)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof56" type="StaticBody3D" parent="Buildings" unique_id=824504544]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 19.35915, -62)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3214639, 12.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House57" type="StaticBody3D" parent="Buildings" unique_id=153175270]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 12.594355, -62)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 13.188709, 12)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof57" type="StaticBody3D" parent="Buildings" unique_id=922149793]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 19.376863, -62)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.37630963, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House58" type="StaticBody3D" parent="Buildings" unique_id=793855209]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 10.883504, -62)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.767009, 12)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof58" type="StaticBody3D" parent="Buildings" unique_id=1910316087]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 15.923166, -62)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3123175, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House59" type="StaticBody3D" parent="Buildings" unique_id=1933048626]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 12.588811, -66)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 13.177623, 4)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof59" type="StaticBody3D" parent="Buildings" unique_id=894948179]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 19.350924, -66)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.34660223, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House60" type="StaticBody3D" parent="Buildings" unique_id=1557741523]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54, 10.766532, -60)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 9.533063, 8)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof60" type="StaticBody3D" parent="Buildings" unique_id=1503502213]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54, 15.692759, -60)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.31938896, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House61" type="StaticBody3D" parent="Buildings" unique_id=2072502116]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3.230726, -60)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.461452, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof61" type="StaticBody3D" parent="Buildings" unique_id=1410371042]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 6.6435623, -60)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.36422032, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House62" type="StaticBody3D" parent="Buildings" unique_id=1720540719]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 6.578136, -60)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 13.156272, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof62" type="StaticBody3D" parent="Buildings" unique_id=1297066578]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 13.342444, -60)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.37234563, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House63" type="StaticBody3D" parent="Buildings" unique_id=1858967474]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 3.3066216, -58)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.613243, 12)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof63" type="StaticBody3D" parent="Buildings" unique_id=428389567]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 6.781328, -58)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.33616978, 12.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House64" type="StaticBody3D" parent="Buildings" unique_id=2005092754]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 6.3864346, -58)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 12.772869, 12)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof64" type="StaticBody3D" parent="Buildings" unique_id=1181312273]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 12.962164, -58)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.37859032, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House65" type="StaticBody3D" parent="Buildings" unique_id=1701157944]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 6.511177, -58)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 13.022354, 12)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof65" type="StaticBody3D" parent="Buildings" unique_id=211090668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 13.180016, -58)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.31532156, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House66" type="StaticBody3D" parent="Buildings" unique_id=999397880]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 4.8010707, -58)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.602141, 12)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof66" type="StaticBody3D" parent="Buildings" unique_id=1822502132]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 9.77146, -58)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3386374, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House67" type="StaticBody3D" parent="Buildings" unique_id=1915563832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 3.3059876, -60)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.611975, 8)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof67" type="StaticBody3D" parent="Buildings" unique_id=1682493587]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 6.795367, -60)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.36678347, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House68" type="StaticBody3D" parent="Buildings" unique_id=303077333]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 9.215801, -58)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.431603, 4)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof68" type="StaticBody3D" parent="Buildings" unique_id=1372275575]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 12.589901, -58)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3165974, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House69" type="StaticBody3D" parent="Buildings" unique_id=1020304930]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 9.09155, -58)
+script = ExtResource("1_ajqtb")
+size = Vector3(16, 6.1830993, 4)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof69" type="StaticBody3D" parent="Buildings" unique_id=95432769]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 12.347934, -58)
+script = ExtResource("1_ajqtb")
+size = Vector3(16.5, 0.32966793, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House70" type="StaticBody3D" parent="Buildings" unique_id=2121331525]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 12.540957, -52)
+script = ExtResource("1_ajqtb")
+size = Vector3(16, 13.081916, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof70" type="StaticBody3D" parent="Buildings" unique_id=1275382666]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 19.232594, -52)
+script = ExtResource("1_ajqtb")
+size = Vector3(16.5, 0.30135846, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House71" type="StaticBody3D" parent="Buildings" unique_id=4150837]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 6.2577076, -54)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 12.515415, 4)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof71" type="StaticBody3D" parent="Buildings" unique_id=335522345]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 12.690517, -54)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.35020486, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House72" type="StaticBody3D" parent="Buildings" unique_id=958909246]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 6.538539, -54)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 13.077078, 4)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof72" type="StaticBody3D" parent="Buildings" unique_id=942376596]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 13.246513, -54)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.33887225, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House73" type="StaticBody3D" parent="Buildings" unique_id=1119044293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 4.698163, -54)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 9.396326, 4)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof73" type="StaticBody3D" parent="Buildings" unique_id=658291029]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 9.551089, -54)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.30952716, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House74" type="StaticBody3D" parent="Buildings" unique_id=1626050969]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 6.551577, -54)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 13.103154, 4)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof74" type="StaticBody3D" parent="Buildings" unique_id=2112192846]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 13.262266, -54)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.3182224, 4.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House75" type="StaticBody3D" parent="Buildings" unique_id=1080027055]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 12.532599, -48)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 13.065199, 8)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof75" type="StaticBody3D" parent="Buildings" unique_id=865593025]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 19.216663, -48)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3029292, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House76" type="StaticBody3D" parent="Buildings" unique_id=182788252]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 10.7217, -48)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.4434, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof76" type="StaticBody3D" parent="Buildings" unique_id=1437426424]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 15.597178, -48)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.30755755, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House77" type="StaticBody3D" parent="Buildings" unique_id=1338086803]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62, 10.640699, -48)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.281399, 8)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof77" type="StaticBody3D" parent="Buildings" unique_id=314324766]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62, 15.455671, -48)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.34854424, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House78" type="StaticBody3D" parent="Buildings" unique_id=1770511387]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 10.784941, -48)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.569881, 8)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof78" type="StaticBody3D" parent="Buildings" unique_id=636806109]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 15.720484, -48)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.30120575, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House79" type="StaticBody3D" parent="Buildings" unique_id=1274580042]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 10.731278, -48)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.462557, 8)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof79" type="StaticBody3D" parent="Buildings" unique_id=1276640211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 15.614235, -48)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.30335593, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House80" type="StaticBody3D" parent="Buildings" unique_id=581102246]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 12.2769575, -50)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 12.553914, 4)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof80" type="StaticBody3D" parent="Buildings" unique_id=68225960]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 18.719246, -50)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3306628, 4.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House81" type="StaticBody3D" parent="Buildings" unique_id=1311483604]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 4.9648504, -44)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.929701, 8)
+color = Color(0.93, 0.88, 0.75, 1)
+grid_strength = 0.2
+
+[node name="Roof81" type="StaticBody3D" parent="Buildings" unique_id=1208069897]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 10.100431, -44)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.34146053, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House82" type="StaticBody3D" parent="Buildings" unique_id=1159854682]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 4.915547, -44)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.831094, 8)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof82" type="StaticBody3D" parent="Buildings" unique_id=869405574]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 10.020889, -44)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.37959102, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House83" type="StaticBody3D" parent="Buildings" unique_id=1937352048]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 4.7088633, -44)
+script = ExtResource("1_ajqtb")
+size = Vector3(16, 9.4177265, 8)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof83" type="StaticBody3D" parent="Buildings" unique_id=1950450310]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 9.569852, -44)
+script = ExtResource("1_ajqtb")
+size = Vector3(16.5, 0.30425125, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House84" type="StaticBody3D" parent="Buildings" unique_id=1487223451]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 4.7708826, -36)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.541765, 8)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof84" type="StaticBody3D" parent="Buildings" unique_id=321445214]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 9.720678, -36)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.35782507, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House85" type="StaticBody3D" parent="Buildings" unique_id=1374316435]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 4.761176, -36)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.522352, 8)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof85" type="StaticBody3D" parent="Buildings" unique_id=948544741]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 9.679523, -36)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.31434092, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House86" type="StaticBody3D" parent="Buildings" unique_id=465380903]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 3.3926826, -36)
+script = ExtResource("1_ajqtb")
+size = Vector3(16, 6.785365, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof86" type="StaticBody3D" parent="Buildings" unique_id=699867022]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 6.952693, -36)
+script = ExtResource("1_ajqtb")
+size = Vector3(16.5, 0.33465582, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House87" type="StaticBody3D" parent="Buildings" unique_id=1345178173]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 3.0001793, -42)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.0003586, 12)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof87" type="StaticBody3D" parent="Buildings" unique_id=312172027]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 6.1614637, -42)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.32221034, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House88" type="StaticBody3D" parent="Buildings" unique_id=1205186065]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 4.93431, -42)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.86862, 12)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof88" type="StaticBody3D" parent="Buildings" unique_id=1718189245]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 10.052761, -42)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.36828166, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House89" type="StaticBody3D" parent="Buildings" unique_id=1786387907]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 6.5816226, -28)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 13.163245, 16)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof89" type="StaticBody3D" parent="Buildings" unique_id=1584823121]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 13.3205805, -28)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.31467116, 16.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House90" type="StaticBody3D" parent="Buildings" unique_id=1068460163]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 4.959054, -28)
+script = ExtResource("1_ajqtb")
+size = Vector3(16, 9.918108, 16)
+color = Color(0.93, 0.88, 0.75, 1)
+grid_strength = 0.2
+
+[node name="Roof90" type="StaticBody3D" parent="Buildings" unique_id=637071354]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 10.09314, -28)
+script = ExtResource("1_ajqtb")
+size = Vector3(16.5, 0.3500626, 16.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House91" type="StaticBody3D" parent="Buildings" unique_id=844333312]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 3.1047938, -44)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.2095876, 8)
+color = Color(0.93, 0.88, 0.75, 1)
+grid_strength = 0.2
+
+[node name="Roof91" type="StaticBody3D" parent="Buildings" unique_id=929200528]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 6.382599, -44)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.34602243, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House92" type="StaticBody3D" parent="Buildings" unique_id=1947104294]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 4.8255677, -36)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.651135, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof92" type="StaticBody3D" parent="Buildings" unique_id=186883728]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 9.82686, -36)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.35145172, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House93" type="StaticBody3D" parent="Buildings" unique_id=346649559]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 4.7675977, -28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.535195, 8)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof93" type="StaticBody3D" parent="Buildings" unique_id=1491581913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 9.723024, -28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.37565735, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House94" type="StaticBody3D" parent="Buildings" unique_id=537028101]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 6.5205874, -20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 13.041175, 8)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof94" type="StaticBody3D" parent="Buildings" unique_id=632533388]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 13.192464, -20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3025787, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House95" type="StaticBody3D" parent="Buildings" unique_id=2146939265]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 6.595409, -10)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 13.190818, 12)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof95" type="StaticBody3D" parent="Buildings" unique_id=1818509752]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 13.373161, -10)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.36468732, 12.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House96" type="StaticBody3D" parent="Buildings" unique_id=1352410245]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 6.5100513, 4)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 13.0201025, 16)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof96" type="StaticBody3D" parent="Buildings" unique_id=297974046]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 13.180377, 4)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.32054815, 16.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House97" type="StaticBody3D" parent="Buildings" unique_id=1267929431]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 4.806068, -26)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 9.612136, 12)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof97" type="StaticBody3D" parent="Buildings" unique_id=844226870]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 9.767107, -26)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.30994162, 12.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House98" type="StaticBody3D" parent="Buildings" unique_id=1080052529]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 3.347392, -14)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 6.694784, 12)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof98" type="StaticBody3D" parent="Buildings" unique_id=738606823]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 6.8596687, -14)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.3297689, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House99" type="StaticBody3D" parent="Buildings" unique_id=1479623379]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 6.4417086, -2)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 12.883417, 12)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof99" type="StaticBody3D" parent="Buildings" unique_id=1658149786]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 13.073171, -2)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.37950704, 12.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House100" type="StaticBody3D" parent="Buildings" unique_id=1972645379]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 4.612413, 8)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 9.224826, 8)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof100" type="StaticBody3D" parent="Buildings" unique_id=1017115517]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 9.390175, 8)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.3306984, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House101" type="StaticBody3D" parent="Buildings" unique_id=292616351]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 6.239174, 16)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 12.478348, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof101" type="StaticBody3D" parent="Buildings" unique_id=730390607]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 12.641422, 16)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.32614943, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House102" type="StaticBody3D" parent="Buildings" unique_id=266019486]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 4.6654987, 24)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 9.330997, 8)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof102" type="StaticBody3D" parent="Buildings" unique_id=1436484056]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 9.514349, 24)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.366704, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House103" type="StaticBody3D" parent="Buildings" unique_id=1648037341]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 6.367958, 32)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 12.735916, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof103" type="StaticBody3D" parent="Buildings" unique_id=160704059]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 12.894428, 32)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.31702536, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House104" type="StaticBody3D" parent="Buildings" unique_id=813160803]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 4.7621746, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 9.524349, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof104" type="StaticBody3D" parent="Buildings" unique_id=1611021649]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 9.710161, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.3716254, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House105" type="StaticBody3D" parent="Buildings" unique_id=1951693226]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 3.3638403, -26)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.7276807, 12)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof105" type="StaticBody3D" parent="Buildings" unique_id=1575477350]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 6.892642, -26)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.32992265, 12.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House106" type="StaticBody3D" parent="Buildings" unique_id=1595677521]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 6.426956, -28)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 12.853912, 8)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof106" type="StaticBody3D" parent="Buildings" unique_id=1308676932]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 13.025221, -28)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3426179, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House107" type="StaticBody3D" parent="Buildings" unique_id=777111475]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54, 6.532741, -28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 13.065482, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof107" type="StaticBody3D" parent="Buildings" unique_id=1682238720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54, 13.24907, -28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3671766, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House108" type="StaticBody3D" parent="Buildings" unique_id=1785313197]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 6.3058696, -26)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 12.611739, 12)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof108" type="StaticBody3D" parent="Buildings" unique_id=1099190424]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 12.776857, -26)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.33023664, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House109" type="StaticBody3D" parent="Buildings" unique_id=1752434705]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 6.3410163, -26)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 12.682033, 12)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof109" type="StaticBody3D" parent="Buildings" unique_id=1088240049]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 12.835512, -26)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3069581, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House110" type="StaticBody3D" parent="Buildings" unique_id=370723744]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 4.6683245, -28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.336649, 8)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof110" type="StaticBody3D" parent="Buildings" unique_id=1740067273]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 9.509735, -28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3461717, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House111" type="StaticBody3D" parent="Buildings" unique_id=1381145836]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 6.5954747, -18)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 13.190949, 12)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof111" type="StaticBody3D" parent="Buildings" unique_id=1368513076]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 13.37907, -18)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.37624225, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House112" type="StaticBody3D" parent="Buildings" unique_id=1095686481]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 6.494083, -26)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 12.988166, 12)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof112" type="StaticBody3D" parent="Buildings" unique_id=1628768040]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 13.150976, -26)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.32562205, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="Church" type="StaticBody3D" parent="Buildings" unique_id=1740178084]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 6, -26)
+script = ExtResource("1_ajqtb")
+size = Vector3(20, 12, 12)
+color = Color(0.95, 0.93, 0.86, 1)
+grid_strength = 0.15
+
+[node name="BellTower" type="StaticBody3D" parent="Buildings" unique_id=2091506415]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 11, -30)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 22, 4)
+color = Color(0.95, 0.93, 0.86, 1)
+grid_strength = 0.15
+
+[node name="TowerRoof" type="StaticBody3D" parent="Buildings" unique_id=1275908439]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 22.3, -30)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.6, 0.6, 4.6)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House113" type="StaticBody3D" parent="Buildings" unique_id=758985928]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 6.592753, -26)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 13.185506, 12)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof113" type="StaticBody3D" parent="Buildings" unique_id=158691591]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 13.368086, -26)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.36515868, 12.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House114" type="StaticBody3D" parent="Buildings" unique_id=637687456]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 3.234657, -22)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.469314, 4)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof114" type="StaticBody3D" parent="Buildings" unique_id=28481177]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 6.64361, -22)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.34859145, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House115" type="StaticBody3D" parent="Buildings" unique_id=1554391822]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 6.2993293, -22)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 12.598659, 4)
+color = Color(0.93, 0.88, 0.75, 1)
+grid_strength = 0.2
+
+[node name="Roof115" type="StaticBody3D" parent="Buildings" unique_id=2010351039]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 12.749124, -22)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.30092943, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House116" type="StaticBody3D" parent="Buildings" unique_id=1752642728]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 6.339794, -12)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 12.679588, 16)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof116" type="StaticBody3D" parent="Buildings" unique_id=921464944]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 12.85178, -12)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.34438223, 16.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House117" type="StaticBody3D" parent="Buildings" unique_id=1760763861]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 4.7898774, -12)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.579755, 16)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof117" type="StaticBody3D" parent="Buildings" unique_id=1410057513]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 9.733873, -12)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.30823666, 16.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House118" type="StaticBody3D" parent="Buildings" unique_id=398758410]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 3.044752, 4)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.089504, 16)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof118" type="StaticBody3D" parent="Buildings" unique_id=1508722191]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 6.254739, 4)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.33047044, 16.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House119" type="StaticBody3D" parent="Buildings" unique_id=1230891667]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 6.5955954, 4)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 13.191191, 16)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof119" type="StaticBody3D" parent="Buildings" unique_id=1139469598]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 13.353466, 4)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3245518, 16.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House120" type="StaticBody3D" parent="Buildings" unique_id=177634198]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 6.3754444, -12)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 12.750889, 8)
+color = Color(0.93, 0.88, 0.75, 1)
+grid_strength = 0.2
+
+[node name="Roof120" type="StaticBody3D" parent="Buildings" unique_id=70982722]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 12.919065, -12)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.33635342, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House121" type="StaticBody3D" parent="Buildings" unique_id=440722182]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 6.4455385, -12)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 12.891077, 8)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof121" type="StaticBody3D" parent="Buildings" unique_id=1052614506]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 13.042366, -12)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.30257893, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House122" type="StaticBody3D" parent="Buildings" unique_id=1809984468]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 3.3546703, -4)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.7093406, 8)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof122" type="StaticBody3D" parent="Buildings" unique_id=1256452816]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, 6.8962727, -4)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.37386474, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House123" type="StaticBody3D" parent="Buildings" unique_id=1270146250]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 6.3969884, -4)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 12.793977, 8)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof123" type="StaticBody3D" parent="Buildings" unique_id=324843477]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 12.961035, -4)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.33411577, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House124" type="StaticBody3D" parent="Buildings" unique_id=1263395365]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 3.10197, -12)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.20394, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof124" type="StaticBody3D" parent="Buildings" unique_id=348828380]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 6.373287, -12)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3386938, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House125" type="StaticBody3D" parent="Buildings" unique_id=1280591131]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 6.587822, -12)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 13.175644, 8)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof125" type="StaticBody3D" parent="Buildings" unique_id=633143472]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 13.355821, -12)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.36035305, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House126" type="StaticBody3D" parent="Buildings" unique_id=2091382155]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 3.3745055, -12)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.749011, 8)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof126" type="StaticBody3D" parent="Buildings" unique_id=261529272]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 6.9331865, -12)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3683514, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House127" type="StaticBody3D" parent="Buildings" unique_id=252858993]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 6.563236, -12)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 13.126472, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof127" type="StaticBody3D" parent="Buildings" unique_id=609338979]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 13.313225, -12)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.37350467, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House128" type="StaticBody3D" parent="Buildings" unique_id=1925851966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 4.8168297, -4)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.633659, 8)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof128" type="StaticBody3D" parent="Buildings" unique_id=1850586823]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 9.8172655, -4)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.36721173, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House129" type="StaticBody3D" parent="Buildings" unique_id=138436972]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 4.642948, -4)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.285896, 8)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof129" type="StaticBody3D" parent="Buildings" unique_id=1913673210]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 9.462103, -4)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.35241228, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House130" type="StaticBody3D" parent="Buildings" unique_id=1610726660]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 6.2790723, -4)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 12.558145, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof130" type="StaticBody3D" parent="Buildings" unique_id=418569447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 12.71104, -4)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3057902, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House131" type="StaticBody3D" parent="Buildings" unique_id=1655470289]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 4.939798, -4)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.879596, 8)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof131" type="StaticBody3D" parent="Buildings" unique_id=891737512]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 10.036993, -4)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.31479546, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House132" type="StaticBody3D" parent="Buildings" unique_id=1426120657]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3.3067868, -2)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.6135736, 4)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof132" type="StaticBody3D" parent="Buildings" unique_id=690055485]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 6.7874193, -2)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.34769115, 4.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House133" type="StaticBody3D" parent="Buildings" unique_id=1389510681]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 3.2018046, 8)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.4036093, 8)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof133" type="StaticBody3D" parent="Buildings" unique_id=1989300984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 6.5656533, 8)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.32408842, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House134" type="StaticBody3D" parent="Buildings" unique_id=390472035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68, 6.362088, 8)
+script = ExtResource("1_ajqtb")
+size = Vector3(16, 12.724176, 8)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof134" type="StaticBody3D" parent="Buildings" unique_id=357084153]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68, 12.878482, 8)
+script = ExtResource("1_ajqtb")
+size = Vector3(16.5, 0.30861124, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House135" type="StaticBody3D" parent="Buildings" unique_id=824297119]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 6.5963283, 8)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 13.1926565, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof135" type="StaticBody3D" parent="Buildings" unique_id=1991931087]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 13.38149, 8)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.37766692, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House136" type="StaticBody3D" parent="Buildings" unique_id=1186110498]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 6.5340204, 8)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 13.068041, 8)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof136" type="StaticBody3D" parent="Buildings" unique_id=105501770]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 13.242498, 8)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3489151, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House137" type="StaticBody3D" parent="Buildings" unique_id=183363635]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 6.291434, 8)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 12.582868, 8)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof137" type="StaticBody3D" parent="Buildings" unique_id=1973646510]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 12.742493, 8)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.31924877, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House138" type="StaticBody3D" parent="Buildings" unique_id=1726561201]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 6.454405, 8)
+script = ExtResource("1_ajqtb")
+size = Vector3(16, 12.90881, 8)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof138" type="StaticBody3D" parent="Buildings" unique_id=180623226]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 13.069597, 8)
+script = ExtResource("1_ajqtb")
+size = Vector3(16.5, 0.32157612, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House139" type="StaticBody3D" parent="Buildings" unique_id=167876777]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 4.7844176, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.568835, 8)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof139" type="StaticBody3D" parent="Buildings" unique_id=1392167569]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 9.724132, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.31059247, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House140" type="StaticBody3D" parent="Buildings" unique_id=918183442]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 6.3529153, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 12.705831, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof140" type="StaticBody3D" parent="Buildings" unique_id=1594970195]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 12.869752, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3278427, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House141" type="StaticBody3D" parent="Buildings" unique_id=606346443]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 3.1612132, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.3224263, 8)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof141" type="StaticBody3D" parent="Buildings" unique_id=1588388985]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 6.489393, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.33393356, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House142" type="StaticBody3D" parent="Buildings" unique_id=251689270]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 3.3507755, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.701551, 8)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof142" type="StaticBody3D" parent="Buildings" unique_id=1163793612]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 6.8806987, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.35829538, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House143" type="StaticBody3D" parent="Buildings" unique_id=1902900253]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68, 3.1436183, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(16, 6.2872367, 8)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof143" type="StaticBody3D" parent="Buildings" unique_id=1904939350]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68, 6.4514265, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(16.5, 0.32838014, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House144" type="StaticBody3D" parent="Buildings" unique_id=489446497]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 6.47823, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 12.95646, 8)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof144" type="StaticBody3D" parent="Buildings" unique_id=1730235190]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 13.123941, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.33496243, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House145" type="StaticBody3D" parent="Buildings" unique_id=1195520212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 6.565682, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 13.131364, 8)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof145" type="StaticBody3D" parent="Buildings" unique_id=1844546405]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 13.286814, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.31089926, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House146" type="StaticBody3D" parent="Buildings" unique_id=976619113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 6.586337, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 13.172674, 8)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof146" type="StaticBody3D" parent="Buildings" unique_id=1022762066]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 13.325241, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.30513307, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House147" type="StaticBody3D" parent="Buildings" unique_id=1727694187]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 3.272798, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.545596, 8)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof147" type="StaticBody3D" parent="Buildings" unique_id=825894407]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 6.7079287, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.32466558, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House148" type="StaticBody3D" parent="Buildings" unique_id=130350057]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 6.555443, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 13.110886, 8)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof148" type="StaticBody3D" parent="Buildings" unique_id=799293640]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 13.266985, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3121993, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House149" type="StaticBody3D" parent="Buildings" unique_id=700030314]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 4.6430945, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.286189, 8)
+color = Color(0.93, 0.88, 0.75, 1)
+grid_strength = 0.2
+
+[node name="Roof149" type="StaticBody3D" parent="Buildings" unique_id=645862835]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 9.436296, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3002158, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House150" type="StaticBody3D" parent="Buildings" unique_id=1335335135]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 4.626696, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.253392, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof150" type="StaticBody3D" parent="Buildings" unique_id=134327111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 9.412458, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.31813297, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House151" type="StaticBody3D" parent="Buildings" unique_id=1946325879]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4.8314333, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.662867, 8)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof151" type="StaticBody3D" parent="Buildings" unique_id=851222555]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 9.831153, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3365729, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House152" type="StaticBody3D" parent="Buildings" unique_id=1759713576]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 6.2551117, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 12.510223, 8)
+color = Color(0.93, 0.88, 0.75, 1)
+grid_strength = 0.2
+
+[node name="Roof152" type="StaticBody3D" parent="Buildings" unique_id=1115875140]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 12.660234, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.30002043, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House153" type="StaticBody3D" parent="Buildings" unique_id=705032727]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3.3418999, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.6837997, 8)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof153" type="StaticBody3D" parent="Buildings" unique_id=514217298]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 6.8420086, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3164172, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House154" type="StaticBody3D" parent="Buildings" unique_id=56737980]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 6.490653, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 12.981306, 8)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof154" type="StaticBody3D" parent="Buildings" unique_id=346734738]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 13.144506, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3264019, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House155" type="StaticBody3D" parent="Buildings" unique_id=1636100516]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 3.3218968, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.6437936, 8)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof155" type="StaticBody3D" parent="Buildings" unique_id=578699013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 6.822938, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.35828838, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House156" type="StaticBody3D" parent="Buildings" unique_id=830426763]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 6.2619896, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(16, 12.523979, 8)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof156" type="StaticBody3D" parent="Buildings" unique_id=1292618986]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 12.692818, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(16.5, 0.33767626, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House157" type="StaticBody3D" parent="Buildings" unique_id=388829261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3.0583801, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.1167603, 8)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof157" type="StaticBody3D" parent="Buildings" unique_id=2011599058]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 6.303813, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.37410498, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House158" type="StaticBody3D" parent="Buildings" unique_id=2013097447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 6.5205407, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 13.041081, 8)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof158" type="StaticBody3D" parent="Buildings" unique_id=358401807]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 13.216045, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.34992713, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House159" type="StaticBody3D" parent="Buildings" unique_id=29024041]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 3.1626258, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.3252516, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof159" type="StaticBody3D" parent="Buildings" unique_id=1228602328]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 6.4878893, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.3252757, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House160" type="StaticBody3D" parent="Buildings" unique_id=1562724009]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 4.984015, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(16, 9.96803, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof160" type="StaticBody3D" parent="Buildings" unique_id=1048374224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 10.135426, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(16.5, 0.33479166, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House161" type="StaticBody3D" parent="Buildings" unique_id=1150891932]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 4.6213484, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.242697, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof161" type="StaticBody3D" parent="Buildings" unique_id=635688274]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 9.412792, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.34019145, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House162" type="StaticBody3D" parent="Buildings" unique_id=547697981]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 6.352088, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 12.704176, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof162" type="StaticBody3D" parent="Buildings" unique_id=2068041647]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 12.864462, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3205708, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House163" type="StaticBody3D" parent="Buildings" unique_id=342875688]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 4.8652105, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.730421, 8)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof163" type="StaticBody3D" parent="Buildings" unique_id=1368706741]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 9.917867, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.374892, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House164" type="StaticBody3D" parent="Buildings" unique_id=1463176325]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 3.275442, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.550884, 8)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof164" type="StaticBody3D" parent="Buildings" unique_id=369224473]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 6.7016954, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.30162302, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House165" type="StaticBody3D" parent="Buildings" unique_id=1829744030]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 4.635153, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.270306, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof165" type="StaticBody3D" parent="Buildings" unique_id=528262567]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 9.447683, 20)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.35475445, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House166" type="StaticBody3D" parent="Buildings" unique_id=1825180334]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 4.856575, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.71315, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof166" type="StaticBody3D" parent="Buildings" unique_id=2019078998]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 9.886429, 28)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.34655708, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House167" type="StaticBody3D" parent="Buildings" unique_id=1582069427]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86, 6.25862, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 12.51724, 8)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof167" type="StaticBody3D" parent="Buildings" unique_id=1622409978]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86, 12.704884, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3752885, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House168" type="StaticBody3D" parent="Buildings" unique_id=262253588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74, 4.7440877, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.488175, 8)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof168" type="StaticBody3D" parent="Buildings" unique_id=2043363114]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74, 9.6449585, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.31356576, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House169" type="StaticBody3D" parent="Buildings" unique_id=819890239]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 6.2166986, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 12.433397, 8)
+color = Color(0.93, 0.88, 0.75, 1)
+grid_strength = 0.2
+
+[node name="Roof169" type="StaticBody3D" parent="Buildings" unique_id=748376420]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 12.584635, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.30247465, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House170" type="StaticBody3D" parent="Buildings" unique_id=721946630]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 6.5370493, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 13.074099, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof170" type="StaticBody3D" parent="Buildings" unique_id=767506693]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 13.23617, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.32414272, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House171" type="StaticBody3D" parent="Buildings" unique_id=999227900]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 6.597626, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 13.195252, 8)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof171" type="StaticBody3D" parent="Buildings" unique_id=1048919896]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 13.35681, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.32311293, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House172" type="StaticBody3D" parent="Buildings" unique_id=1402156668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 3.1794975, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 6.358995, 8)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof172" type="StaticBody3D" parent="Buildings" unique_id=1535489407]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 6.5103283, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.30266604, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House173" type="StaticBody3D" parent="Buildings" unique_id=939259191]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.7134986, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.426997, 8)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof173" type="StaticBody3D" parent="Buildings" unique_id=1450317442]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 9.588828, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.32366204, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House174" type="StaticBody3D" parent="Buildings" unique_id=1063877160]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 3.00045, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(16, 6.0009, 8)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof174" type="StaticBody3D" parent="Buildings" unique_id=1550788616]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 6.1589575, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(16.5, 0.3161157, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House175" type="StaticBody3D" parent="Buildings" unique_id=1490355988]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 4.726042, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.452084, 8)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof175" type="StaticBody3D" parent="Buildings" unique_id=1316066646]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 9.618729, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.33329123, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House176" type="StaticBody3D" parent="Buildings" unique_id=810548856]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 4.981352, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.962704, 8)
+color = Color(0.82, 0.48, 0.34, 1)
+grid_strength = 0.2
+
+[node name="Roof176" type="StaticBody3D" parent="Buildings" unique_id=192920195]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 10.13117, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.336932, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House177" type="StaticBody3D" parent="Buildings" unique_id=1732796463]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 4.798199, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 9.596398, 8)
+color = Color(0.64, 0.74, 0.82, 1)
+grid_strength = 0.2
+
+[node name="Roof177" type="StaticBody3D" parent="Buildings" unique_id=310156439]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 9.765932, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.33906764, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House178" type="StaticBody3D" parent="Buildings" unique_id=359520806]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 4.873037, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 9.746074, 8)
+color = Color(0.93, 0.88, 0.75, 1)
+grid_strength = 0.2
+
+[node name="Roof178" type="StaticBody3D" parent="Buildings" unique_id=203932025]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 9.925623, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.35909694, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House179" type="StaticBody3D" parent="Buildings" unique_id=772803694]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 6.3685894, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 12.737179, 8)
+color = Color(0.86, 0.66, 0.38, 1)
+grid_strength = 0.2
+
+[node name="Roof179" type="StaticBody3D" parent="Buildings" unique_id=363872792]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 12.887663, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(8.5, 0.30096704, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House180" type="StaticBody3D" parent="Buildings" unique_id=1332064868]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 3.3453698, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.6907396, 8)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof180" type="StaticBody3D" parent="Buildings" unique_id=597439268]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 6.845993, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.31050694, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House181" type="StaticBody3D" parent="Buildings" unique_id=722706814]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 6.475386, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(16, 12.950772, 8)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof181" type="StaticBody3D" parent="Buildings" unique_id=1844193763]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 13.137009, 40)
+script = ExtResource("1_ajqtb")
+size = Vector3(16.5, 0.37247232, 8.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House182" type="StaticBody3D" parent="Buildings" unique_id=2141687502]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 6.5796895, 42)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 13.159379, 4)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof182" type="StaticBody3D" parent="Buildings" unique_id=447250674]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 13.343384, 42)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.36801016, 4.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House183" type="StaticBody3D" parent="Buildings" unique_id=825680758]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74, 12.296449, -78)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 12.592897, 4)
+color = Color(0.93, 0.88, 0.75, 1)
+grid_strength = 0.2
+
+[node name="Roof183" type="StaticBody3D" parent="Buildings" unique_id=784644399]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74, 18.74516, -78)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.3045228, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House184" type="StaticBody3D" parent="Buildings" unique_id=375957349]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3.1403785, -78)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 6.280757, 4)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof184" type="StaticBody3D" parent="Buildings" unique_id=1628246446]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 6.4552646, -78)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.3490151, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House185" type="StaticBody3D" parent="Buildings" unique_id=352983217]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 3.1890447, -70)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 6.3780894, 4)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof185" type="StaticBody3D" parent="Buildings" unique_id=1492873221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 6.5497713, -70)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.34336418, 4.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House186" type="StaticBody3D" parent="Buildings" unique_id=569525134]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54, 12.506224, -66)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 13.012447, 4)
+color = Color(0.93, 0.72, 0.68, 1)
+grid_strength = 0.2
+
+[node name="Roof186" type="StaticBody3D" parent="Buildings" unique_id=2086286473]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54, 19.202127, -66)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.3793598, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House187" type="StaticBody3D" parent="Buildings" unique_id=1398516727]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 9.296067, -54)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 6.5921335, 4)
+color = Color(0.93, 0.88, 0.75, 1)
+grid_strength = 0.2
+
+[node name="Roof187" type="StaticBody3D" parent="Buildings" unique_id=1408014792]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 12.77411, -54)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.36395156, 4.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House188" type="StaticBody3D" parent="Buildings" unique_id=2088497679]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 6.4870267, -54)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 12.974053, 4)
+color = Color(0.68, 0.75, 0.6, 1)
+grid_strength = 0.2
+
+[node name="Roof188" type="StaticBody3D" parent="Buildings" unique_id=2092249068]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 13.143331, -54)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.338554, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House189" type="StaticBody3D" parent="Buildings" unique_id=1344053821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 4.650991, -54)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 9.301982, 4)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof189" type="StaticBody3D" parent="Buildings" unique_id=499046161]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 9.470404, -54)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.33684516, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House190" type="StaticBody3D" parent="Buildings" unique_id=603456124]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 3.198888, -22)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 6.397776, 4)
+color = Color(0.95, 0.6, 0.47, 1)
+grid_strength = 0.2
+
+[node name="Roof190" type="StaticBody3D" parent="Buildings" unique_id=953688350]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 6.5508213, -22)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.30608985, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="House191" type="StaticBody3D" parent="Buildings" unique_id=1313487481]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3.2927065, -8)
+script = ExtResource("1_ajqtb")
+size = Vector3(12, 6.585413, 8)
+color = Color(0.96, 0.9, 0.8, 1)
+grid_strength = 0.2
+
+[node name="Roof191" type="StaticBody3D" parent="Buildings" unique_id=973851740]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 6.753584, -8)
+script = ExtResource("1_ajqtb")
+size = Vector3(12.5, 0.3363415, 8.5)
+color = Color(0.52, 0.26, 0.2, 1)
+grid_strength = 0.3
+
+[node name="House192" type="StaticBody3D" parent="Buildings" unique_id=309650461]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 3.257331, 38)
+script = ExtResource("1_ajqtb")
+size = Vector3(4, 6.514662, 4)
+color = Color(0.95, 0.84, 0.5, 1)
+grid_strength = 0.2
+
+[node name="Roof192" type="StaticBody3D" parent="Buildings" unique_id=1333731436]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 6.680602, 38)
+script = ExtResource("1_ajqtb")
+size = Vector3(4.5, 0.3318803, 4.5)
+color = Color(0.66, 0.32, 0.22, 1)
+grid_strength = 0.3
+
+[node name="Kiosk" type="StaticBody3D" parent="Buildings" unique_id=751617794]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 1.6, 54)
+script = ExtResource("1_ajqtb")
+size = Vector3(6.8, 3.2, 2.8)
+color = Color(0.62, 0.9, 0.84, 1)
+grid_strength = 0.2
+
+[node name="Details" type="Node3D" parent="." unique_id=1367897858]
+
+[node name="Door" type="StaticBody3D" parent="Details" unique_id=150940537]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -74, 7.2, -80.1)
+script = ExtResource("1_ajqtb")
+size = Vector3(1.4, 2.4, 0.2)
+color = Color(0.33, 0.21, 0.14, 1)
+has_collision = false
+grid_strength = 0.0
+
+[node name="Sign" type="Label3D" parent="Details" unique_id=1154704988]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -74, 9, -80.15)
+pixel_size = 0.01
+double_sided = false
+text = "Salita del Belvedere 2"
+font_size = 48
+outline_size = 10
+
+[node name="Door2" type="StaticBody3D" parent="Details" unique_id=1796881658]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 14, 1.2, -80.1)
+script = ExtResource("1_ajqtb")
+size = Vector3(1.4, 2.4, 0.2)
+color = Color(0.33, 0.21, 0.14, 1)
+has_collision = false
+grid_strength = 0.0
+
+[node name="Sign2" type="Label3D" parent="Details" unique_id=338430530]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 14, 3, -80.15)
+pixel_size = 0.01
+double_sided = false
+text = "Via dei Limoni 3"
+font_size = 48
+outline_size = 10
+
+[node name="Door3" type="StaticBody3D" parent="Details" unique_id=1271179129]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 1.2, -67.9)
+script = ExtResource("1_ajqtb")
+size = Vector3(1.4, 2.4, 0.2)
+color = Color(0.33, 0.21, 0.14, 1)
+has_collision = false
+grid_strength = 0.0
+
+[node name="Sign3" type="Label3D" parent="Details" unique_id=642762889]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 3, -67.85)
+pixel_size = 0.01
+double_sided = false
+text = "Vicolo del Gatto 8"
+font_size = 48
+outline_size = 10
+
+[node name="Door4" type="StaticBody3D" parent="Details" unique_id=1730657237]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -54, 7.2, -68.1)
+script = ExtResource("1_ajqtb")
+size = Vector3(1.4, 2.4, 0.2)
+color = Color(0.33, 0.21, 0.14, 1)
+has_collision = false
+grid_strength = 0.0
+
+[node name="Sign4" type="Label3D" parent="Details" unique_id=448745441]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -54, 9, -68.15)
+pixel_size = 0.01
+double_sided = false
+text = "Via della Torre 7"
+font_size = 48
+outline_size = 10
+
+[node name="Door5" type="StaticBody3D" parent="Details" unique_id=2011147021]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -32.1, 7.2, -54)
+script = ExtResource("1_ajqtb")
+size = Vector3(1.4, 2.4, 0.2)
+color = Color(0.33, 0.21, 0.14, 1)
+has_collision = false
+grid_strength = 0.0
+
+[node name="Sign5" type="Label3D" parent="Details" unique_id=1136962874]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -32.15, 9, -54)
+pixel_size = 0.01
+double_sided = false
+text = "Piazzetta degli Ulivi 1"
+font_size = 48
+outline_size = 10
+
+[node name="Door6" type="StaticBody3D" parent="Details" unique_id=1254059797]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 1.2, -51.9)
+script = ExtResource("1_ajqtb")
+size = Vector3(1.4, 2.4, 0.2)
+color = Color(0.33, 0.21, 0.14, 1)
+has_collision = false
+grid_strength = 0.0
+
+[node name="Sign6" type="Label3D" parent="Details" unique_id=200814520]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3, -51.85)
+pixel_size = 0.01
+double_sided = false
+text = "Via del Mulino 12"
+font_size = 48
+outline_size = 10
+
+[node name="Door7" type="StaticBody3D" parent="Details" unique_id=344264447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 1.2, -51.9)
+script = ExtResource("1_ajqtb")
+size = Vector3(1.4, 2.4, 0.2)
+color = Color(0.33, 0.21, 0.14, 1)
+has_collision = false
+grid_strength = 0.0
+
+[node name="Sign7" type="Label3D" parent="Details" unique_id=1716660221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 3, -51.85)
+pixel_size = 0.01
+double_sided = false
+text = "Via delle Rondini 5"
+font_size = 48
+outline_size = 10
+
+[node name="Door8" type="StaticBody3D" parent="Details" unique_id=730210220]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 1.2, -19.9)
+script = ExtResource("1_ajqtb")
+size = Vector3(1.4, 2.4, 0.2)
+color = Color(0.33, 0.21, 0.14, 1)
+has_collision = false
+grid_strength = 0.0
+
+[node name="Sign8" type="Label3D" parent="Details" unique_id=678611576]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 3, -19.85)
+pixel_size = 0.01
+double_sided = false
+text = "Vicolo Stretto 4"
+font_size = 48
+outline_size = 10
+
+[node name="Awning" type="StaticBody3D" parent="Details" unique_id=1269320699]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -12.8, 3.2, -10)
+script = ExtResource("1_ajqtb")
+size = Vector3(3.6, 0.15, 1.6)
+color = Color(0.82, 0.18, 0.16, 1)
+has_collision = false
+grid_strength = 0.0
+
+[node name="Door9" type="StaticBody3D" parent="Details" unique_id=974849466]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -12.1, 1.2, -10)
+script = ExtResource("1_ajqtb")
+size = Vector3(1.4, 2.4, 0.2)
+color = Color(0.33, 0.21, 0.14, 1)
+has_collision = false
+grid_strength = 0.0
+
+[node name="Sign9" type="Label3D" parent="Details" unique_id=749469181]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -12.15, 3, -10)
+pixel_size = 0.01
+double_sided = false
+text = "Pizzeria Da Nonna Pina"
+font_size = 48
+outline_size = 10
+
+[node name="Door10" type="StaticBody3D" parent="Details" unique_id=166383782]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 26, 1.2, 35.9)
+script = ExtResource("1_ajqtb")
+size = Vector3(1.4, 2.4, 0.2)
+color = Color(0.33, 0.21, 0.14, 1)
+has_collision = false
+grid_strength = 0.0
+
+[node name="Sign10" type="Label3D" parent="Details" unique_id=771769083]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 26, 3, 35.85)
+pixel_size = 0.01
+double_sided = false
+text = "Lungomare 21"
+font_size = 48
+outline_size = 10
+
+[node name="Awning2" type="StaticBody3D" parent="Details" unique_id=1874212633]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -46, 2.4, 51.2)
+script = ExtResource("1_ajqtb")
+size = Vector3(3.6, 0.15, 1.6)
+color = Color(0.98, 0.6, 0.72, 1)
+has_collision = false
+grid_strength = 0.0
+
+[node name="Door11" type="StaticBody3D" parent="Details" unique_id=529684317]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -46, 1.2, 51.9)
+script = ExtResource("1_ajqtb")
+size = Vector3(1.4, 2.4, 0.2)
+color = Color(0.33, 0.21, 0.14, 1)
+has_collision = false
+grid_strength = 0.0
+
+[node name="Sign11" type="Label3D" parent="Details" unique_id=1341024843]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -46, 3, 51.85)
+pixel_size = 0.01
+double_sided = false
+text = "Gelateria Polo Nord"
+font_size = 48
+outline_size = 10
+
+[node name="TreeTrunk" type="StaticBody3D" parent="Details" unique_id=499079728]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 1.5, -74)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.5, 3, 0.5)
+color = Color(0.42, 0.3, 0.2, 1)
+grid_strength = 0.0
+
+[node name="TreeTop" type="StaticBody3D" parent="Details" unique_id=2122068573]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 4, -74)
+script = ExtResource("1_ajqtb")
+shape = 2
+size = Vector3(3.4, 3.4, 3.4)
+color = Color(0.32, 0.55, 0.28, 1)
+grid_strength = 0.0
+
+[node name="TreeTrunk2" type="StaticBody3D" parent="Details" unique_id=1520245629]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 1.5, -74)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.5, 3, 0.5)
+color = Color(0.42, 0.3, 0.2, 1)
+grid_strength = 0.0
+
+[node name="TreeTop2" type="StaticBody3D" parent="Details" unique_id=516822090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 4, -74)
+script = ExtResource("1_ajqtb")
+shape = 2
+size = Vector3(3.4, 3.4, 3.4)
+color = Color(0.32, 0.55, 0.28, 1)
+grid_strength = 0.0
+
+[node name="TreeTrunk3" type="StaticBody3D" parent="Details" unique_id=946928150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, 1.5, -70)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.5, 3, 0.5)
+color = Color(0.42, 0.3, 0.2, 1)
+grid_strength = 0.0
+
+[node name="TreeTop3" type="StaticBody3D" parent="Details" unique_id=1320674931]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, 4, -70)
+script = ExtResource("1_ajqtb")
+shape = 2
+size = Vector3(3.4, 3.4, 3.4)
+color = Color(0.32, 0.55, 0.28, 1)
+grid_strength = 0.0
+
+[node name="FountainBasin" type="StaticBody3D" parent="Details" unique_id=323150773]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0.35, -4)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(7.2, 0.7, 7.2)
+color = Color(0.58, 0.56, 0.54, 1)
+grid_strength = 0.3
+
+[node name="FountainWater" type="StaticBody3D" parent="Details" unique_id=2128307887]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0.62, -4)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(6.12, 0.05, 6.12)
+color = Color(0.18, 0.45, 0.62, 1)
+cast_shadows = false
+has_collision = false
+grid_strength = 0.0
+
+[node name="FountainColumn" type="StaticBody3D" parent="Details" unique_id=1928080388]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1.2, -4)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.6, 2.4, 0.6)
+color = Color(0.58, 0.56, 0.54, 1)
+grid_strength = 0.3
+
+[node name="FountainTop" type="StaticBody3D" parent="Details" unique_id=1615631541]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 2.6, -4)
+script = ExtResource("1_ajqtb")
+shape = 2
+size = Vector3(0.9, 0.9, 0.9)
+color = Color(0.58, 0.56, 0.54, 1)
+grid_strength = 0.3
+
+[node name="PierDeck" type="StaticBody3D" parent="Details" unique_id=351443314]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -0.2, 66)
+script = ExtResource("1_ajqtb")
+size = Vector3(8, 0.4, 28)
+color = Color(0.55, 0.4, 0.26, 1)
+grid_strength = 0.6
+
+[node name="PierPost" type="StaticBody3D" parent="Details" unique_id=828269969]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.3, -3, 54)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.35, 6, 0.35)
+color = Color(0.55, 0.4, 0.26, 1)
+grid_strength = 0.0
+
+[node name="PierPost2" type="StaticBody3D" parent="Details" unique_id=1635552363]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.7, -3, 54)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.35, 6, 0.35)
+color = Color(0.55, 0.4, 0.26, 1)
+grid_strength = 0.0
+
+[node name="PierPost3" type="StaticBody3D" parent="Details" unique_id=1668842725]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.3, -3, 58)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.35, 6, 0.35)
+color = Color(0.55, 0.4, 0.26, 1)
+grid_strength = 0.0
+
+[node name="PierPost4" type="StaticBody3D" parent="Details" unique_id=205129707]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.7, -3, 58)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.35, 6, 0.35)
+color = Color(0.55, 0.4, 0.26, 1)
+grid_strength = 0.0
+
+[node name="PierPost5" type="StaticBody3D" parent="Details" unique_id=1950524844]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.3, -3, 62)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.35, 6, 0.35)
+color = Color(0.55, 0.4, 0.26, 1)
+grid_strength = 0.0
+
+[node name="PierPost6" type="StaticBody3D" parent="Details" unique_id=1667285228]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.7, -3, 62)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.35, 6, 0.35)
+color = Color(0.55, 0.4, 0.26, 1)
+grid_strength = 0.0
+
+[node name="PierPost7" type="StaticBody3D" parent="Details" unique_id=199800151]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.3, -3, 66)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.35, 6, 0.35)
+color = Color(0.55, 0.4, 0.26, 1)
+grid_strength = 0.0
+
+[node name="PierPost8" type="StaticBody3D" parent="Details" unique_id=128519701]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.7, -3, 66)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.35, 6, 0.35)
+color = Color(0.55, 0.4, 0.26, 1)
+grid_strength = 0.0
+
+[node name="PierPost9" type="StaticBody3D" parent="Details" unique_id=963973746]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.3, -3, 70)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.35, 6, 0.35)
+color = Color(0.55, 0.4, 0.26, 1)
+grid_strength = 0.0
+
+[node name="PierPost10" type="StaticBody3D" parent="Details" unique_id=1320616335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.7, -3, 70)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.35, 6, 0.35)
+color = Color(0.55, 0.4, 0.26, 1)
+grid_strength = 0.0
+
+[node name="PierPost11" type="StaticBody3D" parent="Details" unique_id=780001703]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.3, -3, 74)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.35, 6, 0.35)
+color = Color(0.55, 0.4, 0.26, 1)
+grid_strength = 0.0
+
+[node name="PierPost12" type="StaticBody3D" parent="Details" unique_id=308804536]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.7, -3, 74)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.35, 6, 0.35)
+color = Color(0.55, 0.4, 0.26, 1)
+grid_strength = 0.0
+
+[node name="PierPost13" type="StaticBody3D" parent="Details" unique_id=169549340]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.3, -3, 78)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.35, 6, 0.35)
+color = Color(0.55, 0.4, 0.26, 1)
+grid_strength = 0.0
+
+[node name="PierPost14" type="StaticBody3D" parent="Details" unique_id=1105874087]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.7, -3, 78)
+script = ExtResource("1_ajqtb")
+shape = 1
+size = Vector3(0.35, 6, 0.35)
+color = Color(0.55, 0.4, 0.26, 1)
+grid_strength = 0.0
+
+[node name="Bounds" type="Node3D" parent="." unique_id=1067996023]
+
+[node name="Wall" type="StaticBody3D" parent="Bounds" unique_id=1451445952]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 3.75, -88.5)
+script = ExtResource("1_ajqtb")
+size = Vector3(96, 7.5, 1)
+color = Color(0.58, 0.56, 0.54, 1)
+grid_strength = 0.5
+
+[node name="Wall2" type="StaticBody3D" parent="Bounds" unique_id=1065998828]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 0.75, -88.5)
+script = ExtResource("1_ajqtb")
+size = Vector3(96, 1.5, 1)
+color = Color(0.58, 0.56, 0.54, 1)
+grid_strength = 0.5
+
+[node name="Wall3" type="StaticBody3D" parent="Bounds" unique_id=1174519856]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.5, 3.75, -60)
+script = ExtResource("1_ajqtb")
+size = Vector3(1, 7.5, 56)
+color = Color(0.58, 0.56, 0.54, 1)
+grid_strength = 0.5
+
+[node name="Wall4" type="StaticBody3D" parent="Bounds" unique_id=1015083677]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.5, 0.75, 14)
+script = ExtResource("1_ajqtb")
+size = Vector3(1, 1.5, 92)
+color = Color(0.58, 0.56, 0.54, 1)
+grid_strength = 0.5
+
+[node name="Wall5" type="StaticBody3D" parent="Bounds" unique_id=1235206157]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.5, 0.75, -14)
+script = ExtResource("1_ajqtb")
+size = Vector3(1, 1.5, 148)
+color = Color(0.58, 0.56, 0.54, 1)
+grid_strength = 0.5
+
+[node name="Sea" type="Node3D" parent="." unique_id=550823585]
+
+[node name="Water" type="MeshInstance3D" parent="Sea" unique_id=73038009]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_oibmw")
+
+[node name="WaterHazard" type="Area3D" parent="Sea" unique_id=1306096311]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.95, 0)
+script = ExtResource("2_y2kqe")
+
+[node name="Volume" type="CollisionShape3D" parent="Sea/WaterHazard" unique_id=1576361102]
+shape = SubResource("BoxShape3D_1yb2g")
+
+[node name="SeaFloor" type="StaticBody3D" parent="Sea" unique_id=1756851653]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25.5, 0)
+script = ExtResource("1_ajqtb")
+size = Vector3(792, 1, 776)
+color = Color(0.93, 0.85, 0.62, 1)
+cast_shadows = false
+grid_strength = 0.0
+
+[node name="Locations" type="Node3D" parent="." unique_id=162143058]
+
+[node name="Location_5" type="Marker3D" parent="Locations" unique_id=16262847]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -74, 6, -82.5)
+script = ExtResource("3_bi3wm")
+location_id = &"address_5"
+display_name = "Salita del Belvedere 2"
+
+[node name="Location_1" type="Marker3D" parent="Locations" unique_id=1956646648]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 14, 0, -82.5)
+script = ExtResource("3_bi3wm")
+location_id = &"address_1"
+display_name = "Via dei Limoni 3"
+
+[node name="Location_2" type="Marker3D" parent="Locations" unique_id=537031032]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, -65.5)
+script = ExtResource("3_bi3wm")
+location_id = &"address_2"
+display_name = "Vicolo del Gatto 8"
+
+[node name="Location_6" type="Marker3D" parent="Locations" unique_id=1160986028]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -54, 6, -70.5)
+script = ExtResource("3_bi3wm")
+location_id = &"address_6"
+display_name = "Via della Torre 7"
+
+[node name="Location_7" type="Marker3D" parent="Locations" unique_id=789752555]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -34.5, 6, -54)
+script = ExtResource("3_bi3wm")
+location_id = &"address_7"
+display_name = "Piazzetta degli Ulivi 1"
+
+[node name="Location_3" type="Marker3D" parent="Locations" unique_id=206252566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -49.5)
+script = ExtResource("3_bi3wm")
+location_id = &"address_3"
+display_name = "Via del Mulino 12"
+
+[node name="Location_4" type="Marker3D" parent="Locations" unique_id=22400905]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 0, -49.5)
+script = ExtResource("3_bi3wm")
+location_id = &"address_4"
+display_name = "Via delle Rondini 5"
+
+[node name="Location_8" type="Marker3D" parent="Locations" unique_id=585724688]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 0, -17.5)
+script = ExtResource("3_bi3wm")
+location_id = &"address_8"
+display_name = "Vicolo Stretto 4"
+
+[node name="Location_Z" type="Marker3D" parent="Locations" unique_id=450015707]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -14.5, 0, -10)
+script = ExtResource("3_bi3wm")
+location_id = &"pizzeria"
+display_name = "Pizzeria Da Nonna Pina"
+
+[node name="Location_9" type="Marker3D" parent="Locations" unique_id=2039844677]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 26, 0, 33.5)
+script = ExtResource("3_bi3wm")
+location_id = &"address_9"
+display_name = "Lungomare 21"
+
+[node name="Location_G" type="Marker3D" parent="Locations" unique_id=388726084]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -46, 0, 49.5)
+script = ExtResource("3_bi3wm")
+location_id = &"gelateria"
+display_name = "Gelateria Polo Nord"
+
+[node name="PlayerSpawn" type="Marker3D" parent="." unique_id=2058015830 groups=["player_spawn"]]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 10, 0.3, -2)

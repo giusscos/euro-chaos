@@ -1,0 +1,77 @@
+; Scooter Delivery village, greybox layout.
+; Rebuild the scene after editing:
+;   $GODOT --headless --path . --script res://tools/levels/build_greybox_map.gd -- \
+;     res://minigames/vespa_delivery/levels/village_map.txt \
+;     res://minigames/vespa_delivery/levels/village_greybox.tscn
+;
+; One character = one cell (cell_size metres). North is up (-Z), east is right (+X).
+;   .  street            =  coast road        P  piazza          S  player spawn (piazza)
+;   #  house             H  house, upper town h  upper-town street
+;   ^ v < >  ramp up to the upper town, rising toward north / south / west / east
+;   C  church            Z  pizzeria (pickup) G  gelateria (pickup)
+;   1-9  customer houses (door faces the busiest neighbouring street)
+;   F  fountain          g  grass  t  tree    b  beach  ~  sea  w  wooden pier
+
+@cell_size = 4
+@plateau_height = 6
+@seed = 7
+@spawn_heading = 180
+@name.Z = Pizzeria Da Nonna Pina
+@name.G = Gelateria Polo Nord
+@name.1 = Via dei Limoni 3
+@name.2 = Vicolo del Gatto 8
+@name.3 = Via del Mulino 12
+@name.4 = Via delle Rondini 5
+@name.5 = Salita del Belvedere 2
+@name.6 = Via della Torre 7
+@name.7 = Piazzetta degli Ulivi 1
+@name.8 = Vicolo Stretto 4
+@name.9 = Lungomare 21
+@id.Z = pizzeria
+@id.G = gelateria
+
+[map]
+HHHHHHHHHHHHHHHHHHHHHHHH########################
+HhhhhhhhhhhhhhhhhhhhhhhH......................##
+HhHHH5HhHHHHHHhHHHHHHhhH.##1#.#####.ggggggggg.##
+HhHHHHHhHHHHHHhHHHHHHhhH.####.#####.gtgggtggg.##
+HhhhhhhhhhhhhhhhHHHHHhhH.####.##2##.ggggtgggg.##
+HhHHHHHhHH6HHHhHHHHHHhhH......................##
+HhHHHHHhHHHHHHhhhhhhhhhH.#####.####.#####.###.##
+HhHHHHHhHHHHHHhHHHHHHhhH.#####.####.#####.###.##
+Hhhhhhhhhhhhhhhh7HHHHhhH.##3##.####.#####.#4#.##
+HhHHHHHHHHHHHHhHHHHHHhhH......................##
+HhHHHHHHHHHHHHhhhhhhhhhH.#########.######.###.##
+hhhhhhhhhhhhhhhhhhhhhhhh.#########.######.###.##
+hhhhhhhhhhhhhhhhhhhhhhhh.#########.######.###.##
+hhhhhhhhhhhhhhhhhhhhhhhh.#########.######.###.##
+#^^###.#####.#####^^.###.##CCCCC##.######.###.##
+#^^###.#####.#####^^.###.##CCCCC##.######.###.##
+#^^###.8####.#####^^.###.##CCCCC##.######.###.##
+#^^...............^^.###PPPPPPPPPPP.#####.###.##
+#^^######.########^^.###PPPPPPPPPPP.#####.###.##
+#^^######.########^^.ZZZPPPPPPPPPPP.#####.###.##
+#^^######.########^^.ZZZPPPPPFFPPPP.#####.###.##
+#^^######.########^^.###PPSPPFFPPPP.#####.###.##
+#.......................PPPPPPPPPPP.#####.###.##
+#..######.########..####PPPPPPPPPPP.#####.###.##
+#..######.########..####PPPPPPPPPPP.#####.###.##
+#.............................................##
+#.#######.########.#####.##########.#####.###.##
+#.#######.########.#####.##########.#####.###.##
+#.#######.########.#####.##########.#####.###.##
+#.#######.########.#####.##########.#####.###.##
+#.............................................##
+#########.##############.#####9##########.######
+#########.##############.################.######
+================================================
+================================================
+bbbbbbbbbbbbGGbbbbbbbbbbbbbbbbbbbbbbbbwwbbbbbbbb
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbwwbbbbbbbb
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ww~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ww~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ww~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ww~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ww~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
