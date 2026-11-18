@@ -37,6 +37,11 @@ const DEFAULTS: Dictionary = {
 	"sea_floor": -25.0,
 	"sea_margin": 300.0,
 	"spawn_lift": 0.3,
+	"bollard_height": 0.9,
+	"bollard_diameter": 0.25,
+	## Bollards sit this far either side of the alley centre: the gaps let
+	## scooters and pedestrians through, not cars.
+	"bollard_offset": 0.65,
 }
 
 const DRIVABLE: String = ".=PSbghwt"
@@ -65,6 +70,7 @@ const COLORS: Dictionary = {
 	"water": Color(0.18, 0.45, 0.62),
 	"roof": Color(0.66, 0.32, 0.22),
 	"roof_dark": Color(0.52, 0.26, 0.2),
+	"bollard": Color(0.25, 0.25, 0.27),
 }
 const HOUSE_PALETTE: Array[Color] = [
 	Color(0.86, 0.66, 0.38), Color(0.82, 0.48, 0.34), Color(0.93, 0.72, 0.68),
@@ -119,6 +125,7 @@ func build(map_text: String, source_name: String = "map") -> Node3D:
 	_build_grid()
 	_build_buildings(doors)
 	_build_details()
+	_build_bollards()
 	_build_bounds()
 	_build_sea()
 	_build_spawn()
@@ -374,8 +381,9 @@ func _build_grid() -> void:
 	holder.name = "LevelGrid"
 	holder.grid = grid
 	_root.add_child(holder)
-	stats["DriveCells"] = grid.usable_cell_count(true)
-	stats["WalkCells"] = grid.usable_cell_count(false)
+	stats["CarCells"] = grid.usable_cell_count(LevelGrid.Network.CARS)
+	stats["ScooterCells"] = grid.usable_cell_count(LevelGrid.Network.SCOOTERS)
+	stats["WalkCells"] = grid.usable_cell_count(LevelGrid.Network.PEDESTRIANS)
 
 
 ## For every shop/customer building: the best street cell in front of it.
@@ -612,6 +620,29 @@ func _build_details() -> void:
 				var post: Vector3 = _cell_center(x, rect.position.y + row) + Vector3(0.3 if side == 0 else -0.3, 0, 0)
 				_block("Details", "PierPost", Vector3(0.35, 6.0, 0.35), post + Vector3.DOWN * 3.0,
 					COLORS["wood"], Basis.IDENTITY, 1, 0.0)
+
+
+## Posts across every alley mouth that opens onto a road ("=" cells), like
+## the entrance of an Italian limited-traffic zone.
+func _build_bollards() -> void:
+	var height: float = _cfg_float("bollard_height")
+	var diameter: float = _cfg_float("bollard_diameter")
+	var offset: float = _cfg_float("bollard_offset")
+	for y: int in _height:
+		for x: int in _width:
+			if _at(x, y) != "=":
+				continue
+			for dir: Vector2i in DIRECTIONS:
+				var next: Vector2i = Vector2i(x, y) + dir
+				var c: String = _at(next.x, next.y)
+				if c == "" or c == "=" or not _is_drivable(c) or "bgw".contains(c):
+					continue
+				var boundary: Vector3 = _cell_center(x, y) + Vector3(dir.x, 0, dir.y) * _cell * 0.5
+				var across := Vector3(absf(dir.y), 0, absf(dir.x))
+				for side: float in [-1.0, 1.0]:
+					_block("Details", "Bollard", Vector3(diameter, height, diameter),
+						boundary + across * offset * side + Vector3.UP * (_level(next.x, next.y) + height * 0.5),
+						COLORS["bollard"], Basis.IDENTITY, 1, 0.0)
 
 
 func _build_bounds() -> void:

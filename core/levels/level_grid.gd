@@ -1,21 +1,25 @@
 class_name LevelGrid
 extends Resource
 ## Walkable/drivable layout of a grid level, written by GreyboxMapBuilder.
-## Pedestrians and traffic ask it for paths (AStar2D over cell centres).
-## Two cells connect only if you can really move between them: same height,
-## or along a ramp (never up a cliff).
+## AI asks it for paths (AStar2D over cell centres) on one of three networks:
+## cars (two-lane roads only), scooters (also alleys, ramps, piazzas) and
+## pedestrians (everything walkable). Two cells connect only if you can
+## really move between them: same height, or along a ramp (never a cliff).
 
 enum Kind { BLOCKED, STREET, ROAD, PIAZZA, PLATEAU, RAMP, BEACH, GRASS, PIER, WATER }
+enum Network { CARS, SCOOTERS, PEDESTRIANS }
 ## Uphill direction of ramp cells (index into DIRECTIONS + 1; 0 = not a ramp).
 const DIRECTIONS: Array[Vector2i] = [Vector2i(0, -1), Vector2i(1, 0), Vector2i(0, 1), Vector2i(-1, 0)]
 ## Ramp ends may differ from the cell beyond them by up to this much.
 const RAMP_END_TOLERANCE: float = 1.0
 
-## Kinds traffic may drive on (piazzas, beaches and grass are off limits).
-const DRIVE_KINDS: Array[Kind] = [Kind.STREET, Kind.ROAD, Kind.PLATEAU, Kind.RAMP]
-## Kinds pedestrians may walk on.
-const WALK_KINDS: Array[Kind] = [Kind.STREET, Kind.ROAD, Kind.PIAZZA, Kind.PLATEAU, Kind.RAMP,
-	Kind.BEACH, Kind.GRASS, Kind.PIER]
+## Cells each network may use.
+const NETWORK_KINDS: Dictionary = {
+	Network.CARS: [Kind.ROAD],
+	Network.SCOOTERS: [Kind.ROAD, Kind.STREET, Kind.PLATEAU, Kind.RAMP, Kind.PIAZZA],
+	Network.PEDESTRIANS: [Kind.ROAD, Kind.STREET, Kind.PLATEAU, Kind.RAMP, Kind.PIAZZA,
+		Kind.BEACH, Kind.GRASS, Kind.PIER],
+}
 
 @export var cell_size: float = 4.0
 @export var size: Vector2i = Vector2i.ZERO
@@ -64,12 +68,12 @@ func get_height(cell: Vector2i) -> float:
 	return heights[_index(cell)] if has_cell(cell) else 0.0
 
 
+func is_usable(cell: Vector2i, network: Network) -> bool:
+	return (NETWORK_KINDS[network] as Array).has(get_kind(cell))
+
+
 func is_walkable(cell: Vector2i) -> bool:
-	return WALK_KINDS.has(get_kind(cell))
-
-
-func is_drivable(cell: Vector2i) -> bool:
-	return DRIVE_KINDS.has(get_kind(cell))
+	return is_usable(cell, Network.PEDESTRIANS)
 
 
 func cell_to_world(cell: Vector2i) -> Vector3:
@@ -80,32 +84,49 @@ func world_to_cell(position: Vector3) -> Vector2i:
 	return Vector2i(floori((position.x - origin.x) / cell_size), floori((position.z - origin.z) / cell_size))
 
 
-## Path of world points (cell centres) from one position to another, or empty
-## if there is none. for_vehicles uses the drivable cells only.
-func find_path(from: Vector3, to: Vector3, for_vehicles: bool) -> PackedVector3Array:
-	var astar: AStar2D = _get_astar(for_vehicles)
+## Path of world points (cell centres) from one position to another on a
+## network, or empty if there is none. `avoid` (optional) is a cell the path
+## must not use, e.g. the one a car is in, so it plans forwards.
+func find_path(from: Vector3, to: Vector3, network: Network,
+		avoid: Vector2i = Vector2i(-1, -1)) -> PackedVector3Array:
+	var astar: AStar2D = _get_astar(network)
 	var start: int = _nearest_point(astar, world_to_cell(from))
 	var goal: int = _nearest_point(astar, world_to_cell(to))
 	var result := PackedVector3Array()
 	if start < 0 or goal < 0:
 		return result
+	var avoided: int = _index(avoid) if has_cell(avoid) and astar.has_point(_index(avoid)) else -1
+	if avoided >= 0 and avoided != start and avoided != goal:
+		astar.set_point_disabled(avoided, true)
 	for id: int in astar.get_id_path(start, goal):
 		result.append(cell_to_world(_cell_of(id)))
+	if avoided >= 0:
+		astar.set_point_disabled(avoided, false)
 	return result
 
 
-## A random cell traffic or pedestrians can use, or (-1, -1) if there is none.
-func random_cell(rng: RandomNumberGenerator, for_vehicles: bool) -> Vector2i:
-	var astar: AStar2D = _get_astar(for_vehicles)
+## A random cell of a network, or (-1, -1) if there is none.
+func random_cell(rng: RandomNumberGenerator, network: Network) -> Vector2i:
+	var astar: AStar2D = _get_astar(network)
 	var ids: PackedInt64Array = astar.get_point_ids()
 	if ids.is_empty():
 		return Vector2i(-1, -1)
 	return _cell_of(ids[rng.randi_range(0, ids.size() - 1)])
 
 
-## Number of cells reachable for vehicles or pedestrians.
-func usable_cell_count(for_vehicles: bool) -> int:
-	return _get_astar(for_vehicles).get_point_count()
+## Number of cells in a network.
+func usable_cell_count(network: Network) -> int:
+	return _get_astar(network).get_point_count()
+
+
+## Usable neighbours of a cell that it really connects to.
+func connected_neighbours(cell: Vector2i, network: Network) -> Array[Vector2i]:
+	var result: Array[Vector2i] = []
+	for dir: Vector2i in DIRECTIONS:
+		var next: Vector2i = cell + dir
+		if is_usable(next, network) and are_connected(cell, next):
+			result.append(next)
+	return result
 
 
 func are_connected(a: Vector2i, b: Vector2i) -> bool:
@@ -133,14 +154,14 @@ func are_connected(a: Vector2i, b: Vector2i) -> bool:
 	return height_gap <= RAMP_END_TOLERANCE
 
 
-func _get_astar(for_vehicles: bool) -> AStar2D:
-	if _astar_cache.has(for_vehicles):
-		return _astar_cache[for_vehicles]
+func _get_astar(network: Network) -> AStar2D:
+	if _astar_cache.has(network):
+		return _astar_cache[network]
 	var astar := AStar2D.new()
 	for y: int in size.y:
 		for x: int in size.x:
 			var cell := Vector2i(x, y)
-			if (is_drivable(cell) if for_vehicles else is_walkable(cell)):
+			if is_usable(cell, network):
 				astar.add_point(_index(cell), Vector2(x, y))
 	for y: int in size.y:
 		for x: int in size.x:
@@ -151,7 +172,7 @@ func _get_astar(for_vehicles: bool) -> AStar2D:
 				var next: Vector2i = cell + step
 				if has_cell(next) and astar.has_point(_index(next)) and are_connected(cell, next):
 					astar.connect_points(_index(cell), _index(next))
-	_astar_cache[for_vehicles] = astar
+	_astar_cache[network] = astar
 	return astar
 
 

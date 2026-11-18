@@ -4,6 +4,7 @@ extends TestCase
 const VEHICLE_SCENES: PackedStringArray = [
 	"res://core/vehicle/vehicles/scooter.tscn",
 	"res://core/vehicle/vehicles/test_van.tscn",
+	"res://core/vehicle/vehicles/tiny_car.tscn",
 ]
 const SPAWN_HEIGHT: float = 0.3
 const SETTLE_FRAMES: int = 90

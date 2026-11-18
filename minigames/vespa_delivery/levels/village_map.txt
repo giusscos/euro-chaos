@@ -5,7 +5,8 @@
 ;     res://minigames/vespa_delivery/levels/village_greybox.tscn
 ;
 ; One character = one cell (cell_size metres). North is up (-Z), east is right (+X).
-;   .  street            =  coast road        P  piazza          S  player spawn (piazza)
+;   .  street (scooters and pedestrians only)   =  road (cars too: 2 cells wide)
+;   P  piazza          S  player spawn (piazza)
 ;   #  house             H  house, upper town h  upper-town street
 ;   ^ v < >  ramp up to the upper town, rising toward north / south / west / east
 ;   C  church            Z  pizzeria (pickup) G  gelateria (pickup)
@@ -60,10 +61,10 @@ hhhhhhhhhhhhhhhhhhhhhhhh.#########.######.###.##
 #.#######.########.#####.##########.#####.###.##
 #.#######.########.#####.##########.#####.###.##
 #.#######.########.#####.##########.#####.###.##
-#.#######.########.#####.##########.#####.###.##
-#.............................................##
-#########.##############.#####9##########.######
-#########.##############.################.######
+#=============================================##
+#=============================================##
+#########==#############.#####9##########==#####
+#########==#############.################==#####
 ================================================
 ================================================
 bbbbbbbbbbbbGGbbbbbbbbbbbbbbbbbbbbbbbbwwbbbbbbbb
