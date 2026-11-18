@@ -48,7 +48,10 @@ func _spawn_car() -> void:
 		paint.color = colors[_rng.randi() % colors.size()]
 	add_child(car)
 	var spawn_at: Vector3 = _grid.cell_to_world(cell) + Vector3.UP * spawn_lift
-	car.teleport(Transform3D(_street_heading(cell), spawn_at))
+	var start := Transform3D(_street_heading(cell), spawn_at)
+	# Place it now (the first route is planned before the teleport's physics tick).
+	car.global_transform = start
+	car.teleport(start)
 	var driver := AiVehicleController.new()
 	driver.name = "Driver"
 	driver.vehicle = car

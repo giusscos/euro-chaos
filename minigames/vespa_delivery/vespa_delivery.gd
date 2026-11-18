@@ -24,6 +24,15 @@ const SAVE_SECTION: StringName = &"vespa_delivery"
 ## Camera shake (trauma 0..1) for knocking things over.
 @export_range(0.0, 1.0, 0.05) var chaos_shake: float = 0.35
 
+@export_group("Rival Courier")
+@export var rival_scene: PackedScene = preload("res://minigames/vespa_delivery/events/rival_courier.tscn")
+## Chance that FreedomBurger Express races you for a delivery.
+@export_range(0.0, 1.0, 0.05) var rival_chance: float = 0.35
+## The rival starts roughly as far from the customer as you are (times this).
+@export_range(0.3, 3.0, 0.05) var rival_head_start: float = 0.9
+@export_range(0.0, 200.0, 1.0, "suffix:m") var rival_min_player_distance: float = 20.0
+@export_range(0, 100, 1) var rival_win_bonus: int = 3
+
 @export_group("Near Misses")
 @export_range(0, 100, 1) var near_miss_bonus: int = 1
 @export var near_miss_color: Color = Color(0.5, 1.0, 0.6)
@@ -48,6 +57,7 @@ const SAVE_SECTION: StringName = &"vespa_delivery"
 @export var hud: DeliveryHud
 @export var arrow: ObjectiveArrow
 @export var camera: ChaseCamera
+@export var event_director: StreetEventDirector
 @export var results_screen: ResultsScreen
 @export var pause_menu: PauseMenu
 
@@ -59,6 +69,7 @@ var _safe_transform := Transform3D.IDENTITY
 var _safe_timer: float = 0.0
 var _grace_left: float = 0.0
 var _shift_over: bool = false
+var _rival: RivalCourier
 
 
 func _on_start() -> void:
@@ -77,6 +88,10 @@ func _on_start() -> void:
 	Events.chaos_caused.connect(_on_chaos_caused)
 	Events.pedestrian_hit.connect(_on_pedestrian_hit)
 	Events.near_miss.connect(_on_near_miss)
+	Events.street_event_started.connect(func(message: String, _at: Vector3) -> void:
+		hud.show_toast(message, Color(1.0, 0.85, 0.4), 1.8))
+	if event_director != null:
+		event_director.context_provider = _event_context
 	results_screen.again_pressed.connect(func() -> void: SceneLoader.change_scene(scene_file_path))
 	results_screen.menu_pressed.connect(_go_to_menu)
 
@@ -141,6 +156,61 @@ func _on_cargo_picked_up(mission: MissionData) -> void:
 	AudioManager.play(&"pickup")
 	if mission.cargo != null:
 		cargo_stack.load_cargo(mission.cargo)
+	if rival_scene != null and _rng.randf() < rival_chance:
+		_start_rival(mission)
+
+
+func _start_rival(mission: MissionData) -> void:
+	var grid: LevelGrid = LevelGridNode.find_grid(get_tree())
+	var dropoff: MissionLocation = MissionLocation.find(get_tree(), mission.dropoff_location_id)
+	if grid == null or dropoff == null:
+		return
+	var wanted: float = vehicle.global_position.distance_to(dropoff.global_position) * rival_head_start
+	var best := Vector2i(-1, -1)
+	var best_error: float = INF
+	for attempt: int in 40:
+		var cell: Vector2i = grid.random_cell(_rng, LevelGrid.Network.SCOOTERS)
+		var at: Vector3 = grid.cell_to_world(cell)
+		if at.distance_to(vehicle.global_position) < rival_min_player_distance:
+			continue
+		var error: float = absf(at.distance_to(dropoff.global_position) - wanted)
+		if error < best_error:
+			best_error = error
+			best = cell
+	if best.x < 0:
+		return
+	_dismiss_rival()
+	_rival = rival_scene.instantiate() as RivalCourier
+	add_child(_rival)
+	var start_at: Vector3 = grid.cell_to_world(best) + Vector3.UP * 0.3
+	var facing: Vector3 = (dropoff.global_position - start_at) * Vector3(1, 0, 1)
+	_rival.race(Transform3D(Basis.looking_at(facing.normalized() if facing.length() > 0.1 else Vector3.FORWARD), start_at),
+		dropoff.global_position, grid)
+	_rival.arrived.connect(_on_rival_arrived)
+	hud.show_toast("%s is racing you to\n%s!" % [_rival.brand_name, dropoff.display_name], Color(1.0, 0.5, 0.4), 2.2)
+
+
+func _on_rival_arrived() -> void:
+	if runner.state == MissionRunner.State.DELIVERING:
+		runner.tip_multiplier = 0.0
+		hud.show_toast("%s got there first.\nNo tip for you!" % _rival.brand_name, Color(1.0, 0.4, 0.35), 2.2)
+	_dismiss_rival()
+
+
+func _dismiss_rival() -> void:
+	if _rival != null and is_instance_valid(_rival):
+		_rival.leave()
+	_rival = null
+
+
+func _event_context() -> Dictionary:
+	var grid: LevelGrid = LevelGridNode.find_grid(get_tree())
+	var route := PackedVector3Array()
+	if grid != null:
+		var toward: Vector3 = runner.get_objective_position() if runner.state != MissionRunner.State.IDLE \
+			else grid.cell_to_world(grid.random_cell(_rng, LevelGrid.Network.PEDESTRIANS))
+		route = grid.find_path(vehicle.global_position, toward, LevelGrid.Network.PEDESTRIANS)
+	return {"grid": grid, "player": vehicle, "route": route}
 
 
 func _on_cargo_item_lost(remaining: int) -> void:
@@ -151,6 +221,10 @@ func _on_cargo_item_lost(remaining: int) -> void:
 
 func _on_mission_finished(result: DeliveryResult) -> void:
 	cargo_stack.clear()
+	if _rival != null and is_instance_valid(_rival) and not _rival.has_arrived and result.is_success():
+		GameState.add_money(rival_win_bonus)
+		hud.show_toast("You beat %s!  +€%d" % [_rival.brand_name, rival_win_bonus], Color(0.5, 1.0, 0.6), 1.8)
+	_dismiss_rival()
 	results.append(result)
 	arrow.has_target = false
 	GameState.add_money(result.total())
@@ -225,6 +299,9 @@ func _end_shift() -> void:
 	controller.input_enabled = false
 	vehicle.intent.brake = 1.0
 	pause_menu.enabled = false
+	if event_director != null:
+		event_director.running = false
+	_dismiss_rival()
 	results_screen.show_results(results, earned, maxi(best, earned), is_new_best, GameState.chaos)
 	finish({"earned": earned, "delivered": delivered, "chaos": GameState.chaos})
 

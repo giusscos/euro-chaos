@@ -28,6 +28,10 @@ signal chaos_caused(amount: int, position: Vector3, label: String)
 @warning_ignore("unused_signal")
 signal near_miss(thing: Node3D, distance: float)
 
+## A street event started (tour group, influencer...): a line for the HUD.
+@warning_ignore("unused_signal")
+signal street_event_started(message: String, position: Vector3)
+
 ## The player entered a HazardZone (e.g. &"water").
 @warning_ignore("unused_signal")
 signal hazard_entered(hazard_id: StringName, body: Node3D)

@@ -43,6 +43,12 @@ const KMH_PER_MS: float = 3.6
 
 var state: State = State.IDLE
 var walk_speed: float = 1.3
+## When set, follow this node (a tour guide) instead of wandering.
+var leader: Node3D
+## Where to stand relative to the leader (in the leader's frame).
+var follow_offset := Vector3.ZERO
+## Within this distance of the follow spot, stand still.
+var follow_slack: float = 0.8
 
 @onready var _visual: Node3D = $Visual
 @onready var _body_mesh: MeshInstance3D = $Visual/Body
@@ -109,13 +115,17 @@ func _physics_process(delta: float) -> void:
 	_state_time += delta
 	_yell_cooldown = maxf(_yell_cooldown - delta, 0.0)
 	var horizontal := Vector3.ZERO
+	if leader != null and not is_instance_valid(leader):
+		leader = null
 	match state:
 		State.IDLE:
-			if _state_time > _idle_duration and not profile.stationary:
+			if leader != null:
+				horizontal = _follow_velocity()
+			elif _state_time > _idle_duration and not profile.stationary:
 				_start_walk()
 			_check_speeders()
 		State.WALK:
-			horizontal = _walk_velocity()
+			horizontal = _follow_velocity() if leader != null else _walk_velocity()
 		State.DODGE:
 			horizontal = Vector3(velocity.x, 0.0, velocity.z)
 			if _state_time > dodge_time and is_on_floor():
@@ -178,6 +188,14 @@ func _walk_velocity() -> Vector3:
 		_path_index += 1
 		return Vector3(velocity.x, 0.0, velocity.z)
 	return to_target.normalized() * walk_speed
+
+
+func _follow_velocity() -> Vector3:
+	var spot: Vector3 = leader.global_position + leader.global_basis * follow_offset
+	var to_spot: Vector3 = (spot - global_position) * Vector3(1, 0, 1)
+	if to_spot.length() < follow_slack:
+		return Vector3.ZERO
+	return to_spot.normalized() * minf(to_spot.length() * 1.5, walk_speed * 1.6)
 
 
 func _start_walk() -> void:

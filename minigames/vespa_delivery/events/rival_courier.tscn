@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://minigames/vespa_delivery/events/rival_courier.gd" id="1_rival"]
+
+[node name="RivalCourier" type="Node3D"]
+script = ExtResource("1_rival")

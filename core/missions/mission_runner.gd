@@ -46,6 +46,9 @@ var current_mission: MissionData
 var time_limit: float = 0.0
 var elapsed: float = 0.0
 var is_late: bool = false
+## Scales the tip of the current delivery (e.g. 0 when a rival got there
+## first). Reset by start_mission().
+var tip_multiplier: float = 1.0
 
 var _marker: ObjectiveMarker
 var _pickup: MissionLocation
@@ -72,6 +75,7 @@ func start_mission(mission: MissionData) -> bool:
 	state = State.TO_PICKUP
 	elapsed = 0.0
 	is_late = false
+	tip_multiplier = 1.0
 	time_limit = compute_time_limit(mission, _pickup.global_position, _dropoff.global_position)
 	_place_marker(_pickup, pickup_color, "PICKUP\n%s" % _pickup.display_name, pickup_prompt, _on_pickup_reached)
 	mission_started.emit(mission)
@@ -136,7 +140,7 @@ func evaluate(mission: MissionData, time_taken: float, limit: float, condition: 
 		var tip_window: float = maxf(limit * (1.0 - full_tip_time_ratio), 0.001)
 		var time_score: float = clampf((limit - time_taken) / tip_window, 0.0, 1.0)
 		result.payout = mission.base_payout
-		result.tip = roundi(mission.max_tip * time_score * result.condition)
+		result.tip = roundi(mission.max_tip * time_score * result.condition * tip_multiplier)
 		result.stars = clampi(1 + roundi(4.0 * (time_score + result.condition) * 0.5), 1, 5)
 	return result
 

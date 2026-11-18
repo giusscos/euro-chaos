@@ -30,6 +30,7 @@ func test_ai_scooter_rides_to_the_upper_town() -> void:
 	var car: ArcadeVehicle = _spawn_car(grid.cell_to_world(TRIP_FROM), Vector3.RIGHT, SCOOTER_SCENE)
 	var driver: AiVehicleController = _add_driver(car, grid)
 	driver.network = LevelGrid.Network.SCOOTERS
+	driver.lane_offset = 0.0
 	await wait_physics_frames(30)
 	var arrived: Array[bool] = [false]
 	driver.destination_reached.connect(func() -> void: arrived[0] = true)
@@ -92,9 +93,13 @@ func test_traffic_keeps_moving_in_the_village() -> void:
 	await wait_physics_frames(5)
 	var arrivals: Array[int] = [0]
 	var give_ups: Array[int] = [0]
+	var trips_per_car: Dictionary = {}
 	for car: ArcadeVehicle in spawner.cars:
 		var driver := car.get_node(^"Driver") as AiVehicleController
-		driver.destination_reached.connect(func() -> void: arrivals[0] += 1)
+		trips_per_car[car.name] = 0
+		driver.destination_reached.connect(func() -> void:
+			arrivals[0] += 1
+			trips_per_car[car.name] = int(trips_per_car[car.name]) + 1)
 		driver.gave_up.connect(func() -> void: give_ups[0] += 1)
 	var lowest: float = INF
 	var min_upright: float = 1.0
@@ -103,11 +108,13 @@ func test_traffic_keeps_moving_in_the_village() -> void:
 		for car: ArcadeVehicle in spawner.cars:
 			lowest = minf(lowest, car.global_position.y)
 			min_upright = minf(min_upright, car.global_basis.y.dot(Vector3.UP))
-	note("%d cars, %.0f s: %d trips done, %d give-ups, lowest y %.2f, min upright %.2f" % [
-		spawner.cars.size(), TRAFFIC_TEST_FRAMES / 60.0, arrivals[0], give_ups[0], lowest, min_upright])
+	note("%d cars, %.0f s: %d trips done %s, %d give-ups, lowest y %.2f, min upright %.2f" % [
+		spawner.cars.size(), TRAFFIC_TEST_FRAMES / 60.0, arrivals[0], trips_per_car, give_ups[0],
+		lowest, min_upright])
 	expect(spawner.cars.size() == TRAFFIC_CARS, "spawner made %d cars" % spawner.cars.size())
-	expect(arrivals[0] >= TRAFFIC_CARS, "traffic barely moves (%d trips)" % arrivals[0])
-	expect(give_ups[0] <= arrivals[0], "traffic gets stuck too often (%d give-ups)" % give_ups[0])
+	expect(arrivals[0] >= TRAFFIC_CARS * 2, "traffic barely moves (%d trips)" % arrivals[0])
+	for car_name: String in trips_per_car:
+		expect(int(trips_per_car[car_name]) >= 1, "%s never finished a trip (stuck for good?)" % car_name)
 	expect(lowest > -0.5, "a car fell off the map")
 	expect(min_upright > 0.5, "a car rolled over")
 

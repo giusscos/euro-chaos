@@ -31,6 +31,8 @@ signal gave_up
 ## Start left turns this far before the corner (about the turning radius),
 ## so the car comes out of the turn lined up with the new street.
 @export_range(0.5, 10.0, 0.1, "suffix:m") var turn_in_distance: float = 2.8
+## Keep this far right of the path. Cars on two-lane roads: ~1 m. Scooters
+## in alleys: 0 (the gap between bollards is in the middle).
 @export_range(0.0, 3.0, 0.05, "suffix:m") var lane_offset: float = 1.0
 @export_range(0.1, 10.0, 0.05) var steer_gain: float = 1.8
 ## A path corner sharper than this is a turn (slow down for it).
