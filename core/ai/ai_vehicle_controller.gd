@@ -65,6 +65,10 @@ signal gave_up
 @export_range(0.1, 3.0, 0.05, "suffix:m") var max_rear_drop: float = 0.6
 ## ...and nothing within this distance behind.
 @export_range(0.5, 10.0, 0.1, "suffix:m") var rear_clearance: float = 2.2
+## Obey traffic lights (police in pursuit don't).
+@export var obey_lights: bool = true
+## Check this far ahead for a junction with a light.
+@export_range(1.0, 20.0, 0.5, "suffix:m") var light_look_ahead: float = 6.0
 ## A car ahead moving away faster than this is followed, not a jam.
 @export_range(0.0, 10.0, 0.1, "suffix:m/s") var follow_speed: float = 0.8
 
@@ -208,6 +212,8 @@ func _physics_process(delta: float) -> void:
 	if absf(heading_error) > deg_to_rad(45.0):
 		desired_kmh = minf(desired_kmh, corner_speed_kmh)
 
+	if obey_lights and _red_light_ahead():
+		desired_kmh = 0.0
 	var hit: bool = _obstacle_ahead()
 	_clear_time = 0.0 if hit else _clear_time + delta
 	is_blocked = hit or (is_blocked and _clear_time < unblock_delay)
@@ -247,6 +253,26 @@ func _start_unstick(jammed: bool) -> void:
 	_stuck_time = 0.0
 	_blocked_time = 0.0
 	_next_honk = honk_delay
+
+
+## True if the junction just ahead has a light that isn't green for us.
+## Once inside the junction, keep going (never stop in the middle).
+func _red_light_ahead() -> bool:
+	if grid == null:
+		return false
+	var here: Vector2i = grid.world_to_cell(vehicle.global_position)
+	if grid.get_light(here) >= 0:
+		return false
+	var heading: Vector3 = -vehicle.global_basis.z
+	heading.y = 0.0
+	for distance: float in [light_look_ahead * 0.5, light_look_ahead]:
+		var cell: Vector2i = grid.world_to_cell(vehicle.global_position + heading.normalized() * distance)
+		var index: int = grid.get_light(cell)
+		if index < 0:
+			continue
+		var light: TrafficLight = TrafficLight.find(get_tree(), index)
+		return light != null and not light.can_enter(heading)
+	return false
 
 
 func _safe_to_reverse() -> bool:

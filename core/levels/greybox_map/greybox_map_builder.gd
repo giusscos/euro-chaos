@@ -13,6 +13,10 @@ extends RefCounted
 const BLOCK_SCRIPT: GDScript = preload("res://core/levels/greybox/greybox_block.gd")
 const LOCATION_SCRIPT: GDScript = preload("res://core/missions/mission_location.gd")
 const HAZARD_SCRIPT: GDScript = preload("res://core/interaction/hazard_zone.gd")
+const LIGHT_SCRIPT: GDScript = preload("res://core/traffic/traffic_light.gd")
+const CAMERA_SCRIPT: GDScript = preload("res://core/traffic/speed_camera.gd")
+## Header lines that can repeat and hold numbers: name -> values per entry.
+const RULE_KEYS: Dictionary = {"oneway": 5, "light": 4, "camera": 2}
 ## Prop scenes placed by map characters.
 const PROP_SCENES: Dictionary = {
 	"k": preload("res://core/levels/props/cafe_set.tscn"),
@@ -102,6 +106,9 @@ var _root: Node3D
 var _groups: Dictionary = {}
 ## Ramp cell -> [centre height, uphill direction (1..4, see LevelGrid)].
 var _ramp_cells: Dictionary = {}
+## "oneway"/"light"/"camera" -> Array of [values...] from the header.
+var _rules: Dictionary = {}
+var _grid_data: LevelGrid
 
 
 func build(map_text: String, source_name: String = "map") -> Node3D:
@@ -117,7 +124,7 @@ func build(map_text: String, source_name: String = "map") -> Node3D:
 	_root = Node3D.new()
 	_root.name = source_name.get_file().get_basename().to_pascal_case()
 	_root.editor_description = "Generated from %s by tools/levels/build_greybox_map.gd.\nDon't edit by hand: change the map and rebuild." % source_name
-	for group_name: String in ["Ground", "Plateau", "Ramps", "Buildings", "Details", "Props", "Bounds", "Sea", "Locations"]:
+	for group_name: String in ["Ground", "Plateau", "Ramps", "Buildings", "Details", "Props", "Traffic", "Bounds", "Sea", "Locations"]:
 		var group := Node3D.new()
 		group.name = group_name
 		_root.add_child(group)
@@ -131,6 +138,7 @@ func build(map_text: String, source_name: String = "map") -> Node3D:
 	_build_buildings(doors)
 	_build_details()
 	_build_bollards()
+	_build_road_rules()
 	_build_bounds()
 	_build_sea()
 	_build_spawn()
@@ -146,6 +154,7 @@ func build(map_text: String, source_name: String = "map") -> Node3D:
 func _parse(text: String) -> void:
 	_config = DEFAULTS.duplicate()
 	_grid.clear()
+	_rules = {"oneway": [], "light": [], "camera": []}
 	var in_map: bool = false
 	var line_number: int = 0
 	for raw_line: String in text.split("\n"):
@@ -168,6 +177,12 @@ func _parse(text: String) -> void:
 				_names[key.substr(5)] = value
 			elif key.begins_with("id."):
 				_ids[key.substr(3)] = value
+			elif RULE_KEYS.has(key):
+				var parts: PackedStringArray = value.replace(" ", "").split(",")
+				if parts.size() != RULE_KEYS[key]:
+					errors.append("line %d: @%s needs %d values, got '%s'" % [line_number, key, RULE_KEYS[key], value])
+				else:
+					(_rules[key] as Array).append(parts)
 			elif DEFAULTS.has(key):
 				_config[key] = value
 			else:
@@ -383,6 +398,7 @@ func _build_grid() -> void:
 				grid.set_cell(cell, LevelGrid.Kind.RAMP, ramp[0], ramp[1])
 			else:
 				grid.set_cell(cell, kinds.get(c, LevelGrid.Kind.BLOCKED), _level(x, y))
+	_grid_data = grid
 	var holder := LevelGridNode.new()
 	holder.name = "LevelGrid"
 	holder.grid = grid
@@ -655,6 +671,59 @@ func _build_bollards() -> void:
 					_block("Details", "Bollard", Vector3(diameter, height, diameter),
 						boundary + across * offset * side + Vector3.UP * (_level(next.x, next.y) + height * 0.5),
 						COLORS["bollard"], Basis.IDENTITY, 1, 0.0)
+
+
+## One-way streets, traffic lights and speed cameras from the header:
+##   @oneway = x, y, w, h, dir   (dir: ^ > v <)
+##   @light  = x, y, w, h        (a junction)
+##   @camera = x, y
+func _build_road_rules() -> void:
+	for parts: PackedStringArray in _rules["oneway"]:
+		var rect := Rect2i(int(parts[0]), int(parts[1]), int(parts[2]), int(parts[3]))
+		var dir_index: int = "^>v<".find(parts[4])
+		if dir_index < 0:
+			errors.append("@oneway direction must be one of ^ > v <, got '%s'" % parts[4])
+			continue
+		for cell: Vector2i in _rect_cells(rect):
+			if not _grid_data.is_usable(cell, LevelGrid.Network.SCOOTERS):
+				errors.append("@oneway %s covers %s, which is not a street" % [rect, cell])
+				break
+			_grid_data.set_oneway(cell, LevelGrid.DIRECTIONS[dir_index])
+	var index: int = 0
+	for parts: PackedStringArray in _rules["light"]:
+		var rect := Rect2i(int(parts[0]), int(parts[1]), int(parts[2]), int(parts[3]))
+		for cell: Vector2i in _rect_cells(rect):
+			if not _grid_data.is_usable(cell, LevelGrid.Network.CARS):
+				errors.append("@light %s covers %s, which is not a road" % [rect, cell])
+				break
+			_grid_data.set_light(cell, index)
+		var light := LIGHT_SCRIPT.new() as Node3D
+		light.name = "TrafficLight%d" % index
+		light.set(&"light_index", index)
+		light.set(&"junction_size", Vector2(rect.size) * _cell)
+		light.set(&"start_offset", index * 4.0)
+		light.position = _rect_center(rect)
+		(_groups["Traffic"] as Node3D).add_child(light)
+		index += 1
+	for parts: PackedStringArray in _rules["camera"]:
+		var cell := Vector2i(int(parts[0]), int(parts[1]))
+		if not _grid_data.is_usable(cell, LevelGrid.Network.SCOOTERS):
+			errors.append("@camera at %s is not on a street" % cell)
+			continue
+		var camera := CAMERA_SCRIPT.new() as Node3D
+		camera.name = "SpeedCamera%d" % (_groups["Traffic"] as Node3D).get_child_count()
+		camera.position = _cell_center(cell.x, cell.y) + Vector3.UP * _level(cell.x, cell.y)
+		(_groups["Traffic"] as Node3D).add_child(camera)
+	stats["Rules"] = "%d one-way, %d lights, %d cameras" % [(_rules["oneway"] as Array).size(),
+		(_rules["light"] as Array).size(), (_rules["camera"] as Array).size()]
+
+
+func _rect_cells(rect: Rect2i) -> Array[Vector2i]:
+	var cells: Array[Vector2i] = []
+	for y: int in range(rect.position.y, rect.end.y):
+		for x: int in range(rect.position.x, rect.end.x):
+			cells.append(Vector2i(x, y))
+	return cells
 
 
 func _build_bounds() -> void:

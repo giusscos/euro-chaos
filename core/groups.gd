@@ -14,3 +14,8 @@ const LEVEL_GRID: StringName = &"level_grid"
 const PEDESTRIANS: StringName = &"pedestrians"
 ## AI traffic vehicles.
 const TRAFFIC: StringName = &"traffic"
+## Traffic lights and speed cameras of the current level.
+const TRAFFIC_LIGHTS: StringName = &"traffic_lights"
+const SPEED_CAMERAS: StringName = &"speed_cameras"
+## Police units (cars and scooters).
+const POLICE: StringName = &"police"

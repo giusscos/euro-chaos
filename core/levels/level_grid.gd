@@ -31,6 +31,10 @@ const NETWORK_KINDS: Dictionary = {
 @export var heights: PackedFloat32Array = []
 ## Uphill direction per cell (0 = none, 1..4 = DIRECTIONS index + 1).
 @export var ramp_dirs: PackedByteArray = []
+## One-way direction per cell (0 = two-way, 1..4 = DIRECTIONS index + 1).
+@export var oneway_dirs: PackedByteArray = []
+## Traffic light index per cell (-1 = none).
+@export var light_ids: PackedInt32Array = []
 
 var _astar_cache: Dictionary = {}
 
@@ -45,6 +49,10 @@ func setup(grid_size: Vector2i, cell: float, corner: Vector3) -> void:
 	heights.fill(0.0)
 	ramp_dirs.resize(size.x * size.y)
 	ramp_dirs.fill(0)
+	oneway_dirs.resize(size.x * size.y)
+	oneway_dirs.fill(0)
+	light_ids.resize(size.x * size.y)
+	light_ids.fill(-1)
 	_astar_cache.clear()
 
 
@@ -54,6 +62,29 @@ func set_cell(cell: Vector2i, kind: Kind, height: float, ramp_dir: int = 0) -> v
 	heights[i] = height
 	ramp_dirs[i] = ramp_dir
 	_astar_cache.clear()
+
+
+func set_oneway(cell: Vector2i, direction: Vector2i) -> void:
+	oneway_dirs[_index(cell)] = DIRECTIONS.find(direction) + 1
+
+
+## Allowed direction of a one-way cell, or (0, 0) if two-way.
+func get_oneway(cell: Vector2i) -> Vector2i:
+	if not has_cell(cell) or oneway_dirs.size() != size.x * size.y:
+		return Vector2i.ZERO
+	var dir: int = oneway_dirs[_index(cell)]
+	return DIRECTIONS[dir - 1] if dir > 0 else Vector2i.ZERO
+
+
+func set_light(cell: Vector2i, light_index: int) -> void:
+	light_ids[_index(cell)] = light_index
+
+
+## Traffic light controlling a cell, or -1.
+func get_light(cell: Vector2i) -> int:
+	if not has_cell(cell) or light_ids.size() != size.x * size.y:
+		return -1
+	return light_ids[_index(cell)]
 
 
 func has_cell(cell: Vector2i) -> bool:
