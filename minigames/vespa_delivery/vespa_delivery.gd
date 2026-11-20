@@ -5,6 +5,11 @@ extends MiniGame
 ## the MissionRunner owns each individual delivery.
 
 const SAVE_SECTION: StringName = &"vespa_delivery"
+const OFFENCE_LINES: Dictionary = {
+	&"speeding": "Speeding!  Someone saw that.",
+	&"wrong_way": "Wrong way!  Senso unico!",
+	&"red_light": "Red light!  Very red.",
+}
 
 @export var mission_pool: Array[MissionData] = []
 @export_range(1, 20, 1) var missions_per_shift: int = 5
@@ -58,6 +63,11 @@ const SAVE_SECTION: StringName = &"vespa_delivery"
 @export var arrow: ObjectiveArrow
 @export var camera: ChaseCamera
 @export var event_director: StreetEventDirector
+@export var law_monitor: LawMonitor
+@export var wanted: WantedSystem
+@export var police: PoliceDispatcher
+@export var vehicle_catalog: VehicleCatalog = preload("res://minigames/vespa_delivery/data/vehicles/catalog.tres")
+@export var garage_screen: GarageScreen
 @export var results_screen: ResultsScreen
 @export var pause_menu: PauseMenu
 
@@ -70,11 +80,16 @@ var _safe_timer: float = 0.0
 var _grace_left: float = 0.0
 var _shift_over: bool = false
 var _rival: RivalCourier
+var _garage: Garage
 
 
 func _on_start() -> void:
 	GameState.money = SaveManager.get_int(SAVE_SECTION, &"money")
 	GameState.chaos = 0
+	_garage = Garage.new(vehicle_catalog, SAVE_SECTION)
+	var choice: VehicleDefinition = _garage.selected()
+	if choice != null and choice.scene != null and choice.scene.resource_path != vehicle.scene_file_path:
+		_swap_vehicle(choice.scene)
 	_place_at_spawn()
 	_build_shift()
 
@@ -88,12 +103,21 @@ func _on_start() -> void:
 	Events.chaos_caused.connect(_on_chaos_caused)
 	Events.pedestrian_hit.connect(_on_pedestrian_hit)
 	Events.near_miss.connect(_on_near_miss)
+	Events.violation_committed.connect(_on_violation)
+	Events.speed_camera_fined.connect(_on_speed_camera)
+	Events.busted.connect(_on_busted)
+	Events.police_escaped.connect(func() -> void:
+		if is_running:
+			hud.show_toast("You lost them!", Color(0.5, 1.0, 0.6), 1.6))
 	Events.street_event_started.connect(func(message: String, _at: Vector3) -> void:
 		hud.show_toast(message, Color(1.0, 0.85, 0.4), 1.8))
 	if event_director != null:
 		event_director.context_provider = _event_context
 	results_screen.again_pressed.connect(func() -> void: SceneLoader.change_scene(scene_file_path))
 	results_screen.menu_pressed.connect(_go_to_menu)
+	results_screen.garage_pressed.connect(func() -> void:
+		if garage_screen != null:
+			garage_screen.open(_garage))
 
 	hud.set_shift_progress(0, shift.size())
 	hud.show_toast("Shift starts!  %d %s" % [shift.size(), "delivery" if shift.size() == 1 else "deliveries"],
@@ -248,6 +272,34 @@ func _on_chaos_caused(amount: int, at: Vector3, label: String) -> void:
 		camera.add_trauma(chaos_shake)
 
 
+func _on_violation(kind: StringName, _at: Vector3, _heat: float) -> void:
+	if not is_running:
+		return
+	var line: String = OFFENCE_LINES.get(kind, "")
+	if line != "":
+		hud.show_toast(line, Color(1.0, 0.45, 0.35), 1.4)
+
+
+func _on_busted(fine: int) -> void:
+	if not is_running:
+		return
+	GameState.money = maxi(GameState.money - fine, 0)
+	AudioManager.play(&"fail")
+	if runner.state == MissionRunner.State.DELIVERING:
+		cargo_monitor.apply_damage(1.0)
+		hud.show_toast("BUSTED!  €%d fine.\nThe vigile confiscated the order." % fine, Color(1.0, 0.35, 0.3), 2.4)
+	else:
+		hud.show_toast("BUSTED!  €%d fine." % fine, Color(1.0, 0.35, 0.3), 2.0)
+
+
+func _on_speed_camera(fine: int, _at: Vector3) -> void:
+	if not is_running:
+		return
+	GameState.money = maxi(GameState.money - fine, 0)
+	AudioManager.play(&"countdown")
+	hud.show_toast("Autovelox!  €%d fine in the mail" % fine, Color(1.0, 0.85, 0.4), 1.6)
+
+
 func _on_near_miss(thing: Node3D, _distance: float) -> void:
 	if not is_running or near_miss_bonus <= 0:
 		return
@@ -301,9 +353,45 @@ func _end_shift() -> void:
 	pause_menu.enabled = false
 	if event_director != null:
 		event_director.running = false
+	if wanted != null:
+		wanted.clear()
 	_dismiss_rival()
 	results_screen.show_results(results, earned, maxi(best, earned), is_new_best, GameState.chaos)
 	finish({"earned": earned, "delivered": delivered, "chaos": GameState.chaos})
+
+
+## Replaces the player's vehicle (garage choice) and re-points everything
+## that follows it.
+func _swap_vehicle(scene: PackedScene) -> void:
+	var old: ArcadeVehicle = vehicle
+	var replacement := scene.instantiate() as ArcadeVehicle
+	replacement.name = "PlayerVehicle"
+	add_child(replacement)
+	replacement.global_transform = old.global_transform
+	var mount := replacement.get_node_or_null(^"Visual/CargoMount") as Node3D
+	cargo_stack.reparent(mount if mount != null else replacement, false)
+	cargo_stack.vehicle = replacement
+	controller.vehicle = replacement
+	cargo_monitor.vehicle = replacement
+	camera.target = replacement
+	arrow.follow = replacement
+	hud.player = replacement
+	if law_monitor != null:
+		law_monitor.vehicle = replacement
+	if wanted != null:
+		wanted.player = replacement
+	if police != null:
+		police.player = replacement
+	for node_name: String in ["NearMissDetector", "DebugOverlay"]:
+		var follower: Node = get_node_or_null(node_name)
+		if follower != null:
+			follower.set(&"vehicle", replacement)
+	var lines := get_node_or_null(^"SpeedLines") as SpeedLines
+	if lines != null:
+		lines.target = replacement
+	vehicle = replacement
+	remove_child(old)
+	old.queue_free()
 
 
 func _place_at_spawn() -> void:

@@ -4,6 +4,7 @@
 [ext_resource type="Resource" path="res://core/vehicle/stats/scooter_stats.tres" id="2_stats"]
 [ext_resource type="Script" path="res://core/vehicle/vehicle_wheel.gd" id="3_wheel"]
 [ext_resource type="Script" path="res://core/vehicle/vehicle_audio.gd" id="5_audio"]
+[ext_resource type="Script" path="res://core/vehicle/vehicle_paint.gd" id="6_paint"]
 [ext_resource type="Resource" path="res://core/camera/profiles/scooter_camera.tres" id="4_camera"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_body"]
@@ -198,3 +199,8 @@ mesh = SubResource("BoxMesh_spoke")
 [node name="Audio" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 script = ExtResource("5_audio")
+
+[node name="Paint" type="Node" parent="." node_paths=PackedStringArray("meshes")]
+script = ExtResource("6_paint")
+meshes = [NodePath("../Visual/RearBody"), NodePath("../Visual/Floorboard"), NodePath("../Visual/LegShield"), NodePath("../Visual/Stem"), NodePath("../Visual/FrontFender")]
+color = Color(0.55, 0.85, 0.78, 1)

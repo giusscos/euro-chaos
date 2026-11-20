@@ -80,12 +80,13 @@ func _physics_process(delta: float) -> void:
 	_last_velocity = velocity
 	var local: Vector3 = vehicle.global_basis.inverse() * accel
 	# Inertia: accelerating forward (-Z) leans the stack back (+Z), etc.
-	var push := Vector2(-local.x, -local.z) * cargo.wobble_sensitivity
+	var multiplier: float = vehicle.stats.cargo_wobble_multiplier if vehicle.stats != null else 1.0
+	var push := Vector2(-local.x, -local.z) * cargo.wobble_sensitivity * multiplier
 	var omega: float = TAU * wobble_frequency
 	_lean_speed += (omega * omega * (push - lean) - 2.0 * wobble_damping * omega * _lean_speed) * delta
 	var jolt: float = absf(local.y) - jolt_threshold
 	if jolt > 0.0:
-		_lean_speed += Vector2.from_angle(_rng.randf() * TAU) * jolt * jolt_sensitivity
+		_lean_speed += Vector2.from_angle(_rng.randf() * TAU) * jolt * jolt_sensitivity * multiplier
 	lean += _lean_speed * delta
 	if lean.length() > deg_to_rad(cargo.topple_angle):
 		_drop_top_item()

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="VehicleDefinition" format=3]
+
+[ext_resource type="Script" path="res://core/vehicle/vehicle_definition.gd" id="1_def"]
+[ext_resource type="PackedScene" path="res://core/vehicle/vehicles/topolino.tscn" id="2_scene"]
+[ext_resource type="Resource" path="res://core/vehicle/stats/topolino_stats.tres" id="3_stats"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"topolino"
+display_name = "Topolino"
+description = "A tiny car with pizzas on the roof rack. Calm cargo, roads only, bollards say no."
+price = 320
+scene = ExtResource("2_scene")
+stats = ExtResource("3_stats")
+fits_alleys = false

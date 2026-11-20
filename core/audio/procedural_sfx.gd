@@ -61,6 +61,15 @@ static func engine_loop(base_hz: float = 55.0, cycles: int = 22) -> AudioStreamW
 	return stream
 
 
+## A looping two-tone siren (fictional "vigili" style).
+static func siren_loop(low_hz: float = 660.0, high_hz: float = 880.0, tone_time: float = 0.45) -> AudioStreamWAV:
+	var stream: AudioStreamWAV = _sequence([[low_hz, tone_time], [high_hz, tone_time]], Wave.TRIANGLE, 0.45, 0.02)
+	stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
+	stream.loop_begin = 0
+	stream.loop_end = stream.data.size() / 2
+	return stream
+
+
 static func _sequence(notes: Array, wave: Wave, volume: float, release: float) -> AudioStreamWAV:
 	var samples := PackedFloat32Array()
 	for note: Array in notes:

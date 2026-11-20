@@ -4,6 +4,7 @@ extends CanvasLayer
 
 signal again_pressed
 signal menu_pressed
+signal garage_pressed
 
 @onready var _root: Control = %Root
 @onready var _rating: Label = %RatingLabel
@@ -13,6 +14,7 @@ signal menu_pressed
 @onready var _chaos: Label = %ChaosLabel
 @onready var _again: Button = %AgainButton
 @onready var _menu: Button = %MenuButton
+@onready var _garage: Button = %GarageButton
 
 
 func _ready() -> void:
@@ -20,6 +22,7 @@ func _ready() -> void:
 	_root.visible = false
 	_again.pressed.connect(func() -> void: again_pressed.emit())
 	_menu.pressed.connect(func() -> void: menu_pressed.emit())
+	_garage.pressed.connect(func() -> void: garage_pressed.emit())
 
 
 func show_results(results: Array[DeliveryResult], earned: int, best: int, is_new_best: bool,

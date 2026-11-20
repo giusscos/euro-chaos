@@ -89,6 +89,10 @@ const KMH_PER_MS: float = 3.6
 @export_range(0.0, 50.0, 0.1, "suffix:rad/s²") var air_control_pitch: float = 4.0
 @export_range(0.0, 50.0, 0.1, "suffix:rad/s²") var air_control_yaw: float = 3.0
 
+@export_group("Cargo")
+## How much cargo on this vehicle sways (1 = scooter rack; a van's bed is calmer).
+@export_range(0.0, 3.0, 0.05) var cargo_wobble_multiplier: float = 1.0
+
 @export_group("Visual")
 ## Lean into turns (two-wheelers, ~1) or roll outward (cars, small negative).
 ## Physics-based: lean = atan(speed * yaw rate / g) * factor.

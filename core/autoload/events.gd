@@ -32,6 +32,21 @@ signal near_miss(thing: Node3D, distance: float)
 @warning_ignore("unused_signal")
 signal street_event_started(message: String, position: Vector3)
 
+## A witnessed offence by the player (kind: &"speeding", &"wrong_way",
+## &"red_light", &"mayhem"); `heat` is how much wanted level it adds.
+@warning_ignore("unused_signal")
+signal violation_committed(kind: StringName, position: Vector3, heat: float)
+
+## A speed camera fined the player.
+@warning_ignore("unused_signal")
+signal speed_camera_fined(fine: int, position: Vector3)
+
+## The player was busted by the police (fine charged) or escaped.
+@warning_ignore("unused_signal")
+signal busted(fine: int)
+@warning_ignore("unused_signal")
+signal police_escaped
+
 ## The player entered a HazardZone (e.g. &"water").
 @warning_ignore("unused_signal")
 signal hazard_entered(hazard_id: StringName, body: Node3D)
