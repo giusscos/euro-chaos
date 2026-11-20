@@ -5,6 +5,11 @@ extends MiniGame
 ## the MissionRunner owns each individual delivery.
 
 const SAVE_SECTION: StringName = &"vespa_delivery"
+const OFFENCE_LINES: Dictionary = {
+	&"speeding": "Speeding!  Someone saw that.",
+	&"wrong_way": "Wrong way!  Senso unico!",
+	&"red_light": "Red light!  Very red.",
+}
 
 @export var mission_pool: Array[MissionData] = []
 @export_range(1, 20, 1) var missions_per_shift: int = 5
@@ -58,6 +63,8 @@ const SAVE_SECTION: StringName = &"vespa_delivery"
 @export var arrow: ObjectiveArrow
 @export var camera: ChaseCamera
 @export var event_director: StreetEventDirector
+@export var law_monitor: LawMonitor
+@export var wanted: WantedSystem
 @export var results_screen: ResultsScreen
 @export var pause_menu: PauseMenu
 
@@ -88,6 +95,8 @@ func _on_start() -> void:
 	Events.chaos_caused.connect(_on_chaos_caused)
 	Events.pedestrian_hit.connect(_on_pedestrian_hit)
 	Events.near_miss.connect(_on_near_miss)
+	Events.violation_committed.connect(_on_violation)
+	Events.speed_camera_fined.connect(_on_speed_camera)
 	Events.street_event_started.connect(func(message: String, _at: Vector3) -> void:
 		hud.show_toast(message, Color(1.0, 0.85, 0.4), 1.8))
 	if event_director != null:
@@ -246,6 +255,22 @@ func _on_chaos_caused(amount: int, at: Vector3, label: String) -> void:
 	FloatingText.spawn(self, "+%d  %s" % [amount, label], at + Vector3.UP * chaos_text_height, chaos_color)
 	if camera != null:
 		camera.add_trauma(chaos_shake)
+
+
+func _on_violation(kind: StringName, _at: Vector3, _heat: float) -> void:
+	if not is_running:
+		return
+	var line: String = OFFENCE_LINES.get(kind, "")
+	if line != "":
+		hud.show_toast(line, Color(1.0, 0.45, 0.35), 1.4)
+
+
+func _on_speed_camera(fine: int, _at: Vector3) -> void:
+	if not is_running:
+		return
+	GameState.money = maxi(GameState.money - fine, 0)
+	AudioManager.play(&"countdown")
+	hud.show_toast("Autovelox!  €%d fine in the mail" % fine, Color(1.0, 0.85, 0.4), 1.6)
 
 
 func _on_near_miss(thing: Node3D, _distance: float) -> void:

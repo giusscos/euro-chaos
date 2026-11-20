@@ -7,6 +7,11 @@ extends CanvasLayer
 @export var cargo_monitor: CargoMonitor
 ## Distance to the objective is measured from here.
 @export var player: Node3D
+## Optional: shows the wanted level.
+@export var wanted: WantedSystem
+@export var wanted_color: Color = Color(1.0, 0.3, 0.25)
+## Blink rate of the stars while the police can see you.
+@export_range(0.5, 10.0, 0.5, "suffix:Hz") var seen_blink_rate: float = 4.0
 ## Below this many seconds left the timer turns to the warning colour.
 @export_range(0.0, 60.0, 0.5, "suffix:s") var warning_time: float = 10.0
 @export var normal_color: Color = Color.WHITE
@@ -27,6 +32,7 @@ extends CanvasLayer
 @onready var _money: Label = %MoneyLabel
 @onready var _shift: Label = %ShiftLabel
 @onready var _chaos: Label = %ChaosLabel
+@onready var _wanted: Label = %WantedLabel
 @onready var _toast: Toast = %Toast
 
 var _flash_left: float = 0.0
@@ -42,6 +48,10 @@ func _ready() -> void:
 	GameState.money_changed.connect(_set_money)
 	_set_chaos(GameState.chaos)
 	GameState.chaos_changed.connect(_set_chaos)
+	_wanted.visible = false
+	_wanted.modulate = wanted_color
+	if wanted != null:
+		wanted.heat_changed.connect(func(_heat: float, stars: int) -> void: _set_wanted(stars))
 	if runner != null:
 		runner.mission_started.connect(_on_mission_started)
 		runner.cargo_picked_up.connect(_on_cargo_picked_up)
@@ -97,6 +107,9 @@ func _process(delta: float) -> void:
 			_timer.self_modulate = warning_color if left < warning_time else normal_color
 		if cargo_monitor != null:
 			_cargo_bar.value = cargo_monitor.condition * 100.0
+	if wanted != null and _wanted.visible:
+		var blink: bool = wanted.seen_by_police and fmod(Time.get_ticks_msec() / 1000.0 * seen_blink_rate, 1.0) < 0.5
+		_wanted.modulate.a = 0.35 if blink else 1.0
 	_flash_left = maxf(_flash_left - delta, 0.0)
 	_cargo_bar.self_modulate = late_color if _flash_left > 0.0 else Color.WHITE
 
@@ -126,6 +139,11 @@ func _on_cargo_damaged(_amount: float, _condition: float) -> void:
 
 func _set_money(amount: int) -> void:
 	_money.text = "€ %d" % amount
+
+
+func _set_wanted(stars: int) -> void:
+	_wanted.visible = stars > 0
+	_wanted.text = "WANTED " + stars_text(stars)
 
 
 func _set_chaos(amount: int) -> void:
