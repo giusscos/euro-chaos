@@ -28,12 +28,16 @@ res://
     autoload/       Events, GameState, SceneLoader, Settings, SaveManager, AudioManager
     input/          InputActions (StringName constants for every action)
     vehicle/        ArcadeVehicle, VehicleWheel, VehicleStats, VehicleIntent,
-                    PlayerVehicleController, greybox vehicle scenes, stats/*.tres
+                    PlayerVehicleController, VehicleDefinition, VehicleCatalog,
+                    Garage, greybox vehicle scenes, stats/*.tres
     camera/         ChaseCamera, ChaseCameraProfile, profiles/*.tres
     ai/             AiVehicleController, TrafficSpawner
     characters/     Pedestrian, PedestrianProfile (+ profiles/), PedestrianSpawner
     events/         StreetEvent, StreetEventDirector, TourGroupEvent, InfluencerEvent
     interaction/    Interactable (stop inside / press E), HazardZone
+    law/            LawMonitor, WantedSystem, PoliceDispatcher, PoliceLights,
+                    police_car / police_scooter scenes
+    traffic/        TrafficLight, SpeedCamera
     missions/       CargoType, MissionData, MissionLocation, MissionRunner,
                     CargoMonitor, CargoStack, DeliveryResult, ObjectiveMarker
     audio/          AudioBuses, ProceduralSfx (placeholder sounds in code)
@@ -112,15 +116,28 @@ new code. The shop shows 0–5 ratings derived from the stats.
 
 ## Road rules and police (Phase 3)
 
-`core/traffic/` holds the rules, the world only places them:
-`TrafficRuleZone` (Area3D: speed limit, one-way direction, pedestrian-only),
-`TrafficLight`, stop signs. A `LawMonitor` node on the player vehicle checks
-the zones it is in and emits `Events.violation_committed(type, position)`,
-counted only if a witness or police unit has line of sight. `WantedSystem`
-turns violations into heat (stars) that decays when nobody sees you.
-`PoliceDispatcher` spawns police units: an `ArcadeVehicle` with a pursuit AI
-controller (same intent interface as the player), so police drive under the
-same physics. All police branding is fictional.
+Rules are map data: `@oneway`, `@light` and `@camera` header lines become
+per-cell one-way directions and light ids in the `LevelGrid`, plus
+`TrafficLight` and `SpeedCamera` nodes. Speed limits come from the kind of
+street (alleys 20, roads 50, piazzas walking pace) and live on the
+`LawMonitor`, which checks the player every tick: speeding, wrong way,
+red lights, mayhem (chaos). Offences count only when a pedestrian or police
+unit has line of sight (`Events.violation_committed`); cameras fine by mail.
+`WantedSystem` turns heat into stars that cool off out of police sight.
+`PoliceDispatcher` sends one unit per star (a scooter from 3 stars, so
+alleys aren't fully safe); units are ordinary `ArcadeVehicle`s driven by
+`AiVehicleController` towards the player, ignoring red lights. Slow next to
+a unit = busted (fine, order confiscated); heat at zero = escaped. AI cars
+stop at red lights. All police branding is fictional ("VIGILI").
+
+## Vehicles and the garage
+
+A vehicle is a scene + `VehicleStats`; `VehicleDefinition` adds shop data
+and `fits_alleys` (verified by a test against real bollards). Ratings are
+derived from the stats. `Garage` keeps owned/selected vehicles in the save;
+the mini-game swaps the selected scene in at shift start and re-points
+everything that follows the player. `cargo_wobble_multiplier` makes cargo
+calmer on trucks and cars than on scooters.
 
 ## Camera
 

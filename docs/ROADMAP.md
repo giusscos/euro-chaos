@@ -77,28 +77,25 @@ Goal: a complete, fun 5-minute loop with no art.
       score with floating text
 - [x] Playtest + feedback: approved
 
-## Phase 3 — Road rules, police, garage  ← next
+## Phase 3 — Road rules, police, garage  ← done, waiting for playtest
 
-Goal: breaking the law is fun and has consequences; delivery money buys vehicles.
+- [x] Road rules as map data (`@oneway`, `@light`, `@camera`): 3 one-way
+      alleys, lights at both ring-road junctions, 2 speed cameras; speed
+      limits per kind of street; AI cars stop at red
+- [x] `LawMonitor`: speeding, wrong way, red lights, mayhem; witnesses
+      (pedestrians or police with line of sight); speed camera fines
+- [x] `WantedSystem`: heat → stars, cools off out of police sight; HUD stars
+- [x] `PoliceDispatcher`: cars (and a scooter from 3 stars) chase with the
+      shared AI driver; busted = fine + order confiscated; escape when heat
+      cools; sirens and light bars (fictional "VIGILI")
+- [x] Garage: `VehicleDefinition`, `VehicleCatalog`, `Garage`; Zanzara 125
+      (starter), Formica cargo trike, Saetta 50 moped, Topolino city car with
+      roof rack; ratings from stats; garage screen from the results screen
+- [x] Tests: rules, offences and witnesses, heat, police bust/escape, garage
+      buying and vehicle swap, bollards vs fits_alleys
+- [ ] **Your playtest + feedback**
 
-- [ ] `core/traffic`: `TrafficRuleZone` (speed limit, one-way, pedestrian-only
-      piazza, sidewalk), `TrafficLight`, stop signs
-- [ ] `LawMonitor` on the player vehicle: detects speeding, red lights, wrong way,
-      sidewalk driving, hitting pedestrians/cars, only when a witness or police
-      unit sees it
-- [ ] `WantedSystem`: heat level (stars), decays when out of sight
-- [ ] `PoliceDispatcher`: police units (fictional livery, our own uniform designs)
-      reuse `ArcadeVehicle` with a pursuit AI controller; roadblocks at high heat
-- [ ] Busted → comic fine + lost cargo; escaped → heat resets
-- [ ] Vehicle garage/shop: `VehicleDefinition` (name, price, scene, `VehicleStats`,
-      unlock rule) in a `VehicleCatalog`; owned vehicles saved
-- [ ] Each vehicle has its own engine power, top speed, weight, suspension,
-      grip, brakes, steering and cargo capacity; the shop shows ratings derived
-      from the stats
-- [ ] Starter roster (all fictional): rusty scooter, classic Vespa-style scooter,
-      three-wheeled cargo truck (Ape-style), tiny city car, sporty moped
-
-## Phase 4 — Art pass
+## Phase 4 — Art pass  ← next
 
 - [ ] Blender pipeline: shared palette material, `tools/blender/export_gltf.py`
 - [ ] Low-poly Vespa, village modular kit (houses, arches, café, church, harbor), props
