@@ -77,7 +77,7 @@ Goal: a complete, fun 5-minute loop with no art.
       score with floating text
 - [x] Playtest + feedback: approved
 
-## Phase 3 — Road rules, police, garage  ← done, waiting for playtest
+## Phase 3 — Road rules, police, garage  ✓ done (merged 2026-11-20)
 
 - [x] Road rules as map data (`@oneway`, `@light`, `@camera`): 3 one-way
       alleys, lights at both ring-road junctions, 2 speed cameras; speed
@@ -93,7 +93,7 @@ Goal: a complete, fun 5-minute loop with no art.
       roof rack; ratings from stats; garage screen from the results screen
 - [x] Tests: rules, offences and witnesses, heat, police bust/escape, garage
       buying and vehicle swap, bollards vs fits_alleys
-- [ ] **Your playtest + feedback**
+- [x] Playtest + feedback: approved
 
 ## Phase 4 — Art pass  ← next
 
