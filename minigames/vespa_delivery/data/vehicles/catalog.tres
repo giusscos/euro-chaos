@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="VehicleCatalog" format=3]
+
+[ext_resource type="Script" path="res://core/vehicle/vehicle_catalog.gd" id="1_catalog"]
+[ext_resource type="Script" path="res://core/vehicle/vehicle_definition.gd" id="2_def"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/vehicles/zanzara.tres" id="v0"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/vehicles/formica.tres" id="v1"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/vehicles/saetta.tres" id="v2"]
+[ext_resource type="Resource" path="res://minigames/vespa_delivery/data/vehicles/topolino.tres" id="v3"]
+
+[resource]
+script = ExtResource("1_catalog")
+vehicles = Array[ExtResource("2_def")]([ExtResource("v0"), ExtResource("v1"), ExtResource("v2"), ExtResource("v3")])
+starter_id = &"zanzara"

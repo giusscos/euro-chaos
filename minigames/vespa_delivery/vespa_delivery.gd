@@ -66,6 +66,8 @@ const OFFENCE_LINES: Dictionary = {
 @export var law_monitor: LawMonitor
 @export var wanted: WantedSystem
 @export var police: PoliceDispatcher
+@export var vehicle_catalog: VehicleCatalog = preload("res://minigames/vespa_delivery/data/vehicles/catalog.tres")
+@export var garage_screen: GarageScreen
 @export var results_screen: ResultsScreen
 @export var pause_menu: PauseMenu
 
@@ -78,11 +80,16 @@ var _safe_timer: float = 0.0
 var _grace_left: float = 0.0
 var _shift_over: bool = false
 var _rival: RivalCourier
+var _garage: Garage
 
 
 func _on_start() -> void:
 	GameState.money = SaveManager.get_int(SAVE_SECTION, &"money")
 	GameState.chaos = 0
+	_garage = Garage.new(vehicle_catalog, SAVE_SECTION)
+	var choice: VehicleDefinition = _garage.selected()
+	if choice != null and choice.scene != null and choice.scene.resource_path != vehicle.scene_file_path:
+		_swap_vehicle(choice.scene)
 	_place_at_spawn()
 	_build_shift()
 
@@ -108,6 +115,9 @@ func _on_start() -> void:
 		event_director.context_provider = _event_context
 	results_screen.again_pressed.connect(func() -> void: SceneLoader.change_scene(scene_file_path))
 	results_screen.menu_pressed.connect(_go_to_menu)
+	results_screen.garage_pressed.connect(func() -> void:
+		if garage_screen != null:
+			garage_screen.open(_garage))
 
 	hud.set_shift_progress(0, shift.size())
 	hud.show_toast("Shift starts!  %d %s" % [shift.size(), "delivery" if shift.size() == 1 else "deliveries"],
@@ -348,6 +358,40 @@ func _end_shift() -> void:
 	_dismiss_rival()
 	results_screen.show_results(results, earned, maxi(best, earned), is_new_best, GameState.chaos)
 	finish({"earned": earned, "delivered": delivered, "chaos": GameState.chaos})
+
+
+## Replaces the player's vehicle (garage choice) and re-points everything
+## that follows it.
+func _swap_vehicle(scene: PackedScene) -> void:
+	var old: ArcadeVehicle = vehicle
+	var replacement := scene.instantiate() as ArcadeVehicle
+	replacement.name = "PlayerVehicle"
+	add_child(replacement)
+	replacement.global_transform = old.global_transform
+	var mount := replacement.get_node_or_null(^"Visual/CargoMount") as Node3D
+	cargo_stack.reparent(mount if mount != null else replacement, false)
+	cargo_stack.vehicle = replacement
+	controller.vehicle = replacement
+	cargo_monitor.vehicle = replacement
+	camera.target = replacement
+	arrow.follow = replacement
+	hud.player = replacement
+	if law_monitor != null:
+		law_monitor.vehicle = replacement
+	if wanted != null:
+		wanted.player = replacement
+	if police != null:
+		police.player = replacement
+	for node_name: String in ["NearMissDetector", "DebugOverlay"]:
+		var follower: Node = get_node_or_null(node_name)
+		if follower != null:
+			follower.set(&"vehicle", replacement)
+	var lines := get_node_or_null(^"SpeedLines") as SpeedLines
+	if lines != null:
+		lines.target = replacement
+	vehicle = replacement
+	remove_child(old)
+	old.queue_free()
 
 
 func _place_at_spawn() -> void:

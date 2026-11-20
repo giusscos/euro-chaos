@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="VehicleDefinition" format=3]
+
+[ext_resource type="Script" path="res://core/vehicle/vehicle_definition.gd" id="1_def"]
+[ext_resource type="PackedScene" path="res://core/vehicle/vehicles/saetta.tscn" id="2_scene"]
+[ext_resource type="Resource" path="res://core/vehicle/stats/saetta_stats.tres" id="3_stats"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"saetta"
+display_name = "Saetta 50"
+description = "A sport moped with more engine than sense. Fast, twitchy, cargo goes everywhere."
+price = 200
+scene = ExtResource("2_scene")
+stats = ExtResource("3_stats")
+fits_alleys = true

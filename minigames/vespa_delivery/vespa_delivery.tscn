@@ -30,6 +30,7 @@
 [ext_resource type="Script" path="res://core/law/law_monitor.gd" id="36_law"]
 [ext_resource type="Script" path="res://core/law/wanted_system.gd" id="37_wanted"]
 [ext_resource type="Script" path="res://core/law/police_dispatcher.gd" id="38_police"]
+[ext_resource type="PackedScene" path="res://minigames/vespa_delivery/ui/garage_screen.tscn" id="39_garage"]
 [ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/critic_kevin.tres" id="14_critic_kevin"]
 [ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/cruise_couple.tres" id="15_cruise_coupl"]
 [ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/hat_tour_gelato.tres" id="16_hat_tour_gel"]
@@ -41,7 +42,7 @@
 [ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/signora_bianchi.tres" id="22_signora_bian"]
 [ext_resource type="Resource" path="res://minigames/vespa_delivery/data/missions/startup_retreat.tres" id="23_startup_retr"]
 
-[node name="VespaDelivery" type="Node" node_paths=PackedStringArray("vehicle", "controller", "runner", "cargo_monitor", "cargo_stack", "hud", "arrow", "camera", "event_director", "law_monitor", "wanted", "police", "results_screen", "pause_menu")]
+[node name="VespaDelivery" type="Node" node_paths=PackedStringArray("vehicle", "controller", "runner", "cargo_monitor", "cargo_stack", "hud", "arrow", "camera", "event_director", "law_monitor", "wanted", "police", "garage_screen", "results_screen", "pause_menu")]
 script = ExtResource("1_vespa_delive")
 mission_pool = Array[ExtResource("0_mission_data")]([ExtResource("14_critic_kevin"), ExtResource("15_cruise_coupl"), ExtResource("16_hat_tour_gel"), ExtResource("17_hawaiian_for"), ExtResource("18_influencer_g"), ExtResource("19_mayor_espres"), ExtResource("20_nonna_rosa_s"), ExtResource("21_padre_cannol"), ExtResource("22_signora_bian"), ExtResource("23_startup_retr")])
 vehicle = NodePath("Scooter")
@@ -56,6 +57,7 @@ event_director = NodePath("StreetEvents")
 law_monitor = NodePath("LawMonitor")
 wanted = NodePath("WantedSystem")
 police = NodePath("Police")
+garage_screen = NodePath("GarageScreen")
 results_screen = NodePath("ResultsScreen")
 pause_menu = NodePath("PauseMenu")
 info = ExtResource("2_info")
@@ -128,6 +130,8 @@ script = ExtResource("33_director")
 event_scenes = Array[PackedScene]([ExtResource("34_tour"), ExtResource("35_influencer")])
 
 [node name="ResultsScreen" parent="." instance=ExtResource("11_results_scre")]
+
+[node name="GarageScreen" parent="." instance=ExtResource("39_garage")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("12_pause_menu")]
 

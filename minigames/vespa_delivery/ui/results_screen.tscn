@@ -103,6 +103,12 @@ custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
 text = "Another shift"
 
+[node name="GarageButton" type="Button" parent="Root/Center/Panel/Column/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Garage"
+
 [node name="MenuButton" type="Button" parent="Root/Center/Panel/Column/Buttons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(260, 0)
