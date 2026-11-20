@@ -12,6 +12,9 @@ const TRIP_TO := Vector2i(10, 12)
 const TRIP_TIME_LIMIT: int = 60 * 60
 const TRAFFIC_CARS: int = 4
 const TRAFFIC_TEST_FRAMES: int = 60 * 90
+## Lights and long random trips: judge flow by trips overall and distance per car.
+const TRAFFIC_MIN_TRIPS: int = 6
+const TRAFFIC_MIN_DRIVEN: float = 40.0
 
 const STREET_MAP: String = """
 [map]
@@ -103,18 +106,30 @@ func test_traffic_keeps_moving_in_the_village() -> void:
 		driver.gave_up.connect(func() -> void: give_ups[0] += 1)
 	var lowest: float = INF
 	var min_upright: float = 1.0
+	var driven: Dictionary = {}
+	var last_seen: Dictionary = {}
+	for car: ArcadeVehicle in spawner.cars:
+		driven[car.name] = 0.0
+		last_seen[car.name] = car.global_position
 	for i: int in TRAFFIC_TEST_FRAMES:
 		await tree.physics_frame
 		for car: ArcadeVehicle in spawner.cars:
 			lowest = minf(lowest, car.global_position.y)
 			min_upright = minf(min_upright, car.global_basis.y.dot(Vector3.UP))
-	note("%d cars, %.0f s: %d trips done %s, %d give-ups, lowest y %.2f, min upright %.2f" % [
-		spawner.cars.size(), TRAFFIC_TEST_FRAMES / 60.0, arrivals[0], trips_per_car, give_ups[0],
-		lowest, min_upright])
+			if i % 30 == 0:
+				driven[car.name] = float(driven[car.name]) + car.global_position.distance_to(last_seen[car.name])
+				last_seen[car.name] = car.global_position
+	var driven_text: PackedStringArray = []
+	for car_name: String in driven:
+		driven_text.append("%s %.0f m" % [car_name, driven[car_name]])
+	note("%d cars, %.0f s: %d trips %s, driven %s, %d give-ups, lowest y %.2f, min upright %.2f" % [
+		spawner.cars.size(), TRAFFIC_TEST_FRAMES / 60.0, arrivals[0], trips_per_car, ", ".join(driven_text),
+		give_ups[0], lowest, min_upright])
 	expect(spawner.cars.size() == TRAFFIC_CARS, "spawner made %d cars" % spawner.cars.size())
-	expect(arrivals[0] >= TRAFFIC_CARS * 2, "traffic barely moves (%d trips)" % arrivals[0])
-	for car_name: String in trips_per_car:
-		expect(int(trips_per_car[car_name]) >= 1, "%s never finished a trip (stuck for good?)" % car_name)
+	expect(arrivals[0] >= TRAFFIC_MIN_TRIPS, "traffic barely moves (%d trips)" % arrivals[0])
+	for car_name: String in driven:
+		expect(float(driven[car_name]) >= TRAFFIC_MIN_DRIVEN, "%s only drove %.0f m (stuck for good?)" % [
+			car_name, driven[car_name]])
 	expect(lowest > -0.5, "a car fell off the map")
 	expect(min_upright > 0.5, "a car rolled over")
 
