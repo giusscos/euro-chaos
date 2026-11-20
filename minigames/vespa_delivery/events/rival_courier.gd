@@ -14,9 +14,6 @@ signal arrived
 @export_range(0.5, 20.0, 0.5, "suffix:m") var arrive_distance: float = 5.0
 @export_range(0.0, 30.0, 0.5, "suffix:s") var leave_delay: float = 3.0
 
-const PAINTED_PARTS: Array[NodePath] = [^"Visual/RearBody", ^"Visual/Floorboard", ^"Visual/LegShield",
-	^"Visual/Stem", ^"Visual/FrontFender"]
-
 var scooter: ArcadeVehicle
 var driver: AiVehicleController
 var destination := Vector3.ZERO
@@ -29,14 +26,9 @@ func race(start: Transform3D, target: Vector3, grid: LevelGrid) -> void:
 	scooter = scooter_scene.instantiate() as ArcadeVehicle
 	scooter.name = "RivalScooter"
 	scooter.add_to_group(Groups.TRAFFIC)
-	var paint := VehiclePaint.new()
-	paint.name = "Paint"
-	for part: NodePath in PAINTED_PARTS:
-		var mesh := scooter.get_node_or_null(part) as MeshInstance3D
-		if mesh != null:
-			paint.meshes.append(mesh)
-	paint.color = paint_color
-	scooter.add_child(paint)
+	var paint := scooter.get_node_or_null(^"Paint") as VehiclePaint
+	if paint != null:
+		paint.color = paint_color
 	_add_branding(scooter)
 	add_child(scooter)
 	# Place it now (routes are planned before the teleport's physics tick).

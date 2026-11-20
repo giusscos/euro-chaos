@@ -65,6 +65,7 @@ const OFFENCE_LINES: Dictionary = {
 @export var event_director: StreetEventDirector
 @export var law_monitor: LawMonitor
 @export var wanted: WantedSystem
+@export var police: PoliceDispatcher
 @export var results_screen: ResultsScreen
 @export var pause_menu: PauseMenu
 
@@ -97,6 +98,10 @@ func _on_start() -> void:
 	Events.near_miss.connect(_on_near_miss)
 	Events.violation_committed.connect(_on_violation)
 	Events.speed_camera_fined.connect(_on_speed_camera)
+	Events.busted.connect(_on_busted)
+	Events.police_escaped.connect(func() -> void:
+		if is_running:
+			hud.show_toast("You lost them!", Color(0.5, 1.0, 0.6), 1.6))
 	Events.street_event_started.connect(func(message: String, _at: Vector3) -> void:
 		hud.show_toast(message, Color(1.0, 0.85, 0.4), 1.8))
 	if event_director != null:
@@ -265,6 +270,18 @@ func _on_violation(kind: StringName, _at: Vector3, _heat: float) -> void:
 		hud.show_toast(line, Color(1.0, 0.45, 0.35), 1.4)
 
 
+func _on_busted(fine: int) -> void:
+	if not is_running:
+		return
+	GameState.money = maxi(GameState.money - fine, 0)
+	AudioManager.play(&"fail")
+	if runner.state == MissionRunner.State.DELIVERING:
+		cargo_monitor.apply_damage(1.0)
+		hud.show_toast("BUSTED!  €%d fine.\nThe vigile confiscated the order." % fine, Color(1.0, 0.35, 0.3), 2.4)
+	else:
+		hud.show_toast("BUSTED!  €%d fine." % fine, Color(1.0, 0.35, 0.3), 2.0)
+
+
 func _on_speed_camera(fine: int, _at: Vector3) -> void:
 	if not is_running:
 		return
@@ -326,6 +343,8 @@ func _end_shift() -> void:
 	pause_menu.enabled = false
 	if event_director != null:
 		event_director.running = false
+	if wanted != null:
+		wanted.clear()
 	_dismiss_rival()
 	results_screen.show_results(results, earned, maxi(best, earned), is_new_best, GameState.chaos)
 	finish({"earned": earned, "delivered": delivered, "chaos": GameState.chaos})
